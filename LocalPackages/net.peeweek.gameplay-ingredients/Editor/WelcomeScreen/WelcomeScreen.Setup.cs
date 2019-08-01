@@ -50,7 +50,7 @@ namespace GameplayIngredients.Editor
 
         }
 
-        const string kSettingsAssetPath = "Assets/Resources/GameplayIngredientsSettings.asset";
+        public const string kSettingsAssetPath = "Assets/Resources/GameplayIngredientsSettings.asset";
 
         static void SettingAssetPage()
         {

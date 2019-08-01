@@ -24,6 +24,12 @@ namespace GameplayIngredients.Editor
             if (value != GetShowOnStartup(name)) EditorPrefs.SetBool($"{name}.ShowAtStartup", value);
         }
 
+        public static void Reload()
+        {
+            EditorApplication.update -= ShowAtStartup;
+            s_StartupDiscoverAssets = null;
+            InitShowAtStartup();
+        }
 
         [InitializeOnLoadMethod]
         static void InitShowAtStartup()

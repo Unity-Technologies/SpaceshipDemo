@@ -17,14 +17,30 @@ namespace GameplayIngredients.Editor
             set { if (value != showOnStartup) EditorPrefs.SetBool(kShowOnStartupPreference, value); }
         }
 
-        static readonly Texture2D header = (Texture2D)EditorGUIUtility.Load("Packages/net.peeweek.gameplay-ingredients/Editor/WelcomeScreen/welcome-title.png");
+        static Texture2D header
+        {
+            get
+            {
+                if (s_Header == null)
+                    s_Header = (Texture2D)EditorGUIUtility.Load("Packages/net.peeweek.gameplay-ingredients/Editor/WelcomeScreen/welcome-title.png");
+
+                return s_Header;
+            }
+        }
+
+        static Texture2D s_Header;
+
+        public static void Reload()
+        {
+            EditorApplication.update -= ShowAtStartup;
+            InitShowAtStartup();
+        }
 
         [InitializeOnLoadMethod]
         static void InitShowAtStartup()
         {
             if (showOnStartup && !GameplayIngredientsSettings.currentSettings.disableWelcomeScreenAutoStart)
                 EditorApplication.update += ShowAtStartup;
-
         }
 
         static void ShowAtStartup()

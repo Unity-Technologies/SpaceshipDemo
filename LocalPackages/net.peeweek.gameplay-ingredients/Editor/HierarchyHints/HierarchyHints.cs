@@ -56,11 +56,6 @@ namespace GameplayIngredients.Editor
         {
             EditorApplication.hierarchyWindowItemOnGUI -= HierarchyOnGUI;
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyOnGUI;
-
-            foreach (var kvp in s_Definitions)
-            {
-                Contents.AddIcon(kvp.Key, kvp.Value);
-            }
         }
 
         static Dictionary<Type, string> s_Definitions = new Dictionary<Type, string>()
@@ -149,6 +144,9 @@ namespace GameplayIngredients.Editor
 
             public static GUIContent GetContent(Type t)
             {
+                if (!s_Icons.ContainsKey(t) && s_Definitions.ContainsKey(t))
+                    AddIcon(t,s_Definitions[t]);
+
                 return s_Icons[t];
             }
         }
