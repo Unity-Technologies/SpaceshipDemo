@@ -45,11 +45,11 @@ namespace GameplayIngredients.Editor
                 DrawDiscoverContentGUI(m_Discover);
         }
 
-
         public static void DrawDiscoverContentGUI(Discover discover)
         {
+            if(!string.IsNullOrEmpty(discover.Category))
+                GUILayout.Label(discover.Category, DiscoverWindow.Styles.subHeader);
 
-            GUILayout.Label(discover.Category, DiscoverWindow.Styles.subHeader);
             GUILayout.Label(discover.Name, DiscoverWindow.Styles.header);
 
             using (new GUILayout.VerticalScope(DiscoverWindow.Styles.indent))
@@ -89,7 +89,7 @@ namespace GameplayIngredients.Editor
                                 {
                                     GUILayout.Label(action.Description);
                                     GUILayout.FlexibleSpace();
-                                    using (new GUILayout.HorizontalScope(GUILayout.MinWidth(160)))
+                                    using (new GUILayout.HorizontalScope(GUILayout.MinWidth(160), GUILayout.Height(22)))
                                     {
                                         ActionButtonGUI(action.Target);
                                     }
@@ -103,6 +103,15 @@ namespace GameplayIngredients.Editor
 
         static void ActionButtonGUI(UnityEngine.Object target)
         {
+            if (target == null)
+            {
+                EditorGUI.BeginDisabledGroup(true);
+                GUILayout.Button("(No Object)");
+                EditorGUI.EndDisabledGroup();
+                return;
+            }
+
+
             Type t = target.GetType();
 
             if (t == typeof(GameObject))
@@ -130,8 +139,15 @@ namespace GameplayIngredients.Editor
                         AssetDatabase.OpenAsset(go);
                     }
                 }
-
-
+            }
+            else if (t == typeof(Discover))
+            {
+                if (GUILayout.Button("Discover"))
+                {
+                    var discover = target as Discover;
+                    Selection.activeGameObject = discover.gameObject;
+                    DiscoverWindow.SelectDiscover(discover);
+                }
             }
             else if (t == typeof(VisualEffectAsset))
             {

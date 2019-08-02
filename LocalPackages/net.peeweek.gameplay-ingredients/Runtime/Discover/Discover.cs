@@ -8,6 +8,7 @@ public class Discover : MonoBehaviour
 {
     public string Name = "Discover";
     public string Category = "Category";
+    public bool DefaultSelected = false;
     public bool AlignViewToTransform = false;
 
     public GameObjectToggle[] ObjectsToToggle;

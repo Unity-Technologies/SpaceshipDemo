@@ -827,8 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 71308635}
+  m_Bindings: []
   m_VisualEffect: {fileID: 71308638}
 --- !u!73398921 &71308637
 VFXRenderer:
@@ -837,7 +836,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71308633}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1069,6 +1068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'Intro : Elevator'
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle: []
   Description: 'The elevator introduction introduces the player to the spaceship environment.
@@ -1545,7 +1545,7 @@ PrefabInstance:
     - target: {fileID: 8835803652683809969, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8835803652683809969, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
@@ -1794,7 +1794,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128461317}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1894,7 +1894,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241389592}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &132300710
 MonoBehaviour:
@@ -1910,6 +1910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'HoloTable : Alert'
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle:
   - GameObject: {fileID: 424790852}
@@ -1924,12 +1925,48 @@ MonoBehaviour:
     State: 1
   - GameObject: {fileID: 693561816}
     State: 1
-  Description: jhgjhgjhg
-  Priority: 6
+  Description: 'Alert Mode is the final stage of the walkthrough. During this 30 second
+    state, missiles will hit the ship, and the holographic table will display an overview
+    of the battle between the player''s ship and its attackers.
+
+
+    The sequence ends with a big hit, fading to black.'
+  Priority: 7
   Sections:
-  - SectionName: jhg
-    SectionContent: jhg
-    Actions: []
+  - SectionName: Alert Sequence
+    SectionContent: 'The Alert Sequence cuts abruptly the landing site search sequence
+      to display a map of the battle between our ship, and its attackers.
+
+
+      The Environment is split through 2 Visual effects, that are gathered into one
+      Main VFX one for the grid, one for the clouds and asteroids. This is intended
+      for readability.
+
+
+      Ships are different configuration of the ARUI-Battleship VFX with different
+      targets.'
+    Actions:
+    - Description: Alert Timeline
+      Target: {fileID: 1724704493}
+    - Description: Main VFX
+      Target: {fileID: 8926484042661614526, guid: a90015afc76247443adc491f5ce38870,
+        type: 3}
+    - Description: Radar Grid Sub-VFX
+      Target: {fileID: 8926484042661614526, guid: 73f3715c9b39a5a41a7b6f5d8749c090,
+        type: 3}
+    - Description: Environment Sub-VFX
+      Target: {fileID: 8926484042661614526, guid: 7990bb57333a8d344867420162076e5d,
+        type: 3}
+    - Description: Generic Ship VFX (Includes missiles)
+      Target: {fileID: 8926484042661614526, guid: 85cb9755d9f33b4429d44c7a12cd90d2,
+        type: 3}
+  - SectionName: 'In Parallel : Core Room'
+    SectionContent: During this attack sequence, the core, at the end of the corridor
+      depletes, then collapses. The following section depicts the mechanisms used
+      to be in sync with this sequence.
+    Actions:
+    - Description: Core Room Under Attack
+      Target: {fileID: 2076168385}
 --- !u!1 &132745097
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,9 +3093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 231637115}
-  - {fileID: 231637114}
+  m_Bindings: []
   m_VisualEffect: {fileID: 231637113}
 --- !u!73398921 &231637112
 VFXRenderer:
@@ -3067,7 +3102,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231637108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3446,6 +3481,7 @@ Transform:
   - {fileID: 82528262}
   - {fileID: 465552588}
   - {fileID: 1136367553}
+  - {fileID: 1228758255}
   - {fileID: 1768487909}
   - {fileID: 1257527921}
   - {fileID: 1846261232}
@@ -4775,7 +4811,7 @@ PrefabInstance:
     - target: {fileID: 8835803652683809969, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8835803652683809969, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
@@ -5720,6 +5756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Security Terminal
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle: []
   Description: 'After the First Corridor, you encounter your first interaction at
@@ -5731,6 +5768,50 @@ MonoBehaviour:
     selected.'
   Priority: 1
   Sections:
+  - SectionName: Interactive Item
+    SectionContent: The Small dot in midair is an interactive element that is reactive
+      to the Player Controller. When hovering with the crosshair, it triggers an animation
+      and a state change. The visuals are made of a Visual Effect with a boolean property
+      (ARUI-Hover)
+    Actions:
+    - Description: InteractiveButton Game Object
+      Target: {fileID: 1225765271}
+    - Description: VFX Graph used for this effect
+      Target: {fileID: 8926484042661614526, guid: 1e9731b71935ed74daf5d94e70e47cee,
+        type: 3}
+    - Description: Interactive Game Object (Root)
+      Target: {fileID: 1225765272}
+  - SectionName: Security Terminal Sequence
+    SectionContent: 'The Security Terminal Sequence starts upon activation of the
+      Interactive Item.
+
+
+      It is a timeline sequence that activates many Effects.
+
+'
+    Actions:
+    - Description: Login Sequence Root
+      Target: {fileID: 1872206184}
+    - Description: Timeline
+      Target: {fileID: 11400000, guid: c493c8da31c69c94a906107b0b355b57, type: 2}
+    - Description: 'VFX : Background Pane'
+      Target: {fileID: 8926484042661614526, guid: 77ea475f326e0cf4b920e08f2407816d,
+        type: 3}
+    - Description: 'VFX : Header'
+      Target: {fileID: 8926484042661614526, guid: 97a14259dcc01c14ca0188d049dd1d1f,
+        type: 3}
+    - Description: 'VFX : Cipher Squares'
+      Target: {fileID: 8926484042661614526, guid: 7fd1fe30818191442813b086dc7858e4,
+        type: 3}
+    - Description: 'VFX : Progress Bar'
+      Target: {fileID: 8926484042661614526, guid: b4fe7e91f1b528c49a45c21eb22d10d9,
+        type: 3}
+    - Description: 'VFX : Terminal Text'
+      Target: {fileID: 8926484042661614526, guid: 6707a930b27b77a48a31a09b9073d8d6,
+        type: 3}
+    - Description: 'VFX : Projector'
+      Target: {fileID: 8926484042661614526, guid: 8a1b5c50c48dd774b86f441e36e30399,
+        type: 3}
   - SectionName: InteractionVolume
     SectionContent: 'The Interaction Volume defines which area will enable the visibility
       of the HUD Crosshair of the player. It uses the VFX Volume Mixer <i>InteractionArea</i>
@@ -7318,7 +7399,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651549134}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -7889,7 +7970,7 @@ PlayableDirector:
   m_PlayableAsset: {fileID: 11400000, guid: 02c26e6c077e5924eb4ab66b8e311b78, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
-  m_DirectorUpdateMode: 3
+  m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 8227870071912632629, guid: 02c26e6c077e5924eb4ab66b8e311b78, type: 2}
@@ -8535,7 +8616,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883443859}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -8600,7 +8681,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: -1.015, y: 0.34399998, z: 3.585}
+      - m_Value: {x: 0.84811056, y: 0.42900002, z: 3.8778713}
         m_Name: LandingTargetPosition
         m_Overridden: 1
       - m_Value: {x: 2.454, y: 1.5769999, z: 2.726}
@@ -8668,12 +8749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 883443869}
-  - {fileID: 883443868}
-  - {fileID: 883443867}
-  - {fileID: 883443865}
-  - {fileID: 883443863}
+  m_Bindings: []
   m_VisualEffect: {fileID: 883443862}
 --- !u!114 &883443865
 MonoBehaviour:
@@ -8840,7 +8916,7 @@ PlayableDirector:
   m_PlayableAsset: {fileID: 11400000, guid: 6e8363e68f2ec094f8be40de5f4f60a7, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
-  m_DirectorUpdateMode: 3
+  m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -2321930497864587313, guid: 6e8363e68f2ec094f8be40de5f4f60a7, type: 2}
@@ -10535,7 +10611,7 @@ GameObject:
   - component: {fileID: 1136367553}
   - component: {fileID: 1136367554}
   m_Layer: 0
-  m_Name: Bridge Room
+  m_Name: 'Bridge Room : HoloTable'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10569,20 +10645,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'Bridge Room : HoloTable'
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
-  ObjectsToToggle:
-  - GameObject: {fileID: 967780032}
-    State: 1
-  - GameObject: {fileID: 397371872}
-    State: 1
-  - GameObject: {fileID: 397371872}
-    State: 1
-  Description: jhgjhgjhg
+  ObjectsToToggle: []
+  Description: 'The Holographic Table is made of a common setup of elements, and sequences
+    of events.
+
+
+    The common elements are the following:'
   Priority: 2
   Sections:
-  - SectionName: jhg
-    SectionContent: jhg
-    Actions: []
+  - SectionName: Holographic Table Parallax Elements
+    SectionContent: While the mesh of the hologrpahic table is made of a solid, opaque
+      material. The items visible inside the table are not actual items. They are
+      rendered using a planar parallax shader applied to an inviible plane over the
+      surface of the table.
+    Actions:
+    - Description: Table Parallax Object
+      Target: {fileID: 1112840375}
+    - Description: Dual Plane Parallax VFX
+      Target: {fileID: 8926484042661614526, guid: 2acfa6df73a4ecf43a4886757b70ad9d,
+        type: 3}
+    - Description: Planar Parallax ShaderGraph
+      Target: {fileID: -6465566751694194690, guid: 613f65f3972b74a4f9252e5cf4673928,
+        type: 3}
 --- !u!1 &1156181334
 GameObject:
   m_ObjectHideFlags: 0
@@ -11300,6 +11386,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1225765269}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1225765271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7909995407418549098, guid: c8cc4323c2168764ab752d0fae360fe5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1225765269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1225765272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7909995408653628657, guid: c8cc4323c2168764ab752d0fae360fe5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1225765269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1225818233
 GameObject:
   m_ObjectHideFlags: 0
@@ -11472,6 +11570,88 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1228758254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228758255}
+  - component: {fileID: 1228758256}
+  m_Layer: 0
+  m_Name: 'HoloTable : Idle PinScreen'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1228758255
+Transform:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228758254}
+  m_LocalRotation: {x: 0.0048145032, y: 0.98551244, z: -0.16714147, w: 0.02838725}
+  m_LocalPosition: {x: -12.504399, y: -4.554325, z: 23.155203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 241389592}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1228758256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228758254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a952ff0a6afde7c4b95d55801086887e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 'HoloTable : Idle PinScreen'
+  Category: Demo Scripted Events
+  DefaultSelected: 0
+  AlignViewToTransform: 1
+  ObjectsToToggle:
+  - GameObject: {fileID: 967780032}
+    State: 1
+  - GameObject: {fileID: 397371872}
+    State: 1
+  - GameObject: {fileID: 397371872}
+    State: 1
+  Description: 'At the beginning of the Gameplay, The Holographic table displays a
+    looping animation of the pin-screen. This animation will be interrupted when the
+    player comes close to the table. Triggering the next state of the walkthrough
+    : Galaxy Navigation.'
+  Priority: 3
+  Sections:
+  - SectionName: Idle Pin Screen VFX
+    SectionContent: The Idle Pin Screen VFX is the same as the one used later in the
+      sequence. It is using a single Visual Effect and the whole looping animation
+      is sequenced using a looping timeline.
+    Actions:
+    - Description: PinScreen Game Object
+      Target: {fileID: 397371872}
+    - Description: PinScreen VFX Graph
+      Target: {fileID: 8926484042661614526, guid: 5a76904835c86af4f9089ceb91c1f8f3,
+        type: 3}
+    - Description: Looping Animation
+      Target: {fileID: 1659247560}
+    - Description: Timeline
+      Target: {fileID: 11400000, guid: b3e4b1dda021070449c87c3c9889db75, type: 2}
+  - SectionName: Going to the next State
+    SectionContent: 'Upon Entering the Trigger, the player triggers the state change
+      of the State Machine from '
+    Actions:
+    - Description: Trigger Object
+      Target: {fileID: 6772529}
+    - Description: 'Go to next State : Galaxy View'
+      Target: {fileID: 1768487910}
 --- !u!1 &1238373239
 GameObject:
   m_ObjectHideFlags: 0
@@ -11682,7 +11862,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241389592}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1257527922
 MonoBehaviour:
@@ -11698,6 +11878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'HoloTable : Solar System'
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle:
   - GameObject: {fileID: 20369621}
@@ -11708,12 +11889,37 @@ MonoBehaviour:
     State: 1
   - GameObject: {fileID: 222509505}
     State: 1
-  Description: jhgjhgjhg
-  Priority: 4
+  Description: 'Solar System View lets the player choose a planet where to land with
+    different degrees of risk. High risk planets cannot be interacted, Selecting Low
+    and Medium Risk will advance the walkthrough to the next State : Finding Landing
+    Location.'
+  Priority: 5
   Sections:
-  - SectionName: jhg
-    SectionContent: jhg
-    Actions: []
+  - SectionName: Solar System View
+    SectionContent: This view is composed of a sun, Clouds and Asteroid Belts and
+      a set of interactive planets.
+    Actions:
+    - Description: Opening Timeline
+      Target: {fileID: 1377262143}
+    - Description: Root Scene Object
+      Target: {fileID: 1892397007}
+    - Description: Planet VFX
+      Target: {fileID: 8926484042661614526, guid: 4dcbb4772c5fd324caaeb159fa95d228,
+        type: 3}
+    - Description: Sun VFX
+      Target: {fileID: 8926484042661614526, guid: 168df2afee0b493489724c409dd64203,
+        type: 3}
+    - Description: Solar System Cosmetic VFX
+      Target: {fileID: 8926484042661614526, guid: d288ce6ee0619214eaab35322f03ac83,
+        type: 3}
+    - Description: Bridget Text VFX
+      Target: {fileID: 60545647}
+  - SectionName: 'Next State : Finding Landing Site'
+    SectionContent: Upon selecting a valid target, the State machine advances to the
+      next state and performs a transition.
+    Actions:
+    - Description: 'Next State : Landing Site'
+      Target: {fileID: 1846261233}
 --- !u!1 &1265764030
 GameObject:
   m_ObjectHideFlags: 0
@@ -13032,8 +13238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 1451063511}
+  m_Bindings: []
   m_VisualEffect: {fileID: 1451063514}
 --- !u!73398921 &1451063513
 VFXRenderer:
@@ -13042,7 +13247,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451063509}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -15443,7 +15648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1739751817
 Transform:
   m_ObjectHideFlags: 0
@@ -15881,7 +16086,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241389592}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1768487910
 MonoBehaviour:
@@ -15897,6 +16102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'HoloTable : Galaxy View'
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle:
   - GameObject: {fileID: 20291559}
@@ -15913,13 +16119,53 @@ MonoBehaviour:
     State: 1
   - GameObject: {fileID: 1238373239}
     State: 1
-  Description: 'Galaxy View is the first step of the interactions with the holographic
-    table. It '
-  Priority: 3
+  Description: Galaxy View is the first step of the interactions with the holographic
+    table. It presents a galaxy effect with the ship position and three interactive
+    destination elements.
+  Priority: 4
   Sections:
-  - SectionName: jhg
-    SectionContent: jhg
-    Actions: []
+  - SectionName: Galaxy Elements
+    SectionContent: Upon activating this state, the pin-screen transitions to galaxy
+      view using a timeline.
+    Actions:
+    - Description: Root Object
+      Target: {fileID: 409463118}
+    - Description: Opening Timeline
+      Target: {fileID: 100306583}
+    - Description: Galaxy VFX Graph
+      Target: {fileID: 8926484042661614526, guid: a00ea9360a500a046b7289ccddea56d6,
+        type: 3}
+    - Description: Galaxy Waypoint
+      Target: {fileID: 8926484042661614526, guid: 0dbeb55227748f74ca8971e80fb21dc8,
+        type: 3}
+    - Description: Galaxy Escape Route
+      Target: {fileID: 8926484042661614526, guid: 4796f571524534642986ce48a5fbd413,
+        type: 3}
+  - SectionName: Interactive Items
+    SectionContent: Every of the elements is interactive. While the Player Ship's
+      interaction does not lead to anything besides displaying its information. The
+      other three elements (destination) react to activating them.
+    Actions:
+    - Description: Interactive Item Root
+      Target: {fileID: 20291559}
+    - Description: Target Object
+      Target: {fileID: 2145812548}
+    - Description: Bezier Interpolation Point A
+      Target: {fileID: 8835803653932813371}
+    - Description: Bezier Interpolation Point B
+      Target: {fileID: 8835803653932813370}
+    - Description: Escape Route VFX
+      Target: {fileID: 8926484042661614526, guid: 4796f571524534642986ce48a5fbd413,
+        type: 3}
+    - Description: Target Waypoint VFX
+      Target: {fileID: 8926484042661614526, guid: 0dbeb55227748f74ca8971e80fb21dc8,
+        type: 3}
+  - SectionName: Going to the Next State
+    SectionContent: By selecting one of the three (whatever it is), the navigation
+      advances to the next stage. Playing a transition timeline.
+    Actions:
+    - Description: 'Next State : Solar System'
+      Target: {fileID: 1257527922}
 --- !u!1 &1773938541
 GameObject:
   m_ObjectHideFlags: 0
@@ -16576,7 +16822,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241389592}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1846261233
 MonoBehaviour:
@@ -16592,6 +16838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'HoloTable : Landing Site'
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle:
   - GameObject: {fileID: 1739751816}
@@ -16600,12 +16847,38 @@ MonoBehaviour:
     State: 1
   - GameObject: {fileID: 231637108}
     State: 1
-  Description: jhgjhgjhg
-  Priority: 5
+  Description: Landing Site State is a plain animation of the Pin-Screen with a target
+    that will define where the ship needs to land.
+  Priority: 6
   Sections:
-  - SectionName: jhg
-    SectionContent: jhg
-    Actions: []
+  - SectionName: Landing Site Pin-Screen Sequence
+    SectionContent: 'This simple sequence is driven by a timeline in order to animate
+      the pin-screen and the target VFX. The landing site is displayed using the same
+      VFX as galaxy waypoints.
+
+
+      No interaction from the player is required from this point. The next stage is
+      triggered at the end of the timeline.'
+    Actions:
+    - Description: Transition + Scan Timeline
+      Target: {fileID: 903704807}
+    - Description: Pin Screen VFX
+      Target: {fileID: 8926484042661614526, guid: 5a76904835c86af4f9089ceb91c1f8f3,
+        type: 3}
+    - Description: Target Grid Effect
+      Target: {fileID: 8926484042661614526, guid: 6b830685e16d61a46a32d42f18b41995,
+        type: 3}
+    - Description: Transition to PinScreen
+      Target: {fileID: 8926484042661614526, guid: 6b907936e14202b44910ff01bb35bd8f,
+        type: 3}
+    - Description: Waypoint Object
+      Target: {fileID: 1039813477}
+  - SectionName: 'Next State : Alert Mode'
+    SectionContent: At the end of the animation, an alarm rings and the player enters
+      the final stage of the demo. Ship is being under attack.
+    Actions:
+    - Description: 'Next State : Alert'
+      Target: {fileID: 132300710}
 --- !u!1 &1872206184
 GameObject:
   m_ObjectHideFlags: 0
@@ -17731,7 +18004,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241389592}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2076168385
 MonoBehaviour:
@@ -17747,14 +18020,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Core Room Under Attack
   Category: Demo Scripted Events
+  DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle: []
-  Description: The core room holds one big effect that is controlled and animated
-    during the attack of the spaceship.
+  Description: 'The core room holds one big effect that is controlled and animated
+    during the attack of the spaceship. While the energy depletes, the core will modify
+    its shape until it collapses.
+
+
+    The effect is made of two distinct effects : Core and Rings (used twice), it''s
+    controlled using a timeline.'
   Priority: 10
   Sections:
-  - SectionName: 
-    SectionContent: 
+  - SectionName: Core Depletion Sequence.
+    SectionContent: 'During the Attack, core energy depletes until the core collapses.
+
+      This sequence is orchestrated in a timeline that is controlled by the main timeline
+      of the Alert.'
+    Actions:
+    - Description: Core Depletion Timeline
+      Target: {fileID: 853526720}
+    - Description: Ship Core (Nucleus + Events)
+      Target: {fileID: 8926484042661614526, guid: 7fe66147a719b064dae2eca99b3e7760,
+        type: 3}
+    - Description: Ship Core Ring
+      Target: {fileID: 8926484042661614526, guid: e600b9a4857d47c41bb7c2dac650850a,
+        type: 3}
+  - SectionName: Shake "Missile" Events
+    SectionContent: "During the attack, big camera shake happen for each missile impact.
+      It triggers the sparkles (see \"Sparkle (Shake)\" section in Visual Effects).
+      \n\nIn order to preview these events, you can either open the VFX Graph instance
+      using the \"Edit\"button next to the field in the inspector, then, in the Target
+      GameObject panel of VFX Graph use the \"TakeHit\" Send Button.\nOr you can use
+      the Core Hit Timeline that controls both events and parameters."
+    Actions:
+    - Description: Core Hit Timeline
+      Target: {fileID: 493632545}
+    - Description: Core Visual Effect
+      Target: {fileID: 183492633}
+  - SectionName: 'Next State : Wrecked Room'
+    SectionContent: 'Once core is depleted, a final missile triggers a huge camera
+      shake, followed by a blackout.
+
+
+      Then starts the Wrecked part of the demo.'
     Actions: []
 --- !u!1 &2084229567
 GameObject:
@@ -18327,6 +18636,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door_Generic
       objectReference: {fileID: 0}
+    - target: {fileID: 885013420326399847, guid: c4aad5b023b2f664ba40df6c346c10ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 885013420198261613, guid: c4aad5b023b2f664ba40df6c346c10ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18391,11 +18705,6 @@ PrefabInstance:
         type: 3}
       propertyPath: OnStateEnter.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 885013420326399847, guid: c4aad5b023b2f664ba40df6c346c10ff,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 885013419281981728, guid: c4aad5b023b2f664ba40df6c346c10ff,
         type: 3}
@@ -19260,6 +19569,48 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_Asset
+      value: 
+      objectReference: {fileID: 8926484042661614526, guid: fc44f1dbc812e4244ba33f039f033128,
+        type: 3}
+    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_Asset
+      value: 
+      objectReference: {fileID: 8926484042661614526, guid: fc44f1dbc812e4244ba33f039f033128,
+        type: 3}
+    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4491288562457692578, guid: 217d2408b2d414746963e5a4fda23bee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19337,48 +19688,6 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[9].value
       value: 
       objectReference: {fileID: 4491288562871868899}
-    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_Asset
-      value: 
-      objectReference: {fileID: 8926484042661614526, guid: fc44f1dbc812e4244ba33f039f033128,
-        type: 3}
-    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491288561851777417, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_Asset
-      value: 
-      objectReference: {fileID: 8926484042661614526, guid: fc44f1dbc812e4244ba33f039f033128,
-        type: 3}
-    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4491288561851777419, guid: 217d2408b2d414746963e5a4fda23bee,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -20243,6 +20552,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet - K-1378 - Dead Ice
       objectReference: {fileID: 0}
+    - target: {fileID: 7204734205021346540, guid: ad004882a4525124aa5f0f62cb871e3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3595417953437637147, guid: ad004882a4525124aa5f0f62cb871e3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20346,11 +20660,6 @@ PrefabInstance:
     - target: {fileID: 3595417953437637124, guid: ad004882a4525124aa5f0f62cb871e3f,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7204734205021346540, guid: ad004882a4525124aa5f0f62cb871e3f,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 450479329459638031, guid: ad004882a4525124aa5f0f62cb871e3f,
@@ -20637,6 +20946,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet - JUF01 - Hollow Dead
       objectReference: {fileID: 0}
+    - target: {fileID: 8901855251192433248, guid: 54548549e90682c458551c1d59338a01,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2995061074926258839, guid: 54548549e90682c458551c1d59338a01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20740,11 +21054,6 @@ PrefabInstance:
     - target: {fileID: 2995061074926258824, guid: 54548549e90682c458551c1d59338a01,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8901855251192433248, guid: 54548549e90682c458551c1d59338a01,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -20952,6 +21261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet - ENDEX - Inhabitable
       objectReference: {fileID: 0}
+    - target: {fileID: 8332329160293298677, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2430614744843432194, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21057,11 +21371,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8332329160293298677, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2358060171923390977, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
         type: 3}
       propertyPath: Calls.Array.data[1]
@@ -21111,6 +21420,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Planet UX3-17 - Barren Ice
+      objectReference: {fileID: 0}
+    - target: {fileID: 5134985462885825129, guid: e62f6accf406c8c49a2704cfdc8464ef,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1538546691493051038, guid: e62f6accf406c8c49a2704cfdc8464ef,
         type: 3}
@@ -21215,11 +21529,6 @@ PrefabInstance:
     - target: {fileID: 1538546691493051009, guid: e62f6accf406c8c49a2704cfdc8464ef,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5134985462885825129, guid: e62f6accf406c8c49a2704cfdc8464ef,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1466132855381690781, guid: e62f6accf406c8c49a2704cfdc8464ef,
@@ -22569,7 +22878,7 @@ PrefabInstance:
     - target: {fileID: 8835803652683809969, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8835803652683809974, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
@@ -22646,6 +22955,21 @@ PrefabInstance:
       propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Value
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 323316147680475222, guid: eae930db8733cb94faece5e5e28a6971,
+        type: 3}
+      propertyPath: OnInteract.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 323316147680475222, guid: eae930db8733cb94faece5e5e28a6971,
+        type: 3}
+      propertyPath: OnInteract.Array.data[1]
+      value: 
+      objectReference: {fileID: 685091280}
+    - target: {fileID: 323316147680475222, guid: eae930db8733cb94faece5e5e28a6971,
+        type: 3}
+      propertyPath: OnInteract.Array.data[2]
+      value: 
+      objectReference: {fileID: 20369624}
     - target: {fileID: 2704855277785929649, guid: eae930db8733cb94faece5e5e28a6971,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -22696,21 +23020,6 @@ PrefabInstance:
       propertyPath: m_RendererPriority
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 323316147680475222, guid: eae930db8733cb94faece5e5e28a6971,
-        type: 3}
-      propertyPath: OnInteract.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 323316147680475222, guid: eae930db8733cb94faece5e5e28a6971,
-        type: 3}
-      propertyPath: OnInteract.Array.data[1]
-      value: 
-      objectReference: {fileID: 685091280}
-    - target: {fileID: 323316147680475222, guid: eae930db8733cb94faece5e5e28a6971,
-        type: 3}
-      propertyPath: OnInteract.Array.data[2]
-      value: 
-      objectReference: {fileID: 20369624}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eae930db8733cb94faece5e5e28a6971, type: 3}
 --- !u!1 &8835803653932813366 stripped
@@ -22749,6 +23058,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8835803653932813370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8835803653934538093, guid: eae930db8733cb94faece5e5e28a6971,
+    type: 3}
+  m_PrefabInstance: {fileID: 8835803653932813365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8835803653932813371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8835803652767854868, guid: eae930db8733cb94faece5e5e28a6971,
+    type: 3}
+  m_PrefabInstance: {fileID: 8835803653932813365}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9095805595553390166
 Transform:
   m_ObjectHideFlags: 0

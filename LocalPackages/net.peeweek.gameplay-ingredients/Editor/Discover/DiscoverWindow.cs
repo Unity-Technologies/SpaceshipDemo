@@ -24,6 +24,21 @@ namespace GameplayIngredients.Editor
             if (value != GetShowOnStartup(name)) EditorPrefs.SetBool($"{name}.ShowAtStartup", value);
         }
 
+        public static void SelectDiscover(Discover discover)
+        {
+            foreach(var window in s_Windows)
+            {
+                foreach(var categoryKvp in window.discoverObjects)
+                {
+                    if (categoryKvp.Value.Contains(discover))
+                    {
+                        window.SetSelectedDiscover(discover);
+                        break;
+                    }
+                }
+            }
+        }
+
         public static void Reload()
         {
             EditorApplication.update -= ShowAtStartup;
@@ -35,10 +50,10 @@ namespace GameplayIngredients.Editor
         static void InitShowAtStartup()
         {
             string[] guids = AssetDatabase.FindAssets("t:DiscoverAsset");
-            foreach(var guid in guids)
+            foreach (var guid in guids)
             {
                 DiscoverAsset asset = AssetDatabase.LoadAssetAtPath<DiscoverAsset>(AssetDatabase.GUIDToAssetPath(guid));
-                if(asset.EnableShowAtStartup)
+                if (asset.EnableShowAtStartup)
                 {
                     if (s_StartupDiscoverAssets == null)
                         s_StartupDiscoverAssets = new List<DiscoverAsset>();
@@ -47,7 +62,7 @@ namespace GameplayIngredients.Editor
                 }
             }
 
-            if(s_StartupDiscoverAssets != null && s_StartupDiscoverAssets.Count > 0)
+            if (s_StartupDiscoverAssets != null && s_StartupDiscoverAssets.Count > 0)
                 EditorApplication.update += ShowAtStartup;
         }
 
@@ -55,18 +70,20 @@ namespace GameplayIngredients.Editor
         {
             if (!Application.isPlaying && s_StartupDiscoverAssets != null)
             {
-                foreach(var discoverAsset in s_StartupDiscoverAssets)
+                foreach (var discoverAsset in s_StartupDiscoverAssets)
                 {
-                    if(GetShowOnStartup(discoverAsset.PreferenceName))
+                    if (GetShowOnStartup(discoverAsset.PreferenceName))
                         ShowDiscoverWindow(discoverAsset);
                 }
             }
             EditorApplication.update -= ShowAtStartup;
         }
 
+        static List<DiscoverWindow> s_Windows;
+
         public static void ShowDiscoverWindow(DiscoverAsset discoverAsset)
         {
-            if(discoverAsset != null)
+            if (discoverAsset != null)
             {
                 var window = GetWindow<DiscoverWindow>(true);
                 window.SetDiscoverAsset(discoverAsset);
@@ -77,8 +94,8 @@ namespace GameplayIngredients.Editor
             }
         }
 
+        public DiscoverAsset discoverAsset { get; private set; }
         Texture2D header;
-        DiscoverAsset discoverAsset;
         bool forceGlobal;
 
         void SetDiscoverAsset(DiscoverAsset discover)
@@ -95,6 +112,12 @@ namespace GameplayIngredients.Editor
             EditorSceneManager.newSceneCreated += UpdateDiscoverObjectsOnCreate;
             EditorSceneManager.sceneOpened += UpdateDiscoverObjectsOnLoad;
             EditorSceneSetup.onSetupLoaded += UpdateDiscoverObjectsOnLoadSetup;
+
+            if (s_Windows == null)
+                s_Windows = new List<DiscoverWindow>();
+
+            if(!s_Windows.Contains(this))
+                s_Windows.Add(this);
         }
 
         private void OnDisable()
@@ -102,6 +125,9 @@ namespace GameplayIngredients.Editor
             EditorSceneManager.newSceneCreated -= UpdateDiscoverObjectsOnCreate;
             EditorSceneManager.sceneOpened -= UpdateDiscoverObjectsOnLoad;
             EditorSceneSetup.onSetupLoaded -= UpdateDiscoverObjectsOnLoadSetup;
+
+            if (s_Windows.Contains(this))
+                s_Windows.Remove(this);
         }
 
         Dictionary<string, List<Discover>> discoverObjects = null;
@@ -179,10 +205,21 @@ namespace GameplayIngredients.Editor
             }
 
             // Ensure something is selected is possible
+
+            if (selectedDiscover == null) // Try Fetching a default
+            {
+                foreach (var categoryKvp in discoverObjects)
+                {
+                    selectedDiscover = categoryKvp.Value.FirstOrDefault(o => o.DefaultSelected == true);
+                    if (selectedDiscover != null)
+                        break;
+                }
+            }
             if (selectedDiscover == null && discoverObjects != null && discoverObjects.Count > 0)
             {
                 selectedDiscover = discoverObjects.First().Value.First();
             }
+            
             Repaint();
         }
 
@@ -329,7 +366,8 @@ namespace GameplayIngredients.Editor
                     {
                         foreach (var category in discoverObjects.Keys.OrderBy((x) => x.ToString()))
                         {
-                            GUILayout.Label(category, EditorStyles.boldLabel);
+                            if(!string.IsNullOrEmpty(category))
+                                GUILayout.Label(category, EditorStyles.boldLabel);
 
                             foreach (var item in discoverObjects[category])
                             {
@@ -346,59 +384,7 @@ namespace GameplayIngredients.Editor
                                             if (discoverAsset.Debug)
                                                 Selection.activeObject = item;
 
-                                            if (SceneView.lastActiveSceneView != null && item.AlignViewToTransform)
-                                            {
-                                                SceneView.lastActiveSceneView.AlignViewToObject(item.transform);
-                                            }
-                                        }
-
-                                        if (selectedDiscover.ObjectsToToggle != null)
-                                        {
-                                            // Reverse Toggle previous GameObjects state
-                                            foreach (var go in selectedDiscover.ObjectsToToggle)
-                                            {
-                                                if (go.GameObject == null)
-                                                    continue;
-
-                                                switch (go.State)
-                                                {
-                                                    case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Disable:
-                                                        go.GameObject.SetActive(true);
-                                                        break;
-                                                    case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Enable:
-                                                        go.GameObject.SetActive(false);
-                                                        break;
-                                                    case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Toggle:
-                                                        go.GameObject.SetActive(go.GameObject.activeSelf);
-                                                        break;
-                                                }
-                                            }
-                                        }
-
-                                        // Set the new item
-                                        selectedDiscover = item;
-
-                                        if (selectedDiscover.ObjectsToToggle != null)
-                                        {
-                                            // Toggle Next GameObjects State
-                                            foreach (var go in selectedDiscover.ObjectsToToggle)
-                                            {
-                                                if (go.GameObject == null)
-                                                    continue;
-
-                                                switch (go.State)
-                                                {
-                                                    case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Disable:
-                                                        go.GameObject.SetActive(false);
-                                                        break;
-                                                    case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Enable:
-                                                        go.GameObject.SetActive(true);
-                                                        break;
-                                                    case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Toggle:
-                                                        go.GameObject.SetActive(go.GameObject.activeSelf);
-                                                        break;
-                                                }
-                                            }
+                                            SetSelectedDiscover(item);
                                         }
                                     }
 
@@ -426,6 +412,65 @@ namespace GameplayIngredients.Editor
                     GUILayout.EndScrollView();
                 }
             }
+        }
+
+        void SetSelectedDiscover(Discover newSelection)
+        {
+
+            if (SceneView.lastActiveSceneView != null && newSelection.AlignViewToTransform)
+            {
+                SceneView.lastActiveSceneView.AlignViewToObject(newSelection.transform);
+            }
+
+            if (selectedDiscover.ObjectsToToggle != null)
+            {
+                // Reverse Toggle previous GameObjects state
+                foreach (var go in selectedDiscover.ObjectsToToggle)
+                {
+                    if (go.GameObject == null)
+                        continue;
+
+                    switch (go.State)
+                    {
+                        case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Disable:
+                            go.GameObject.SetActive(true);
+                            break;
+                        case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Enable:
+                            go.GameObject.SetActive(false);
+                            break;
+                        case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Toggle:
+                            go.GameObject.SetActive(go.GameObject.activeSelf);
+                            break;
+                    }
+                }
+            }
+
+            // Set the new item
+            selectedDiscover = newSelection;
+
+            if (selectedDiscover.ObjectsToToggle != null)
+            {
+                // Toggle Next GameObjects State
+                foreach (var go in selectedDiscover.ObjectsToToggle)
+                {
+                    if (go.GameObject == null)
+                        continue;
+
+                    switch (go.State)
+                    {
+                        case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Disable:
+                            go.GameObject.SetActive(false);
+                            break;
+                        case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Enable:
+                            go.GameObject.SetActive(true);
+                            break;
+                        case Actions.ToggleGameObjectAction.GameObjectToggle.GameObjectToggleState.Toggle:
+                            go.GameObject.SetActive(go.GameObject.activeSelf);
+                            break;
+                    }
+                }
+            }
+            contentScroll = Vector2.zero;
         }
 
         void LoadSceneSetup(EditorSceneSetup setup)

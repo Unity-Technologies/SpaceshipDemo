@@ -1399,10 +1399,10 @@ MonoBehaviour:
   - title: Vortex Update
     position:
       serializedVersion: 2
-      x: 2336
-      y: 372
-      width: 1533
-      height: 575
+      x: 1956
+      y: 426
+      width: 1536
+      height: 574
     contents:
     - model: {fileID: 8926484042661614956}
       id: 0
@@ -1431,10 +1431,10 @@ MonoBehaviour:
   - title: Scale from Deploy
     position:
       serializedVersion: 2
-      x: 2389
-      y: 1216
-      width: 250
-      height: 187
+      x: 1959
+      y: 1435
+      width: 256
+      height: 181
     contents:
     - model: {fileID: 8926484042661615681}
       id: 0
@@ -1442,10 +1442,10 @@ MonoBehaviour:
   - title: Scale position from Deploy
     position:
       serializedVersion: 2
-      x: 2356
-      y: 1447
-      width: 317
-      height: 187
+      x: 1952
+      y: 1643
+      width: 302
+      height: 181
     contents:
     - model: {fileID: 8926484042661615685}
       id: 0
@@ -1453,10 +1453,10 @@ MonoBehaviour:
   - title: Scale framerate from Deploy
     position:
       serializedVersion: 2
-      x: 2368
-      y: 1661
-      width: 334
-      height: 187
+      x: 1950
+      y: 1848
+      width: 317
+      height: 181
     contents:
     - model: {fileID: 8926484042661615689}
       id: 0
@@ -1464,10 +1464,10 @@ MonoBehaviour:
   - title: Initial Vortex
     position:
       serializedVersion: 2
-      x: 2402
-      y: 22
+      x: 1926
+      y: 35
       width: 1545
-      height: 305
+      height: 304
     contents:
     - model: {fileID: 8926484042661615815}
       id: 0
@@ -1571,9 +1571,9 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: -473
+    x: -1244
     y: -3510
-    width: 8769
+    width: 9540
     height: 7004
 --- !u!114 &114326842701653998
 MonoBehaviour:
@@ -4413,8 +4413,8 @@ VisualEffectResource:
       0x8 + 0x3) << 2,asuint(size));\n        attributeBuffer.Store3((index * 0x8
       + 0x4) << 2,asuint(color));\n        \n\n#endif\n    }\n}\n"
   - compute: 0
-    name: '[Grid Lines]Line Output'
-    source: "Shader \"Hidden/VFX/Grid Lines/Line Output\"\n{\n\tSubShader\n\t{\t\n\t\tTags
+    name: '[Grid Lines]A Line Output'
+    source: "Shader \"Hidden/VFX/Grid Lines/(A) Line Output\"\n{\n\tSubShader\n\t{\t\n\t\tTags
       { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\" \"RenderType\"=\"Transparent\"
       }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -4521,8 +4521,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[Grid Lines]Line Output'
-    source: "Shader \"Hidden/VFX/Grid Lines/Line Output\"\n{\n\tSubShader\n\t{\t\n\t\tTags
+    name: '[Grid Lines]B Line Output'
+    source: "Shader \"Hidden/VFX/Grid Lines/(B) Line Output\"\n{\n\tSubShader\n\t{\t\n\t\tTags
       { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\" \"RenderType\"=\"Transparent\"
       }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -4633,8 +4633,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[Grid Lines]Line Output'
-    source: "Shader \"Hidden/VFX/Grid Lines/Line Output\"\n{\n\tSubShader\n\t{\t\n\t\tTags
+    name: '[Grid Lines]C Line Output'
+    source: "Shader \"Hidden/VFX/Grid Lines/(C) Line Output\"\n{\n\tSubShader\n\t{\t\n\t\tTags
       { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\" \"RenderType\"=\"Transparent\"
       }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -10703,7 +10703,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615698}
   - {fileID: 8926484042661615693}
   - {fileID: 8926484042661616826}
-  m_UIPosition: {x: 4313, y: 344}
+  m_UIPosition: {x: 4310, y: 376}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11326,7 +11326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2361, y: 436}
+  m_UIPosition: {x: 1981, y: 488}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -11487,7 +11487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2578, y: 568}
+  m_UIPosition: {x: 2198, y: 620}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11838,7 +11838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2878, y: 562}
+  m_UIPosition: {x: 2498, y: 614}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11976,7 +11976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2949, y: 673}
+  m_UIPosition: {x: 2569, y: 725}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -14068,7 +14068,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661615687}
     - outputSlot: {fileID: 8926484042661615680}
       inputSlot: {fileID: 8926484042661615691}
-    position: {x: 2094.5452, y: 1493.0275}
+    position: {x: 1665, y: 1710}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661615680
@@ -14122,7 +14122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2414, y: 1280}
+  m_UIPosition: {x: 1984, y: 1497}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -14261,7 +14261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2381, y: 1511}
+  m_UIPosition: {x: 1977, y: 1705}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -14400,7 +14400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2393, y: 1725}
+  m_UIPosition: {x: 1975, y: 1910}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -15485,7 +15485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 3751, y: 557}
+  m_UIPosition: {x: 3371, y: 609}
   m_UICollapsed: 0
   m_UISuperCollapsed: 1
   m_InputSlots:
@@ -15785,7 +15785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 3349, y: 519}
+  m_UIPosition: {x: 2969, y: 571}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -16580,7 +16580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 3174, y: 583}
+  m_UIPosition: {x: 2794, y: 635}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -16761,7 +16761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 3285, y: 93}
+  m_UIPosition: {x: 2809, y: 105}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -17582,7 +17582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2427, y: 85}
+  m_UIPosition: {x: 1951, y: 97}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -17743,7 +17743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2643, y: 261}
+  m_UIPosition: {x: 2167, y: 273}
   m_UICollapsed: 0
   m_UISuperCollapsed: 1
   m_InputSlots:
@@ -17951,7 +17951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2869, y: 208}
+  m_UIPosition: {x: 2393, y: 220}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -18089,7 +18089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 3095, y: 185}
+  m_UIPosition: {x: 2619, y: 197}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -18224,7 +18224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 3690, y: 97}
+  m_UIPosition: {x: 3214, y: 109}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -18822,7 +18822,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114076616438245156}
   m_Children:
   - {fileID: 8926484042661616506}
-  m_UIPosition: {x: 115, y: -926}
+  m_UIPosition: {x: -610, y: -1679}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -18853,7 +18853,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616516}
   - {fileID: 8926484042661616546}
   - {fileID: 8926484042661616570}
-  m_UIPosition: {x: 108, y: -627}
+  m_UIPosition: {x: -617, y: -1380}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -19348,7 +19348,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114076616438245156}
   m_Children:
   - {fileID: 8926484042661616541}
-  m_UIPosition: {x: -263, y: 286}
+  m_UIPosition: {x: -988, y: -467}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -20649,7 +20649,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616565}
   - {fileID: 8926484042661616591}
-  m_UIPosition: {x: 165, y: 289}
+  m_UIPosition: {x: -560, y: -464}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -21161,7 +21161,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616581}
   - {fileID: 8926484042661616596}
-  m_UIPosition: {x: 584, y: 302}
+  m_UIPosition: {x: -141, y: -451}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -21555,7 +21555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: -473, y: 769}
+  m_UIPosition: {x: -1244, y: 12}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -21716,7 +21716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: -187, y: 698}
+  m_UIPosition: {x: -929, y: -115}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -22530,7 +22530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 195, y: 806}
+  m_UIPosition: {x: -562, y: -22}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -33101,7 +33101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114076616438245156}
   m_Children: []
-  m_UIPosition: {x: 2850, y: 759}
+  m_UIPosition: {x: 2470, y: 811}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
