@@ -133,9 +133,24 @@ MonoBehaviour:
   m_Name: VFXUI
   m_EditorClassIdentifier: 
   groupInfos: []
-  stickyNoteInfos: []
+  stickyNoteInfos:
+  - title: Configurable Slow Steam
+    position:
+      serializedVersion: 2
+      x: -87
+      y: -401
+      width: 534
+      height: 259
+    contents: '
+
+      While this effect is not really complex, it uses many parameters in order to
+      reuse the graph many times, with different configurations in the scene.
+
+'
+    theme: Classic
+    textSize: Medium
   systemInfos:
-  - title: Steam
+  - title: Slow Steam
     position:
       serializedVersion: 2
       x: 0
@@ -148,19 +163,19 @@ MonoBehaviour:
     - {fileID: 8926484042661614765}
   categories:
   - name: Spawn
-    collapsed: 0
+    collapsed: 1
   - name: Initial
-    collapsed: 0
+    collapsed: 1
   - name: OverLife
     collapsed: 1
   - name: Render
-    collapsed: 0
+    collapsed: 1
   uiBounds:
     serializedVersion: 2
-    x: 274
+    x: -87
     y: -432
-    width: 851
-    height: 2501
+    width: 1212
+    height: 2500
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -457,7 +472,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: Steam
+  title: Slow Steam
   m_Owners:
   - {fileID: 114946465509916290}
   - {fileID: 114780028408030698}
@@ -861,7 +876,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[Steam]Initialize'
+    name: '[Slow Steam]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_SEED_CURRENT 1\n#define VFX_USE_DIRECTION_CURRENT 1\n#define
       VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define VFX_USE_ANGLEZ_CURRENT
@@ -945,7 +960,7 @@ VisualEffectResource:
       \       attributeBuffer.Store((index * 0x8 + 0x4) << 2,asuint(age));\n        attributeBuffer.Store((index
       * 0x8 + 0x5) << 2,uint(alive));\n        \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[Steam]Update'
+    name: '[Slow Steam]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define
       VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_MASS_CURRENT 1\n#define VFX_USE_AGE_CURRENT
@@ -1007,8 +1022,8 @@ VisualEffectResource:
       << 2,uint(alive));\n\t\t\n\n#if VFX_HAS_INDIRECT_DRAW\n        uint indirectIndex
       = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex] = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[Steam]Steam Octagon'
-    source: "Shader \"Hidden/VFX/Steam/Steam Octagon\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Slow Steam]Steam Octagon'
+    source: "Shader \"Hidden/VFX/Slow Steam/Steam Octagon\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+400\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       One One , Zero One\n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -2943,7 +2958,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614706}
       inputSlot: {fileID: 114571176826476282}
-    position: {x: 579, y: -357}
+    position: {x: 579, y: -348}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614706
@@ -4621,7 +4636,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614804}
       inputSlot: {fileID: 8926484042661614792}
-    position: {x: 576, y: -287}
+    position: {x: 576, y: -292}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614804
@@ -4698,7 +4713,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614809}
       inputSlot: {fileID: 8926484042661614793}
-    position: {x: 564, y: -245}
+    position: {x: 564, y: -250}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614809
@@ -4775,7 +4790,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614814}
       inputSlot: {fileID: 8926484042661614794}
-    position: {x: 579, y: -201}
+    position: {x: 579, y: -206}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614814
