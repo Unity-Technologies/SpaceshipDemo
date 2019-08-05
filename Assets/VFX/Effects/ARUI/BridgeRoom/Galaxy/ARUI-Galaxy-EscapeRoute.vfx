@@ -55,7 +55,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":4.0,"y":1.0,"z":4.0}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":4.0,"y":4.0,"z":4.0}}'
     m_Space: 0
   m_Property:
     name: bounds
@@ -79,16 +79,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupInfos: []
   stickyNoteInfos: []
-  systemInfos: []
+  systemInfos:
+  - title: Trajectory Dotted Line
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 114946465509916290}
+    - {fileID: 8926484042661614636}
+    - {fileID: 8926484042661614544}
+    - {fileID: 8926484042661614685}
   categories:
   - name: Control
     collapsed: 0
   uiBounds:
     serializedVersion: 2
-    x: -828
+    x: -727
     y: -339
-    width: 2483
-    height: 2792
+    width: 2382
+    height: 2476
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,7 +326,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Trajectory Dotted Line
   m_Owners:
   - {fileID: 114946465509916290}
   - {fileID: 8926484042661614636}
@@ -614,7 +626,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[System 1]Initialize'
+    name: '[Trajectory Dotted Line]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_SIZE_CURRENT 1\n#define VFX_USE_HOVER_CURRENT 1\n#define
       VFX_USE_COLOR_CURRENT 1\n#define VFX_USE_ALPHA_CURRENT 1\n#define VFX_USE_PARTICLEID_CURRENT
@@ -678,8 +690,8 @@ VisualEffectResource:
       \       attributeBuffer.Store((index * 0x1 + 0x280) << 2,asuint(particleId));\n
       \       \n\n#endif\n    }\n}\n"
   - compute: 0
-    name: '[System 1]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 1/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Trajectory Dotted Line]A Trajectory Dots'
+    source: "Shader \"Hidden/VFX/Trajectory Dotted Line/(A) Trajectory Dots\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tZTest LEqual\n\t\tZWrite On\n\t\tCull Back\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -876,7 +888,7 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 1]Update'
+    name: '[Trajectory Dotted Line]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_HOVER_CURRENT 1\n#define VFX_USE_COLOR_CURRENT 1\n#define
       VFX_USE_ALPHA_CURRENT 1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_HAS_INDIRECT_DRAW
@@ -959,8 +971,8 @@ VisualEffectResource:
       indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 1/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Trajectory Dotted Line]B Trajectory Outline'
+    source: "Shader \"Hidden/VFX/Trajectory Dotted Line/(B) Trajectory Outline\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Geometry+0\" \"IgnoreProjector\"=\"False\"
       \"RenderType\"=\"Opaque\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
       LEqual\n\t\tZWrite On\n\t\tCull Front\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1267,7 +1279,7 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 1]CameraSort'
+    name: '[Trajectory Dotted Line]CameraSort'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_LOCAL_SPACE 1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/HDRP/VFXDefines.hlsl\"\n\n\nCBUFFER_START(parameters)\n
       \   float4x4 localToWorld;\nCBUFFER_END\n\n\n#include \"Packages/com.unity.visualeffectgraph/Shaders/Common/VFXCommonCompute.cginc\"\n#include
@@ -1680,7 +1692,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 14
           m_Value: {x: 0, y: 0, z: 1}
         - m_ExpressionIndex: 52
-          m_Value: {x: 4, y: 1, z: 4}
+          m_Value: {x: 4, y: 4, z: 4}
         - m_ExpressionIndex: 55
           m_Value: {x: 0.4, y: 0.38, z: 0.4}
       m_Vector4f:
@@ -2255,7 +2267,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614546}
   - {fileID: 8926484042661614547}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: Trajectory Dots
   m_Data: {fileID: 114428730288789306}
   m_InputFlowSlot:
   - link:
@@ -6029,7 +6041,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614687}
   - {fileID: 8926484042661614688}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: Trajectory Outline
   m_Data: {fileID: 114428730288789306}
   m_InputFlowSlot:
   - link:
@@ -7531,7 +7543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -828, y: 2180}
+  m_UIPosition: {x: -727, y: 1864}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -9169,7 +9181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -505, y: 2377}
+  m_UIPosition: {x: -404, y: 2061}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -9263,7 +9275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -244, y: 2143}
+  m_UIPosition: {x: -143, y: 1827}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -9452,7 +9464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -496, y: 2124}
+  m_UIPosition: {x: -395, y: 1808}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -9587,7 +9599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -502, y: 2246}
+  m_UIPosition: {x: -401, y: 1930}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -9722,7 +9734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -36, y: 2141}
+  m_UIPosition: {x: 65, y: 1825}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

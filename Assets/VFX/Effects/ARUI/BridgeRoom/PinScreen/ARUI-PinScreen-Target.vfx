@@ -12,9 +12,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01270efd3285ea4a9d6c555cb0a8027, type: 3}
   m_Name: VFXUI
   m_EditorClassIdentifier: 
-  groupInfos: []
+  groupInfos:
+  - title: Mask By Distance to LandingTargetPosition + Animated Noise to remove uniformity
+    position:
+      serializedVersion: 2
+      x: -1591
+      y: 2141
+      width: 1850
+      height: 722
+    contents:
+    - model: {fileID: 8926484042661614949}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661614959}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615024}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615048}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615056}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616702}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616713}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616848}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616883}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616885}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616871}
+      id: 0
+      isStickyNote: 0
+  - title: Fade when nearing Table Edge
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 100
+      height: 100
+    contents:
+    - model: {fileID: 8926484042661617047}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661616987}
+      id: 0
+      isStickyNote: 0
   stickyNoteInfos: []
-  systemInfos: []
+  systemInfos:
+  - title: Target Dashed Line
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 8926484042661617148}
+    - {fileID: 8926484042661617194}
+    - {fileID: 8926484042661617169}
+    - {fileID: 8926484042661617212}
+  - title: Target Grid
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 8926484042661615540}
+    - {fileID: 8926484042661615563}
+    - {fileID: 8926484042661616815}
+    - {fileID: 8926484042661616809}
+    - {fileID: 8926484042661617011}
   categories:
   - name: Trajectory
     collapsed: 0
@@ -22,10 +102,10 @@ MonoBehaviour:
     collapsed: 1
   uiBounds:
     serializedVersion: 2
-    x: -1566
+    x: -1591
     y: 1631
-    width: 8556
-    height: 2797
+    width: 8581
+    height: 2495
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -40,7 +120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 0}
   m_Children:
-  - {fileID: 8926484042661614925}
   - {fileID: 8926484042661614949}
   - {fileID: 8926484042661614959}
   - {fileID: 8926484042661615024}
@@ -297,7 +376,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[System 1]Initialize'
+    name: '[Target Grid]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_USE_SIZE_CURRENT 1\n#define
       VFX_USE_TARGETSIZE_CURRENT 1\n#define VFX_USE_COLOR_CURRENT 1\n#define VFX_USE_ALPHA_CURRENT
@@ -376,7 +455,7 @@ VisualEffectResource:
       \       attributeBuffer.Store((index * 0x8 + 0x4686) << 2,asuint(scaleZ));\n
       \       \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[System 1]Update'
+    name: '[Target Grid]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_TARGETSIZE_CURRENT 1\n#define VFX_USE_COLOR_CURRENT 1\n#define
       VFX_USE_ALPHA_CURRENT 1\n#define VFX_USE_SCALEX_CURRENT 1\n#define VFX_USE_SCALEY_CURRENT
@@ -496,8 +575,8 @@ VisualEffectResource:
       indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 1/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Target Grid]A Mesh Output'
+    source: "Shader \"Hidden/VFX/Target Grid/(A) Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Back\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -637,8 +716,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 1/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Target Grid]B Mesh Output'
+    source: "Shader \"Hidden/VFX/Target Grid/(B) Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tZTest Greater\n\t\tZWrite Off\n\t\tCull Back\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -787,8 +866,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Quad Output'
-    source: "Shader \"Hidden/VFX/System 1/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Target Grid]C Quad Output'
+    source: "Shader \"Hidden/VFX/Target Grid/(C) Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -959,7 +1038,7 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 2]Initialize'
+    name: '[Target Dashed Line]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_SIZE_CURRENT 1\n#define VFX_USE_COLOR_CURRENT 1\n#define
       VFX_USE_ALPHA_CURRENT 1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_WORLD_SPACE
@@ -1018,8 +1097,8 @@ VisualEffectResource:
       << 2,asuint(alpha));\n        attributeBuffer.Store((index * 0x1 + 0x240) <<
       2,asuint(particleId));\n        \n\n#endif\n    }\n}\n"
   - compute: 0
-    name: '[System 2]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 2/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Target Dashed Line]A Outline Dot'
+    source: "Shader \"Hidden/VFX/Target Dashed Line/(A) Outline Dot\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tZTest LEqual\n\t\tZWrite On\n\t\tCull Back\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1176,7 +1255,7 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 2]Update'
+    name: '[Target Dashed Line]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_COLOR_CURRENT 1\n#define VFX_USE_ALPHA_CURRENT 1\n#define
       VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_HAS_INDIRECT_DRAW 1\n#define VFX_WORLD_SPACE
@@ -1250,8 +1329,8 @@ VisualEffectResource:
       << 2,asuint(alpha));\n\t\t\n\n#if VFX_HAS_INDIRECT_DRAW\n        uint indirectIndex
       = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex] = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 2]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 2/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Target Dashed Line]B Black Outline'
+    source: "Shader \"Hidden/VFX/Target Dashed Line/(B) Black Outline\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Front\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1411,7 +1490,7 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 1]CameraSort'
+    name: '[Target Grid]CameraSort'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_LOCAL_SPACE 1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/HDRP/VFXDefines.hlsl\"\n\n\nCBUFFER_START(parameters)\n
       \   float4x4 localToWorld;\nCBUFFER_END\n\n\n#include \"Packages/com.unity.visualeffectgraph/Shaders/Common/VFXCommonCompute.cginc\"\n#include
@@ -1431,7 +1510,7 @@ VisualEffectResource:
       kvp;\n\t\tkvp.sortKey = dot(camToPos,camToPos); // sqr distance to the camera\n\t\tkvp.index
       = index;\n\n\t\toutputBuffer[id] = kvp;\n\t}\n}\n"
   - compute: 1
-    name: '[System 2]CameraSort'
+    name: '[Target Dashed Line]CameraSort'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_WORLD_SPACE 1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/HDRP/VFXDefines.hlsl\"\n\n\n\n#include
       \"Packages/com.unity.visualeffectgraph/Shaders/Common/VFXCommonCompute.cginc\"\n#include
@@ -2843,99 +2922,6 @@ VisualEffectResource:
         index: 1
       processor: {fileID: 0}
       shaderSourceIndex: 8
---- !u!114 &8926484042661614925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955b0c175a6f3bb4582e92f3de8f0626, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Parent: {fileID: 114350483966674976}
-  m_Children: []
-  m_UIPosition: {x: 1367, y: 2295}
-  m_UICollapsed: 0
-  m_UISuperCollapsed: 0
-  m_InputSlots:
-  - {fileID: 8926484042661614926}
-  m_OutputSlots:
-  - {fileID: 8926484042661614927}
-  m_Type:
-    m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-      PublicKeyToken=b77a5c561934e089
---- !u!114 &8926484042661614926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 8926484042661614926}
-  m_MasterData:
-    m_Owner: {fileID: 8926484042661614925}
-    m_Value:
-      m_Type:
-        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.45
-    m_Space: 2147483647
-  m_Property:
-    name: 
-    m_serializedType:
-      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-    attributes: []
-  m_Direction: 0
-  m_LinkedSlots: []
---- !u!114 &8926484042661614927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 8926484042661614927}
-  m_MasterData:
-    m_Owner: {fileID: 8926484042661614925}
-    m_Value:
-      m_Type:
-        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 
-    m_Space: 2147483647
-  m_Property:
-    name: 
-    m_serializedType:
-      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-    attributes: []
-  m_Direction: 1
-  m_LinkedSlots:
-  - {fileID: 8926484042661616778}
 --- !u!114 &8926484042661614949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4114,7 +4100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1548, y: 1831}
+  m_UIPosition: {x: 1569, y: 2048}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -4590,7 +4576,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Target Grid
   m_Owners:
   - {fileID: 8926484042661615540}
   - {fileID: 8926484042661615563}
@@ -5123,7 +5109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1233, y: 2875}
+  m_UIPosition: {x: 1644, y: 2835}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5778,14 +5764,14 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661616652}
       inputSlot: {fileID: 8926484042661616665}
-    position: {x: 1072, y: 2511}
+    position: {x: 1468, y: 2540}
     expandedSlots: []
     expanded: 0
   - m_Id: 1
     linkedSlots:
     - outputSlot: {fileID: 8926484042661616652}
       inputSlot: {fileID: 8926484042661616828}
-    position: {x: 761, y: 2949}
+    position: {x: 1200, y: 2882}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661616652
@@ -5959,7 +5945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1310, y: 2514}
+  m_UIPosition: {x: 1680, y: 2562}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -6131,7 +6117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1294, y: 2725}
+  m_UIPosition: {x: 1707, y: 2718}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -6267,7 +6253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1102, y: 2733}
+  m_UIPosition: {x: 1515, y: 2726}
   m_UICollapsed: 0
   m_UISuperCollapsed: 1
   m_InputSlots: []
@@ -6348,7 +6334,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661616683}
       inputSlot: {fileID: 8926484042661616675}
-    position: {x: 990, y: 2789}
+    position: {x: 1403, y: 2782}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661616683
@@ -6435,7 +6421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1162, y: 3212}
+  m_UIPosition: {x: 1706, y: 2961}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -7561,7 +7547,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.1
+      m_SerializableObject: 0.45
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -7570,8 +7556,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
     attributes: []
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661614927}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661616779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7778,7 +7763,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616920}
   - {fileID: 8926484042661616957}
   - {fileID: 8926484042661616993}
-  m_UIPosition: {x: 1552, y: 3274}
+  m_UIPosition: {x: 1584, y: 3272}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -7954,7 +7939,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616836}
   - {fileID: 8926484042661616983}
   - {fileID: 8926484042661617033}
-  m_UIPosition: {x: 2034, y: 3273}
+  m_UIPosition: {x: 2067, y: 3264}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -8352,7 +8337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1026, y: 2921}
+  m_UIPosition: {x: 1423, y: 2911}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -8792,7 +8777,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661616667}
     - outputSlot: {fileID: 8926484042661616847}
       inputSlot: {fileID: 8926484042661616660}
-    position: {x: 589, y: 2375}
+    position: {x: 702, y: 2400}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661616847
@@ -9196,7 +9181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 263, y: 2683}
+  m_UIPosition: {x: 82, y: 2715}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -9839,7 +9824,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661616890}
       inputSlot: {fileID: 8926484042661616949}
-    position: {x: 813, y: 3774}
+    position: {x: 1013, y: 3673}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661616890
@@ -10256,7 +10241,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661616921}
     - outputSlot: {fileID: 8926484042661616942}
       inputSlot: {fileID: 8926484042661616926}
-    position: {x: 467, y: 3446}
+    position: {x: 1360, y: 3462}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661616942
@@ -10445,7 +10430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1020, y: 3816}
+  m_UIPosition: {x: 1165, y: 3636}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -10653,7 +10638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 580, y: 3843}
+  m_UIPosition: {x: 653, y: 3550}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11221,7 +11206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 277, y: 3854}
+  m_UIPosition: {x: 303, y: 3792}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -11445,7 +11430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1078, y: 4050}
+  m_UIPosition: {x: 956, y: 3942}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11651,7 +11636,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617062}
   - {fileID: 8926484042661617055}
   - {fileID: 8926484042661617039}
-  m_UIPosition: {x: 2820, y: 3467}
+  m_UIPosition: {x: 3025, y: 3361}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -12104,7 +12089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2516, y: 3700}
+  m_UIPosition: {x: 2570, y: 3604}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -12425,7 +12410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2288, y: 4132}
+  m_UIPosition: {x: 2510, y: 3964}
   m_UICollapsed: 0
   m_UISuperCollapsed: 1
   m_InputSlots: []
@@ -12483,7 +12468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2530, y: 4059}
+  m_UIPosition: {x: 2752, y: 3891}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -12628,7 +12613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 722, y: 4262}
+  m_UIPosition: {x: 672, y: 3936}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -13817,7 +13802,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Target Dashed Line
   m_Owners:
   - {fileID: 8926484042661617148}
   - {fileID: 8926484042661617194}
@@ -14104,7 +14089,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617174}
   - {fileID: 8926484042661617179}
   - {fileID: 8926484042661617185}
-  m_UIPosition: {x: 6079, y: 3068}
+  m_UIPosition: {x: 6073, y: 3024}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -14112,7 +14097,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617171}
   - {fileID: 8926484042661617172}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: Outline Dot
   m_Data: {fileID: 8926484042661617158}
   m_InputFlowSlot:
   - link:
@@ -15179,7 +15164,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617214}
   - {fileID: 8926484042661617215}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: Black Outline
   m_Data: {fileID: 8926484042661617158}
   m_InputFlowSlot:
   - link:

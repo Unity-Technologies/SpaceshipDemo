@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 114873264888500148}
-  m_UIPosition: {x: 707.8936, y: -190.26595}
+  m_UIPosition: {x: 698, y: -245}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -192,14 +192,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupInfos: []
   stickyNoteInfos: []
-  systemInfos: []
+  systemInfos:
+  - title: Sun Corona Glow
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 114946465509916290}
+    - {fileID: 114780028408030698}
+    - {fileID: 114063133802684794}
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: -130
-    y: -190
-    width: 1214
-    height: 1799
+    x: -118
+    y: -245
+    width: 1202
+    height: 1853
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,7 +317,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Sun Corona Glow
   m_Owners:
   - {fileID: 114946465509916290}
   - {fileID: 114780028408030698}
@@ -790,7 +801,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[System 1]Initialize'
+    name: '[Sun Corona Glow]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_LIFETIME_CURRENT
       1\n#define VFX_USE_SEED_CURRENT 1\n#define VFX_USE_TEXINDEX_CURRENT 1\n#define
       VFX_USE_ALIVE_CURRENT 1\n#define VFX_USE_AGE_CURRENT 1\n#define VFX_LOCAL_SPACE
@@ -848,7 +859,7 @@ VisualEffectResource:
       0x3 + 0x21) << 2,uint(alive));\n        attributeBuffer.Store((index * 0x3 +
       0x22) << 2,asuint(age));\n        \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[System 1]Update'
+    name: '[Sun Corona Glow]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_LIFETIME_CURRENT
       1\n#define VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT 1\n#define
       VFX_USE_AGE_CURRENT 1\n#define VFX_LOCAL_SPACE 1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/HDRP/VFXDefines.hlsl\"\n\n\nCBUFFER_START(parameters)\n
@@ -889,8 +900,8 @@ VisualEffectResource:
       2,asuint(age));\n\t\t\n\n#if VFX_HAS_INDIRECT_DRAW\n        uint indirectIndex
       = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex] = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Quad Output'
-    source: "Shader \"Hidden/VFX/System 1/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Sun Corona Glow]Quad Output'
+    source: "Shader \"Hidden/VFX/Sun Corona Glow/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1904,7 +1915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 190, y: 568}
+  m_UIPosition: {x: 220, y: 562}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -2524,7 +2535,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614550}
     - outputSlot: {fileID: 8926484042661614560}
       inputSlot: {fileID: 8926484042661614562}
-    position: {x: -130, y: 865}
+    position: {x: -118, y: 837}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614560

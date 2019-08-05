@@ -14,14 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupInfos: []
   stickyNoteInfos: []
-  systemInfos: []
+  systemInfos:
+  - title: Distortion Quads
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 8926484042661614833}
+    - {fileID: 8926484042661614866}
+    - {fileID: 8926484042661614944}
+  - title: Smoke Octagons
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 8926484042661614755}
+    - {fileID: 8926484042661614778}
+    - {fileID: 8926484042661614970}
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 70
-    y: -766
-    width: 1313
-    height: 1821
+    x: 69
+    y: -805
+    width: 1314
+    height: 1860
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,7 +99,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[System 1]Initialize'
+    name: '[Smoke Octagons]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_SEED_CURRENT 1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define
       VFX_USE_LIFETIME_CURRENT 1\n#define VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT
@@ -151,7 +173,7 @@ VisualEffectResource:
       2,uint(alive));\n        attributeBuffer.Store((index * 0x3 + 0x482) << 2,asuint(age));\n
       \       \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[System 1]Update'
+    name: '[Smoke Octagons]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define
       VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT 1\n#define VFX_USE_AGE_CURRENT
@@ -204,7 +226,7 @@ VisualEffectResource:
       indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 1
-    name: '[System 2]Initialize'
+    name: '[Distortion Quads]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_SEED_CURRENT 1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define
       VFX_USE_LIFETIME_CURRENT 1\n#define VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT
@@ -277,7 +299,7 @@ VisualEffectResource:
       \       attributeBuffer.Store((index * 0x8 + 0x4) << 2,uint(alive));\n        attributeBuffer.Store((index
       * 0x8 + 0x5) << 2,asuint(age));\n        \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[System 2]Update'
+    name: '[Distortion Quads]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define
       VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT 1\n#define VFX_USE_AGE_CURRENT
@@ -328,8 +350,8 @@ VisualEffectResource:
       indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 2]Distortion Quad Output'
-    source: "Shader \"Hidden/VFX/System 2/Distortion Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Distortion Quads]Distortion Quad Output'
+    source: "Shader \"Hidden/VFX/Distortion Quads/Distortion Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       One One\n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -444,7 +466,7 @@ VisualEffectResource:
       /*inout */axisX,  /*inout */axisY,  /*inout */axisZ);\n\t\t\t\tAttributeFromCurve_45ABB90F(
       /*inout */size, age, lifetime, Size_b);\n\t\t\t\tColorOverLife_733E3(age, lifetime,
       \ /*inout */color,  /*inout */alpha, gradient_c);\n\t\t\t\t{\n\t\t\t\t    CameraFade_18F(position,
-      \ /*inout */alpha,  /*inout */alive, (float)1, (float)0.5);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\tif
+      \ /*inout */alpha,  /*inout */alive, (float)2, (float)0.5);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\tif
       (!alive)\n\t\t\t\t\treturn o;\n\t\t\t\t\n\t\t\t#if VFX_PRIMITIVE_QUAD\n\t\t\t\n\t\t\t\to.VFX_VARYING_UV.x
       = float(id & 1);\n\t\t\t\to.VFX_VARYING_UV.y = float((id & 2) >> 1);\n\t\t\t\tconst
       float2 vOffsets = o.VFX_VARYING_UV.xy - 0.5f;\n\t\t\t\t\n\t\t\t#elif VFX_PRIMITIVE_TRIANGLE\n\t\t\t\n\t\t\t\tconst
@@ -535,8 +557,8 @@ VisualEffectResource:
       * i.VFX_VARYING_ALPHA * float3(distortion.xy, blur);\n\t\t\t\t\t\t\t\t\to.distortion.z
       = 1.0;\n\t\t\t\t\t\t\t\t\treturn o;\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Lit Octagon Output'
-    source: "Shader \"Hidden/VFX/System 1/Lit Octagon Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Smoke Octagons]Lit Octagon Output'
+    source: "Shader \"Hidden/VFX/Smoke Octagons/Lit Octagon Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+400\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       One OneMinusSrcAlpha , Zero OneMinusSrcAlpha\n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull
@@ -675,7 +697,7 @@ VisualEffectResource:
       /*inout */axisX,  /*inout */axisY,  /*inout */axisZ);\n\t\t\t\tAttributeFromCurve_45ABB90F(
       /*inout */size, age, lifetime, Size_b);\n\t\t\t\tColorOverLife_733E3(age, lifetime,
       \ /*inout */color,  /*inout */alpha, gradient_c);\n\t\t\t\t{\n\t\t\t\t    CameraFade_18F(position,
-      \ /*inout */alpha,  /*inout */alive, (float)1, (float)0.5);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\tif
+      \ /*inout */alpha,  /*inout */alive, (float)2, (float)0.5);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\tif
       (!alive)\n\t\t\t\t\treturn o;\n\t\t\t\t\n\t\t\t#if VFX_PRIMITIVE_QUAD\n\t\t\t\n\t\t\t\to.VFX_VARYING_UV.x
       = float(id & 1);\n\t\t\t\to.VFX_VARYING_UV.y = float((id & 2) >> 1);\n\t\t\t\tconst
       float2 vOffsets = o.VFX_VARYING_UV.xy - 0.5f;\n\t\t\t\t\n\t\t\t#elif VFX_PRIMITIVE_TRIANGLE\n\t\t\t\n\t\t\t\tconst
@@ -785,7 +807,7 @@ VisualEffectResource:
       normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\toutColor
       = VFXGetPixelOutputForward(i,normalWS,uvData);\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 1]CameraSort'
+    name: '[Smoke Octagons]CameraSort'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define USE_DEAD_LIST_COUNT 1\n#define VFX_LOCAL_SPACE 1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/HDRP/VFXDefines.hlsl\"\n\n\nCBUFFER_START(parameters)\n
       \   float4x4 localToWorld;\nCBUFFER_END\n\n\n#include \"Packages/com.unity.visualeffectgraph/Shaders/Common/VFXCommonCompute.cginc\"\n#include
@@ -842,49 +864,49 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 1
+        data[3]: 2
       - op: 1
-        valueIndex: 6
+        valueIndex: 7
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 2
       - op: 1
-        valueIndex: 8
-        data[0]: -1
-        data[1]: -1
-        data[2]: -1
-        data[3]: 2
-      - op: 1
-        valueIndex: 10
+        valueIndex: 9
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 7
       - op: 1
-        valueIndex: 11
+        valueIndex: 10
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 2
       - op: 1
-        valueIndex: 13
+        valueIndex: 12
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 1
       - op: 56
-        valueIndex: 14
+        valueIndex: 13
         data[0]: 3
         data[1]: -1
         data[2]: -1
         data[3]: 0
       - op: 57
-        valueIndex: 18
+        valueIndex: 17
         data[0]: 2
         data[1]: -1
         data[2]: -1
         data[3]: 0
+      - op: 1
+        valueIndex: 18
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: 1
       - op: 1
         valueIndex: 19
         data[0]: -1
@@ -1024,11 +1046,11 @@ VisualEffectResource:
       m_Float:
         m_Array:
         - m_ExpressionIndex: 4
-          m_Value: 1
-        - m_ExpressionIndex: 5
           m_Value: 0.5
-        - m_ExpressionIndex: 10
+        - m_ExpressionIndex: 9
           m_Value: 0.3
+        - m_ExpressionIndex: 12
+          m_Value: 1
         - m_ExpressionIndex: 16
           m_Value: 32
         - m_ExpressionIndex: 18
@@ -1043,11 +1065,11 @@ VisualEffectResource:
           m_Value: 4
       m_Vector2f:
         m_Array:
-        - m_ExpressionIndex: 6
+        - m_ExpressionIndex: 5
           m_Value: {x: 8, y: 8}
-        - m_ExpressionIndex: 7
+        - m_ExpressionIndex: 6
           m_Value: {x: 0.125, y: 0.125}
-        - m_ExpressionIndex: 9
+        - m_ExpressionIndex: 8
           m_Value: {x: 24, y: 24}
       m_Vector3f:
         m_Array:
@@ -1197,7 +1219,7 @@ VisualEffectResource:
             m_NumAlphaKeys: 4
       m_NamedObject:
         m_Array:
-        - m_ExpressionIndex: 8
+        - m_ExpressionIndex: 7
           m_Value: {fileID: 2800000, guid: cc67c7af8b9fe1642a94fed927b4fcf4, type: 3}
         - m_ExpressionIndex: 14
           m_Value: {fileID: 2800000, guid: 3f0b27fa0a9267346b36465dc2808773, type: 3}
@@ -1208,7 +1230,7 @@ VisualEffectResource:
       index: 2
     m_Buffers:
     - type: 1
-      size: 1536
+      size: 1452
       layout:
       - name: position
         type: 3
@@ -1246,10 +1268,10 @@ VisualEffectResource:
           bucket: 1152
           structure: 3
           element: 2
-      capacity: 128
+      capacity: 100
       stride: 4
     - type: 1
-      size: 1664
+      size: 1636
       layout:
       - name: position
         type: 3
@@ -1287,7 +1309,7 @@ VisualEffectResource:
           bucket: 1536
           structure: 1
           element: 0
-      capacity: 128
+      capacity: 100
       stride: 4
     - type: 1
       size: 1536
@@ -1342,7 +1364,7 @@ VisualEffectResource:
       capacity: 1
       stride: 4
     - type: 4
-      size: 128
+      size: 100
       layout: []
       capacity: 0
       stride: 4
@@ -1352,17 +1374,17 @@ VisualEffectResource:
       capacity: 0
       stride: 4
     - type: 4
-      size: 128
+      size: 100
       layout: []
       capacity: 0
       stride: 4
     - type: 0
-      size: 128
+      size: 100
       layout: []
       capacity: 0
       stride: 8
     - type: 0
-      size: 128
+      size: 100
       layout: []
       capacity: 0
       stride: 8
@@ -1419,7 +1441,7 @@ VisualEffectResource:
       capacity: 1
       stride: 4
     - type: 4
-      size: 128
+      size: 100
       layout: []
       capacity: 0
       stride: 4
@@ -1520,7 +1542,7 @@ VisualEffectResource:
       shaderSourceIndex: -1
   - type: 1
     flags: 3
-    capacity: 128
+    capacity: 100
     layer: 4294967295
     buffers:
     - nameId: attributeBuffer
@@ -1605,9 +1627,9 @@ VisualEffectResource:
       temporaryBuffers: []
       values:
       - nameId: Size_b
-        index: 11
+        index: 10
       - nameId: gradient_c
-        index: 12
+        index: 11
       - nameId: baseColorMap
         index: 14
       params:
@@ -1619,7 +1641,7 @@ VisualEffectResource:
       shaderSourceIndex: 5
   - type: 1
     flags: 1
-    capacity: 128
+    capacity: 100
     layer: 4294967295
     buffers:
     - nameId: attributeBuffer
@@ -1681,7 +1703,7 @@ VisualEffectResource:
       - nameId: gradient_c
         index: 15
       - nameId: distortionBlurMap
-        index: 8
+        index: 7
       params:
       - nameId: sortPriority
         index: 0
@@ -1702,7 +1724,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 8926484042661614753}
-  m_UIPosition: {x: 316, y: -761}
+  m_UIPosition: {x: 322, y: -805}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -2151,12 +2173,12 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Smoke Octagons
   m_Owners:
   - {fileID: 8926484042661614755}
   - {fileID: 8926484042661614778}
   - {fileID: 8926484042661614970}
-  m_Capacity: 128
+  m_Capacity: 100
   m_Space: 0
 --- !u!114 &8926484042661614766
 MonoBehaviour:
@@ -3057,12 +3079,12 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Distortion Quads
   m_Owners:
   - {fileID: 8926484042661614833}
   - {fileID: 8926484042661614866}
   - {fileID: 8926484042661614944}
-  m_Capacity: 128
+  m_Capacity: 100
   m_Space: 0
 --- !u!114 &8926484042661614844
 MonoBehaviour:
@@ -4161,7 +4183,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1
+      m_SerializableObject: 2
     m_Space: 2147483647
   m_Property:
     name: FadedDistance
@@ -4201,7 +4223,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3
+      m_SerializableObject: 4
     m_Space: 2147483647
   m_Property:
     name: VisibleDistance
@@ -4602,7 +4624,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1
+      m_SerializableObject: 2
     m_Space: 2147483647
   m_Property:
     name: FadedDistance
@@ -4642,7 +4664,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3
+      m_SerializableObject: 4
     m_Space: 2147483647
   m_Property:
     name: VisibleDistance
@@ -4917,7 +4939,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661615021}
       inputSlot: {fileID: 8926484042661614985}
-    position: {x: 70, y: 857}
+    position: {x: 69, y: 853}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661615021

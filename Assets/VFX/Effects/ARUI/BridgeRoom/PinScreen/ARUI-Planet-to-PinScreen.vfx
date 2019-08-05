@@ -166,10 +166,10 @@ MonoBehaviour:
   - title: Compose All Heights
     position:
       serializedVersion: 2
-      x: 1842
-      y: 169
-      width: 320
-      height: 290
+      x: 1957
+      y: 227
+      width: 312
+      height: 253
     contents:
     - model: {fileID: 8926484042661617010}
       id: 0
@@ -177,10 +177,10 @@ MonoBehaviour:
   - title: Blend Position over Time
     position:
       serializedVersion: 2
-      x: 1399
-      y: 415
-      width: 406
-      height: 255
+      x: 1361
+      y: 410
+      width: 399
+      height: 252
     contents:
     - model: {fileID: 8926484042661615250}
       id: 0
@@ -194,9 +194,9 @@ MonoBehaviour:
   - title: Base Position
     position:
       serializedVersion: 2
-      x: 1324
-      y: -162
-      width: 252
+      x: 1640
+      y: 112
+      width: 237
       height: 199
     contents:
     - model: {fileID: 8926484042661617313}
@@ -205,8 +205,8 @@ MonoBehaviour:
   - title: Height Field
     position:
       serializedVersion: 2
-      x: 1009
-      y: 58
+      x: 862
+      y: 147
       width: 282
       height: 217
     contents:
@@ -309,8 +309,8 @@ MonoBehaviour:
   - title: Normalized Vector on Sphere
     position:
       serializedVersion: 2
-      x: -1536
-      y: 1127
+      x: -1944
+      y: 1185
       width: 856
       height: 274
     contents:
@@ -329,10 +329,10 @@ MonoBehaviour:
   - title: Planet Surface
     position:
       serializedVersion: 2
-      x: 0
-      y: 0
-      width: 100
-      height: 100
+      x: -1047
+      y: 1164
+      width: 1252
+      height: 347
     contents:
     - model: {fileID: 8926484042661617956}
       id: 0
@@ -347,6 +347,66 @@ MonoBehaviour:
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661617986}
+      id: 0
+      isStickyNote: 0
+  - title: Morph goes towards target once greater than threshold
+    position:
+      serializedVersion: 2
+      x: 1199
+      y: 689
+      width: 896
+      height: 295
+    contents:
+    - model: {fileID: 8926484042661617601}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617603}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617608}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617615}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617662}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617617}
+      id: 0
+      isStickyNote: 0
+  - title: 'Interpolate : Sphere > Pins'
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 100
+      height: 100
+    contents:
+    - model: {fileID: 8926484042661617635}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617633}
+      id: 0
+      isStickyNote: 0
+  - title: Add Planet Heightfield when Sphere
+    position:
+      serializedVersion: 2
+      x: 886
+      y: 1022
+      width: 776
+      height: 260
+    contents:
+    - model: {fileID: 8926484042661617931}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617557}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617919}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661617832}
       id: 0
       isStickyNote: 0
   stickyNoteInfos:
@@ -408,7 +468,7 @@ MonoBehaviour:
     theme: Classic
     textSize: Small
   systemInfos:
-  - title: 64kPins
+  - title: Pins Interpolated Sphere -> PinScreen
     position:
       serializedVersion: 2
       x: 0
@@ -418,17 +478,17 @@ MonoBehaviour:
     contexts:
     - {fileID: 8926484042661615139}
     - {fileID: 114780028408030698}
-    - {fileID: 0}
     - {fileID: 8926484042661616322}
     - {fileID: 8926484042661617584}
+    - {fileID: 8926484042661617665}
   categories:
   - name: Sequencing
     collapsed: 0
   uiBounds:
     serializedVersion: 2
-    x: -1819
+    x: -1944
     y: -794
-    width: 6514
+    width: 6639
     height: 4318
 --- !u!114 &114350483966674976
 MonoBehaviour:
@@ -754,7 +814,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[64kPins]Initialize'
+    name: '[Pins Interpolated Sphere -> PinScreen]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_USE_TARGETPOSITION_CURRENT
       1\n#define VFX_USE_BASEPOSITION_CURRENT 1\n#define VFX_USE_MORPH_CURRENT 1\n#define
@@ -841,7 +901,7 @@ VisualEffectResource:
       0x1 + 0xC0000) << 2,asuint(height));\n        attributeBuffer.Store3((index
       * 0x4 + 0xD0000) << 2,asuint(color));\n        \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[64kPins]Update'
+    name: '[Pins Interpolated Sphere -> PinScreen]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_USE_TARGETPOSITION_CURRENT
       1\n#define VFX_USE_BASEPOSITION_CURRENT 1\n#define VFX_USE_MORPH_CURRENT 1\n#define
@@ -1030,8 +1090,8 @@ VisualEffectResource:
       2,asuint(color));\n\t\t\n\n#if VFX_HAS_INDIRECT_DRAW\n        uint indirectIndex
       = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex] = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[64kPins]Pin Caps'
-    source: "Shader \"Hidden/VFX/64kPins/Pin Caps\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Pins Interpolated Sphere -> PinScreen]A Pin Caps'
+    source: "Shader \"Hidden/VFX/Pins Interpolated Sphere -> PinScreen/(A) Pin Caps\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Geometry+450\" \"IgnoreProjector\"=\"False\"
       \"RenderType\"=\"Opaque\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
       LEqual\n\t\tZWrite On\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1690,8 +1750,8 @@ VisualEffectResource:
       normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\toutColor
       = VFXGetPixelOutputForward(i,normalWS,uvData);\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[64kPins]Light Rays'
-    source: "Shader \"Hidden/VFX/64kPins/Light Rays\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Pins Interpolated Sphere -> PinScreen]C Light Rays'
+    source: "Shader \"Hidden/VFX/Pins Interpolated Sphere -> PinScreen/(C) Light Rays\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1895,8 +1955,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[64kPins]Pin Caps'
-    source: "Shader \"Hidden/VFX/64kPins/Pin Caps\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Pins Interpolated Sphere -> PinScreen]B Pin Caps'
+    source: "Shader \"Hidden/VFX/Pins Interpolated Sphere -> PinScreen/(B) Pin Caps\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Geometry+0\" \"IgnoreProjector\"=\"False\"
       \"RenderType\"=\"Opaque\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
       LEqual\n\t\tZWrite On\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -5935,7 +5995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 42, y: 2293}
+  m_UIPosition: {x: 480, y: 2337}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -6735,7 +6795,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 64kPins
+  title: Pins Interpolated Sphere -> PinScreen
   m_Owners:
   - {fileID: 8926484042661615139}
   - {fileID: 114780028408030698}
@@ -6826,7 +6886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1439, y: 479}
+  m_UIPosition: {x: 1401, y: 472}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -6882,7 +6942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1618, y: 507}
+  m_UIPosition: {x: 1580, y: 500}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -7046,7 +7106,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661615263}
       inputSlot: {fileID: 8926484042661615254}
-    position: {x: 1424, y: 590}
+    position: {x: 1386, y: 583}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661615263
@@ -9947,7 +10007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1867, y: 232}
+  m_UIPosition: {x: 1982, y: 289}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -11144,7 +11204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1034, y: 120}
+  m_UIPosition: {x: 887, y: 209}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -12890,7 +12950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1349, y: -100}
+  m_UIPosition: {x: 1665, y: 174}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -17884,7 +17944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1101, y: 1093}
+  m_UIPosition: {x: 1099, y: 1084}
   m_UICollapsed: 0
   m_UISuperCollapsed: 1
   m_InputSlots: []
@@ -18482,7 +18542,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617570}
   - {fileID: 8926484042661617575}
   - {fileID: 8926484042661617579}
-  m_UIPosition: {x: 296, y: 1749}
+  m_UIPosition: {x: 734, y: 1793}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -18746,7 +18806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2072, y: 858}
+  m_UIPosition: {x: 2147, y: 790}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -18854,7 +18914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1288, y: 735}
+  m_UIPosition: {x: 1224, y: 753}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -18912,7 +18972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1543, y: 735}
+  m_UIPosition: {x: 1479, y: 753}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -19047,7 +19107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1735, y: 743}
+  m_UIPosition: {x: 1671, y: 761}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -19220,7 +19280,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661617616}
       inputSlot: {fileID: 8926484042661617663}
-    position: {x: 1405, y: 887}
+    position: {x: 1341, y: 905}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661617616
@@ -19272,7 +19332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1978, y: 646}
+  m_UIPosition: {x: 1901, y: 751}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -19767,7 +19827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 824, y: 723}
+  m_UIPosition: {x: 695, y: 743}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -19824,7 +19884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1022, y: 653}
+  m_UIPosition: {x: 925, y: 703}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -20340,7 +20400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1625, y: 1216}
+  m_UIPosition: {x: 1937, y: 971}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -20397,7 +20457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1833, y: 1182}
+  m_UIPosition: {x: 2145, y: 937}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -20535,7 +20595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1551, y: 894}
+  m_UIPosition: {x: 1487, y: 912}
   m_UICollapsed: 0
   m_UISuperCollapsed: 1
   m_InputSlots:
@@ -21190,7 +21250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1319, y: 1936}
+  m_UIPosition: {x: 1416, y: 2014}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -21468,7 +21528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1412, y: 2322}
+  m_UIPosition: {x: 1501, y: 2255}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -22052,14 +22112,14 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661617735}
       inputSlot: {fileID: 8926484042661617721}
-    position: {x: 1383, y: 2196}
+    position: {x: 1476, y: 2192}
     expandedSlots: []
     expanded: 0
   - m_Id: 2
     linkedSlots:
     - outputSlot: {fileID: 8926484042661617735}
       inputSlot: {fileID: 8926484042661617874}
-    position: {x: -1425, y: 1320}
+    position: {x: -1833, y: 1378}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661617735
@@ -22634,7 +22694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 760, y: 1250}
+  m_UIPosition: {x: 911, y: 1163}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -22691,7 +22751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 79, y: 1154}
+  m_UIPosition: {x: -340, y: 1230}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -23080,7 +23140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1511, y: 1189}
+  m_UIPosition: {x: -1919, y: 1247}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -23240,7 +23300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1224, y: 1246}
+  m_UIPosition: {x: -1632, y: 1304}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -23682,7 +23742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -937, y: 1245}
+  m_UIPosition: {x: -1345, y: 1303}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -23981,7 +24041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -603, y: 1198}
+  m_UIPosition: {x: -1022, y: 1274}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -24281,7 +24341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1085, y: 1151}
+  m_UIPosition: {x: 1120, y: 1127}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -24591,7 +24651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1396, y: 1058}
+  m_UIPosition: {x: 1405, y: 1096}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -25068,7 +25128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -233, y: 1150}
+  m_UIPosition: {x: -652, y: 1226}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -25817,7 +25877,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661617987}
       inputSlot: {fileID: 8926484042661618000}
-    position: {x: 169, y: 1356}
+    position: {x: -250, y: 1432}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661617987
@@ -25904,7 +25964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 444, y: 1189}
+  m_UIPosition: {x: 25, y: 1265}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

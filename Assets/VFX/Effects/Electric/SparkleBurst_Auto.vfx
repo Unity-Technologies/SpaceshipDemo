@@ -777,8 +777,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01270efd3285ea4a9d6c555cb0a8027, type: 3}
   m_Name: VFXUI
   m_EditorClassIdentifier: 
-  groupInfos: []
-  stickyNoteInfos: []
+  groupInfos:
+  - title: Compute Random Direction For Event
+    position:
+      serializedVersion: 2
+      x: 2725
+      y: -990
+      width: 869
+      height: 585
+    contents:
+    - model: {fileID: 8926484042661615153}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615158}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615163}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615202}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615205}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615168}
+      id: 0
+      isStickyNote: 0
+  stickyNoteInfos:
+  - title: Orchestration
+    position:
+      serializedVersion: 2
+      x: 4472
+      y: -769
+      width: 467
+      height: 291
+    contents: '
+
+      Once in a while, this spawn context outputs 1 with a random direction.
+
+
+      This event is then caught by the 3 connected spawners to synchronize and configure
+      along this random direction.'
+    theme: Classic
+    textSize: Medium
   systemInfos:
   - title: Smoke
     position:
@@ -791,13 +833,36 @@ MonoBehaviour:
     - {fileID: 114488822675586836}
     - {fileID: 114164863852847832}
     - {fileID: 8926484042661614753}
+  - title: Sparkle Bursts
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 114858260234528788}
+    - {fileID: 114472748655284064}
+    - {fileID: 8926484042661614623}
+  - title: Burst Flower Source
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 8926484042661614950}
+    - {fileID: 8926484042661614964}
+    - {fileID: 8926484042661614966}
+    - {fileID: 8926484042661615017}
   categories: []
   uiBounds:
     serializedVersion: 2
     x: 1051
-    y: -926
+    y: -990
     width: 5370
-    height: 4772
+    height: 4834
 --- !u!114 &114304386559384632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1884,7 +1949,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Sparkle Bursts
   m_Owners:
   - {fileID: 114858260234528788}
   - {fileID: 114472748655284064}
@@ -2585,7 +2650,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114096792637759078}
   m_ShaderSources:
   - compute: 1
-    name: '[System 1]Initialize'
+    name: '[Sparkle Bursts]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define
       VFX_USE_SEED_CURRENT 1\n#define VFX_USE_DIRECTION_CURRENT 1\n#define VFX_USE_SIZE_CURRENT
@@ -2697,7 +2762,7 @@ VisualEffectResource:
       * 0x8 + 0x3) << 2,asuint(age));\n        attributeBuffer.Store((index * 0x8
       + 0x7) << 2,uint(alive));\n        \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[System 1]Update'
+    name: '[Sparkle Bursts]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define
       VFX_USE_SEED_CURRENT 1\n#define VFX_USE_MASS_CURRENT 1\n#define VFX_USE_PARTICLEID_CURRENT
@@ -2979,8 +3044,8 @@ VisualEffectResource:
       << 2,asuint(age));\n\t\t\n\n#if VFX_HAS_INDIRECT_DRAW\n        uint indirectIndex
       = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex] = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Quad Output'
-    source: "Shader \"Hidden/VFX/System 1/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Sparkle Bursts]Quad Output'
+    source: "Shader \"Hidden/VFX/Sparkle Bursts/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -3386,10 +3451,9 @@ VisualEffectResource:
       VFX_VARYING_EMISSIVE\n\t\t\t\t\t\t\t\t\t#if HDRP_USE_EMISSIVE_COLOR\n\t\t\t\t\t\t\t\t\to.VFX_VARYING_EMISSIVE
       = color;\n\t\t\t\t\t\t\t\t\t#elif HDRP_USE_ADDITIONAL_EMISSIVE_COLOR\n\t\t\t\t\t\t\t\t\tfloat4
       emissiveColor = (float4)0;\n\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t    float
-      tmp_bf = age / lifetime;\n\t\t\t\t\t\t\t\t\t    float tmp_bh = max(tmp_bf, (float)0);\n\t\t\t\t\t\t\t\t\t
-      \   float tmp_bj = min(tmp_bh, (float)1);\n\t\t\t\t\t\t\t\t\t    float4 tmp_bk
-      = SampleGradient(uniform_e,tmp_bj);\n\t\t\t\t\t\t\t\t\t    \n\t\t\t\t\t\t\t\t\t
-      \   emissiveColor = tmp_bk;\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\to.VFX_VARYING_EMISSIVE
+      tmp_bf = age / lifetime;\n\t\t\t\t\t\t\t\t\t    float tmp_bg = saturate(tmp_bf);\n\t\t\t\t\t\t\t\t\t
+      \   float4 tmp_bh = SampleGradient(uniform_e,tmp_bg);\n\t\t\t\t\t\t\t\t\t    \n\t\t\t\t\t\t\t\t\t
+      \   emissiveColor = tmp_bh;\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\to.VFX_VARYING_EMISSIVE
       = emissiveColor;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#if
       HDRP_USE_ADDITIONAL_BASE_COLOR\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_COLOR\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\to.VFX_VARYING_COLOR
       = baseColor;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\treturn
@@ -3436,7 +3500,7 @@ VisualEffectResource:
       normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\toutColor
       = VFXGetPixelOutputForward(i,normalWS,uvData);\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 1
-    name: '[System 3]Initialize'
+    name: '[Burst Flower Source]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_SEED_CURRENT 1\n#define
       VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT
@@ -3506,7 +3570,7 @@ VisualEffectResource:
       \       attributeBuffer.Store((index * 0x8 + 0x4) << 2,asuint(age));\n        \n\n#endif\n
       \   }\n}\n"
   - compute: 1
-    name: '[System 3]Update'
+    name: '[Burst Flower Source]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_POSITION_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_LIFETIME_CURRENT 1\n#define
       VFX_USE_ALIVE_CURRENT 1\n#define VFX_USE_AGE_CURRENT 1\n#define VFX_LOCAL_SPACE
@@ -3550,8 +3614,8 @@ VisualEffectResource:
       VFX_HAS_INDIRECT_DRAW\n        uint indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 3]Quad Output'
-    source: "Shader \"Hidden/VFX/System 3/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Burst Flower Source]A Direction Facing Burst (Side)'
+    source: "Shader \"Hidden/VFX/Burst Flower Source/(A) Direction Facing Burst (Side)\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -3730,8 +3794,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[System 3]Quad Output'
-    source: "Shader \"Hidden/VFX/System 3/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Burst Flower Source]B Camera Facing Flower'
+    source: "Shader \"Hidden/VFX/Burst Flower Source/(B) Camera Facing Flower\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+400\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One , Zero One\n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -9741,7 +9805,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114096792637759078}
   m_Children:
   - {fileID: 8926484042661614933}
-  m_UIPosition: {x: 2652, y: -4}
+  m_UIPosition: {x: 2663, y: 91}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -12028,7 +12092,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114096792637759078}
   m_Children:
   - {fileID: 8926484042661614947}
-  m_UIPosition: {x: 4016, y: 38}
+  m_UIPosition: {x: 4028, y: 68}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -12530,7 +12594,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Burst Flower Source
   m_Owners:
   - {fileID: 8926484042661614950}
   - {fileID: 8926484042661614964}
@@ -12602,7 +12666,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614987}
   - {fileID: 8926484042661615011}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: Direction Facing Burst (Side)
   m_Data: {fileID: 8926484042661614960}
   m_InputFlowSlot:
   - link:
@@ -13287,7 +13351,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615029}
   - {fileID: 8926484042661615032}
   - {fileID: 8926484042661615037}
-  m_UIPosition: {x: 4572, y: 1923}
+  m_UIPosition: {x: 4507, y: 1931}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -13295,7 +13359,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615019}
   - {fileID: 8926484042661615022}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: Camera Facing Flower
   m_Data: {fileID: 8926484042661614960}
   m_InputFlowSlot:
   - link:
@@ -15136,7 +15200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114096792637759078}
   m_Children: []
-  m_UIPosition: {x: 3367, y: -697}
+  m_UIPosition: {x: 3337, y: -735}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -15596,7 +15660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114096792637759078}
   m_Children: []
-  m_UIPosition: {x: 2635, y: -657}
+  m_UIPosition: {x: 2750, y: -698}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -15691,7 +15755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114096792637759078}
   m_Children: []
-  m_UIPosition: {x: 2637, y: -549}
+  m_UIPosition: {x: 2752, y: -590}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

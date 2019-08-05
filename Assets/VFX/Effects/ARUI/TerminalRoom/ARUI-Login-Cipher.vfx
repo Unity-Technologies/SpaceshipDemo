@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: 114986932069951040}
   - {fileID: 114963171269329408}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 114307113894698210}
   m_MasterData:
@@ -164,7 +164,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":1.0,"z":0.0},"size":{"x":2.0,"y":3.0,"z":2.0}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":0.20000000298023225,"y":1.5,"z":1.0}}'
     m_Space: 0
   m_Property:
     name: bounds
@@ -188,7 +188,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupInfos: []
   stickyNoteInfos: []
-  systemInfos: []
+  systemInfos:
+  - title: Cipher Grid FX
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    contexts:
+    - {fileID: 114946465509916290}
+    - {fileID: 114780028408030698}
+    - {fileID: 114063133802684794}
+    - {fileID: 8926484042661614530}
   categories: []
   uiBounds:
     serializedVersion: 2
@@ -289,7 +301,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Cipher Grid FX
   m_Owners:
   - {fileID: 114946465509916290}
   - {fileID: 114780028408030698}
@@ -694,7 +706,7 @@ VisualEffectResource:
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
-    name: '[System 1]Initialize'
+    name: '[Cipher Grid FX]Initialize'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_LIFETIME_CURRENT
       1\n#define VFX_USE_SEED_CURRENT 1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define
       VFX_USE_POSITION_CURRENT 1\n#define VFX_USE_SIZE_CURRENT 1\n#define VFX_USE_TEXINDEX_CURRENT
@@ -783,7 +795,7 @@ VisualEffectResource:
       + 0x503) << 2,uint(alive));\n        attributeBuffer.Store((index * 0x2 + 0x1181)
       << 2,asuint(age));\n        \n\n#endif\n    }\n}\n"
   - compute: 1
-    name: '[System 1]Update'
+    name: '[Cipher Grid FX]Update'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define VFX_USE_LIFETIME_CURRENT
       1\n#define VFX_USE_PARTICLEID_CURRENT 1\n#define VFX_USE_POSITION_CURRENT 1\n#define
       VFX_USE_TEXINDEX_CURRENT 1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_MASS_CURRENT
@@ -850,8 +862,8 @@ VisualEffectResource:
       indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Quad Output'
-    source: "Shader \"Hidden/VFX/System 1/Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Cipher Grid FX]A Quad Output'
+    source: "Shader \"Hidden/VFX/Cipher Grid FX/(A) Quad Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1008,8 +1020,8 @@ VisualEffectResource:
       = VFXApplyPreExposure(o.color, i);\n\t\t\t\to.color = VFXApplyFog(o.color,i);\n\t\t\t\tVFXClipFragmentColor(o.color.a,i);\n\t\t\t\to.color.a
       = saturate(o.color.a);\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[System 1]Mesh Output'
-    source: "Shader \"Hidden/VFX/System 1/Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
+    name: '[Cipher Grid FX]B Mesh Output'
+    source: "Shader \"Hidden/VFX/Cipher Grid FX/(B) Mesh Output\"\n{\n\tSubShader\n\t{\t\n\t\tCull
       Off\n\t\t\n\t\tTags { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\"
       \"RenderType\"=\"Transparent\" }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Back\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t#if
@@ -1203,19 +1215,19 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
+        data[3]: 1
+      - op: 1
+        valueIndex: 16
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
         data[3]: 4
       - op: 1
-        valueIndex: 19
+        valueIndex: 20
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 3
-      - op: 1
-        valueIndex: 22
-        data[0]: -1
-        data[1]: -1
-        data[2]: -1
-        data[3]: 1
       - op: 1
         valueIndex: 23
         data[0]: -1
@@ -1230,7 +1242,7 @@ VisualEffectResource:
         data[3]: 14
       - op: 5
         valueIndex: 27
-        data[0]: 9
+        data[0]: 10
         data[1]: -1
         data[2]: 0
         data[3]: 4
@@ -1242,34 +1254,34 @@ VisualEffectResource:
         data[3]: 1
       - op: 5
         valueIndex: 29
-        data[0]: 9
+        data[0]: 10
         data[1]: -1
-        data[2]: 2
+        data[2]: 1
         data[3]: 4
       - op: 5
         valueIndex: 30
-        data[0]: 9
+        data[0]: 10
         data[1]: -1
-        data[2]: 1
+        data[2]: 2
         data[3]: 4
       - op: 3
         valueIndex: 31
         data[0]: 14
-        data[1]: 17
-        data[2]: 16
+        data[1]: 16
+        data[2]: 17
         data[3]: -1
-      - op: 1
-        valueIndex: 34
-        data[0]: -1
-        data[1]: -1
-        data[2]: -1
-        data[3]: 2
       - op: 57
-        valueIndex: 36
+        valueIndex: 34
         data[0]: 13
         data[1]: -1
         data[2]: -1
         data[3]: 0
+      - op: 1
+        valueIndex: 35
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: 2
       - op: 1
         valueIndex: 37
         data[0]: -1
@@ -1299,31 +1311,19 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 1
-      - op: 6
-        valueIndex: 45
-        data[0]: -1
-        data[1]: -1
-        data[2]: -1
-        data[3]: -1
-      - op: 1
-        valueIndex: 46
-        data[0]: -1
-        data[1]: -1
-        data[2]: -1
-        data[3]: 1
+        data[3]: 3
       - op: 1
         valueIndex: 47
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 1
-      - op: 1
+      - op: 6
         valueIndex: 48
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 1
+        data[3]: -1
       - op: 1
         valueIndex: 49
         data[0]: -1
@@ -1347,19 +1347,31 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 6
+        data[3]: 1
       - op: 1
         valueIndex: 53
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 15
+        data[3]: 1
       - op: 1
         valueIndex: 54
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 3
+        data[3]: 1
+      - op: 1
+        valueIndex: 55
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: 6
+      - op: 1
+        valueIndex: 56
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: 15
       - op: 1
         valueIndex: 57
         data[0]: -1
@@ -1377,6 +1389,12 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
+        data[3]: 3
+      - op: 1
+        valueIndex: 66
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
         data[3]: 7
       m_NeedsLocalToWorld: 0
       m_NeedsWorldToLocal: 0
@@ -1384,29 +1402,29 @@ VisualEffectResource:
     m_PropertySheet:
       m_Float:
         m_Array:
-        - m_ExpressionIndex: 11
+        - m_ExpressionIndex: 9
           m_Value: 9
         - m_ExpressionIndex: 15
           m_Value: 3
         - m_ExpressionIndex: 23
           m_Value: 1.1
-        - m_ExpressionIndex: 25
+        - m_ExpressionIndex: 26
           m_Value: 256
-        - m_ExpressionIndex: 27
-          m_Value: 0.1
         - m_ExpressionIndex: 28
-          m_Value: 128
+          m_Value: 0.1
         - m_ExpressionIndex: 29
-          m_Value: 0
+          m_Value: 128
         - m_ExpressionIndex: 30
-          m_Value: 0.08
+          m_Value: 0
         - m_ExpressionIndex: 31
-          m_Value: 0.3
+          m_Value: 0.08
         - m_ExpressionIndex: 32
+          m_Value: 0.3
+        - m_ExpressionIndex: 33
           m_Value: 0.05
       m_Vector2f:
         m_Array:
-        - m_ExpressionIndex: 19
+        - m_ExpressionIndex: 20
           m_Value: {x: 32, y: 32}
         - m_ExpressionIndex: 21
           m_Value: {x: 0.03125, y: 0.03125}
@@ -1418,21 +1436,23 @@ VisualEffectResource:
           m_Value: {x: 2, y: 2, z: 2}
         - m_ExpressionIndex: 7
           m_Value: {x: 1, y: 1, z: 1}
-        - m_ExpressionIndex: 10
+        - m_ExpressionIndex: 11
           m_Value: {x: 0, y: 0, z: -0.22}
         - m_ExpressionIndex: 12
           m_Value: {x: 0, y: -0.52, z: 0}
         - m_ExpressionIndex: 24
-          m_Value: {x: 1, y: 0, z: 0}
-        - m_ExpressionIndex: 35
-          m_Value: {x: 2, y: 3, z: 2}
-        - m_ExpressionIndex: 36
           m_Value: {x: 0, y: 1, z: 0}
+        - m_ExpressionIndex: 25
+          m_Value: {x: 1, y: 0, z: 0}
+        - m_ExpressionIndex: 36
+          m_Value: {x: 0.2, y: 1.5, z: 1}
         - m_ExpressionIndex: 37
+          m_Value: {x: 0, y: 0, z: 0}
+        - m_ExpressionIndex: 38
           m_Value: {x: -0.3, y: 0, z: 0}
       m_Vector4f:
         m_Array:
-        - m_ExpressionIndex: 9
+        - m_ExpressionIndex: 10
           m_Value: {x: 0.2216981, y: 0.50480986, z: 1, w: 1}
       m_Uint:
         m_Array:
@@ -1444,7 +1464,7 @@ VisualEffectResource:
           m_Value: 11
         - m_ExpressionIndex: 6
           m_Value: 0
-        - m_ExpressionIndex: 33
+        - m_ExpressionIndex: 34
           m_Value: 4294967295
       m_Int:
         m_Array: []
@@ -1488,15 +1508,15 @@ VisualEffectResource:
         m_Array:
         - m_ExpressionIndex: 22
           m_Value: {fileID: 2800000, guid: f862439e215185f42ae8c32cb7831015, type: 3}
-        - m_ExpressionIndex: 38
+        - m_ExpressionIndex: 39
           m_Value: {fileID: 2800000, guid: d168f78b86e42e64c921e9f6add78047, type: 3}
-        - m_ExpressionIndex: 34
+        - m_ExpressionIndex: 35
           m_Value: {fileID: 4300000, guid: 008621cc4a141bd4580691539ca0f74e, type: 3}
       m_Bool:
         m_Array: []
     m_ExposedExpressions:
     - nameId: Color
-      index: 9
+      index: 10
     m_Buffers:
     - type: 1
       size: 8320
@@ -1682,7 +1702,7 @@ VisualEffectResource:
       temporaryBuffers: []
       values:
       - nameId: Rate
-        index: 25
+        index: 26
       params: []
       processor: {fileID: 0}
       shaderSourceIndex: -1
@@ -1703,9 +1723,9 @@ VisualEffectResource:
       index: 1
     values:
     - nameId: bounds_center
-      index: 36
+      index: 37
     - nameId: bounds_size
-      index: 35
+      index: 36
     tasks:
     - type: 536870912
       buffers:
@@ -1721,9 +1741,9 @@ VisualEffectResource:
       values: []
       params:
       - nameId: bounds_center
-        index: 36
+        index: 37
       - nameId: bounds_size
-        index: 35
+        index: 36
       processor: {fileID: 0}
       shaderSourceIndex: 0
     - type: 805306368
@@ -1737,7 +1757,7 @@ VisualEffectResource:
       - nameId: uniform_b
         index: 8
       - nameId: deltaTime_a
-        index: 26
+        index: 27
       params: []
       processor: {fileID: 0}
       shaderSourceIndex: 1
@@ -1748,7 +1768,7 @@ VisualEffectResource:
       temporaryBuffers: []
       values:
       - nameId: gradient_b
-        index: 20
+        index: 19
       - nameId: Color_c
         index: 18
       - nameId: mainTexture
@@ -1767,12 +1787,12 @@ VisualEffectResource:
       - nameId: Color_d
         index: 18
       - nameId: mainTexture
-        index: 38
+        index: 39
       params:
       - nameId: mesh
-        index: 34
+        index: 35
       - nameId: subMeshMask
-        index: 33
+        index: 34
       - nameId: sortPriority
         index: 0
       processor: {fileID: 0}
