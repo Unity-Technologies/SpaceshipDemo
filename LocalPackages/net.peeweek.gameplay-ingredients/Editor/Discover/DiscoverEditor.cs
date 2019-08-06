@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.Playables;
 #if UNITY_2019_3_OR_NEWER
 using UnityEngine.VFX;
 #else
@@ -171,6 +172,16 @@ namespace GameplayIngredients.Editor
                 {
                     TimelineAsset timeline = target as TimelineAsset;
                     AssetDatabase.OpenAsset(timeline);
+                }
+            }
+            else if (t == typeof(PlayableDirector))
+            {
+                if (GUILayout.Button("Open Director"))
+                {
+                    PlayableDirector director = target as PlayableDirector;
+
+                    AssetDatabase.OpenAsset(director.playableAsset);
+                    Selection.activeObject = director.gameObject;
                 }
             }
             else if (t == typeof(Shader))
