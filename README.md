@@ -28,5 +28,5 @@ You can clone this repository and start opening directly the project using the f
 
 You can also download project archives in the [Releases](https://github.com/Unity-Technologies/SpaceshipDemo/releases) tab. These zip files contains the full project for a one-time download without Git. 
 
-**Important Note** : As GitHub does not generate correct archives with LFS files, In order to download the correct project with largefiles, you need to download the file named **SPACESHIP_PROJECT.ZIP** instead of the automatically generated zip and tar.gz files.
+**Important Note** : As GitHub does not generate correct archives with LFS files, In order to download the correct project with largefiles, **you need to download the file linked in the release description** instead of the automatically generated Source Code zip and tar.gz files.
 
