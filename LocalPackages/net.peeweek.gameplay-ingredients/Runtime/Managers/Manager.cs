@@ -77,13 +77,28 @@ namespace GameplayIngredients
             List<Type> types = new List<Type>();
             foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach(Type t in assembly.GetTypes())
+                Type[] assemblyTypes = null;
+
+                try
                 {
-                    if(typeof(Manager).IsAssignableFrom(t) && !t.IsAbstract)
-                    {
-                        types.Add(t);
-                    }                
+                    assemblyTypes = assembly.GetTypes();
                 }
+                catch
+                {
+                    Debug.LogError($"Could not load types from assembly : {assembly.FullName}");
+                }
+
+                if(assemblyTypes != null)
+                {
+                    foreach (Type t in assemblyTypes)
+                    {
+                        if (typeof(Manager).IsAssignableFrom(t) && !t.IsAbstract)
+                        {
+                            types.Add(t);
+                        }
+                    }
+                }
+
             }
             return types.ToArray();
         }
