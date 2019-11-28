@@ -23,6 +23,7 @@ namespace GameplayIngredients
         public GameLevel[] MainGameLevels;
 
         [Header("Save")]
+        public bool EnableSaveProgress = true;
         public string ProgressSaveName = "Progress";
 
         public static string MainMenuStartMessage = "GAME_MANAGER_MAINMENU_START";
@@ -32,8 +33,31 @@ namespace GameplayIngredients
 
         public int currentSaveProgress
         {
-            get { Manager.Get<GameSaveManager>().LoadUserSave(0); return Manager.Get<GameSaveManager>().GetInt(ProgressSaveName, GameSaveManager.Location.User); }
-            set { Manager.Get<GameSaveManager>().SetInt(ProgressSaveName, GameSaveManager.Location.User, value); Manager.Get<GameSaveManager>().SaveUserSave(0); }
+            get
+            {
+                if(EnableSaveProgress)
+                {
+                    Manager.Get<GameSaveManager>().LoadUserSave(0);
+                    return Manager.Get<GameSaveManager>().GetInt(ProgressSaveName, GameSaveManager.Location.User);
+                }
+                else
+                {
+                    Debug.LogWarning("Game Manager : Saving Game Progress is Disabled, Returing first level instead.");
+                    return 0;
+                }
+            }
+            set
+            {
+                if(EnableSaveProgress)
+                {
+                    Manager.Get<GameSaveManager>().SetInt(ProgressSaveName, GameSaveManager.Location.User, value);
+                    Manager.Get<GameSaveManager>().SaveUserSave(0);
+                }
+                else
+                {
+                    Debug.LogWarning("Game Manager : Saving Game Progress is Disabled");
+                }
+            }
         }
 
         GameObject m_CurrentLevelSwitch;
@@ -42,7 +66,9 @@ namespace GameplayIngredients
         {
             currentLevel = int.MinValue;
             Callable.Call(OnGameStart);
-            Manager.Get<GameSaveManager>().LoadUserSave(0);
+
+            if(EnableSaveProgress)
+                Manager.Get<GameSaveManager>().LoadUserSave(0);
         }
 
         Callable GetCurrentLevelSwitch(int targetLevel, bool showUI = false, Callable[] onComplete = null)
@@ -100,11 +126,12 @@ namespace GameplayIngredients
             if (m_CurrentLevelSwitch == null)
             {
                 var call = GetCurrentLevelSwitch(nextLevel, showUI, onComplete);
+                Globals.ResetLocals();
                 call.Execute();
                 currentLevel = nextLevel;
 
-                // Save Progression if not mainmenu
-                if(nextLevel != -1 && saveProgress)
+                // Save Progression if Enabled and not mainmenu 
+                if(EnableSaveProgress && nextLevel != -1 && saveProgress)
                     currentSaveProgress = currentLevel;
             }
             else

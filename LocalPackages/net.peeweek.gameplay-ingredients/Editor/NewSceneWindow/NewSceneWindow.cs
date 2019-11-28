@@ -44,10 +44,12 @@ namespace GameplayIngredients.Editor
                     DrawTemplateList();
                 }
                 GUILayout.Space(4);
+                templateDetailsScroll = EditorGUILayout.BeginScrollView(templateDetailsScroll);
                 using (new GUILayout.VerticalScope(Styles.detailBox))
                 {
                     DrawTemplateDetails();
                 }
+                EditorGUILayout.EndScrollView();
                 GUILayout.Space(4);
             }
             using (new GUILayout.HorizontalScope())
@@ -158,6 +160,8 @@ namespace GameplayIngredients.Editor
             GUILayout.FlexibleSpace();
             GUILayout.EndScrollView();
         }
+
+        Vector2 templateDetailsScroll;
 
         void DrawTemplateDetails()
         {

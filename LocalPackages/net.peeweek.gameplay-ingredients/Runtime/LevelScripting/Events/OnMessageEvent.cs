@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using UnityEngine;
 
 namespace GameplayIngredients.Events
 {
@@ -19,11 +20,11 @@ namespace GameplayIngredients.Events
             Messager.RemoveMessage(MessageName, Execute);
         }
 
-        void Execute()
+        void Execute(GameObject instigator)
         {
             try
             {
-                Callable.Call(OnMessageRecieved, gameObject);
+                Callable.Call(OnMessageRecieved, instigator);
             }
             catch(System.Exception e)
             {

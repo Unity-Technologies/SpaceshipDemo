@@ -332,13 +332,21 @@ namespace GameplayIngredients.Editor
                                 {
                                     GUILayout.FlexibleSpace();
 
-                                    if (map.SceneSetup != null && GUILayout.Button($"Open {map.SceneSetup.name}"))
+                                    if (map.SceneSetups != null)
                                     {
-                                        LoadSceneSetup(map.SceneSetup);
+                                        foreach(var sceneSetup in map.SceneSetups)
+                                        {
+                                            if (sceneSetup != null && GUILayout.Button($"Open {sceneSetup.name}"))
+                                                LoadSceneSetup(sceneSetup);
+                                        }
                                     }
-                                    else if(map.SingleScene != null && GUILayout.Button($"Open {map.SingleScene.name}"))
+                                    if(map.SingleScenes != null)
                                     {
-                                        LoadSingleScene(map.SingleScene);
+                                        foreach(var singleScene in map.SingleScenes)
+                                        {
+                                            if (singleScene != null && GUILayout.Button($"Open {singleScene.name}"))
+                                                LoadSingleScene(singleScene);
+                                        }
                                     }
 
                                 }

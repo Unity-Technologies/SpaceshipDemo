@@ -13,7 +13,18 @@ namespace GameplayIngredients.StateMachines
         [ReorderableList, NonNullCheck]
         public State[] States;
 
+        public State CurrentState { get { return m_CurrentState; } }
+
         State m_CurrentState;
+        
+        [ContextMenu("Reset State Objects")]
+        private void UpdateFromState()
+        {
+            foreach(var state in States)
+            {
+                state.gameObject.SetActive(state == States.FirstOrDefault(o => o.StateName == DefaultState));
+            }
+        }
 
         void Start()
         {
@@ -53,10 +64,15 @@ namespace GameplayIngredients.StateMachines
                 Debug.LogWarning(string.Format("{0} : Trying to set unknown state {1}", gameObject.name, stateName), gameObject);
         }
 
-        public void Update()
+        void Update()
         {
-            if (m_CurrentState != null)
+            if (GameplayIngredientsSettings.currentSettings.allowUpdateCalls 
+                && m_CurrentState != null 
+                && m_CurrentState.OnStateUpdate != null 
+                && m_CurrentState.OnStateUpdate.Length > 0)
+            {
                 Callable.Call(m_CurrentState.OnStateUpdate, this.gameObject);
+            }
         }
 
     }

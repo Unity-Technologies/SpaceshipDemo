@@ -15,6 +15,10 @@ namespace GameplayIngredients.Editor
             {
                 property.objectReferenceValue = setNextObjectValue;
                 setNextObjectValue = null;
+                if(CallTreeWindow.visible)
+                {
+                    CallTreeWindow.Refresh();
+                }
             }
 
             if(property.objectReferenceValue == null)

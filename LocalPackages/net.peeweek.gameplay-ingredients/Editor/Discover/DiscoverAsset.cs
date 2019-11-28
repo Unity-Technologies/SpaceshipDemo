@@ -60,8 +60,8 @@ namespace GameplayIngredients.Editor
         public string Title;
         [Multiline]
         public string Description;
-        public EditorSceneSetup SceneSetup;
-        public SceneAsset SingleScene;
+        public EditorSceneSetup[] SceneSetups;
+        public SceneAsset[] SingleScenes;
     }
 }
 

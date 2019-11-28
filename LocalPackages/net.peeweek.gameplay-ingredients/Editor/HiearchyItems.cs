@@ -7,7 +7,7 @@ namespace GameplayIngredients
     {
         #region TRIGGERS
 
-        [MenuItem("GameObject/GameplayIngredients/Events/Trigger (Box)", false, 10)]
+        [MenuItem("GameObject/Gameplay Ingredients/Events/Trigger (Box)", false, 10)]
         static void CreateTriggerBox()
         {
             var go = new GameObject();
@@ -20,7 +20,7 @@ namespace GameplayIngredients
                 go.transform.parent = Selection.activeGameObject.transform;
         }
 
-        [MenuItem("GameObject/GameplayIngredients/Events/Trigger (Sphere)", false, 10)]
+        [MenuItem("GameObject/Gameplay Ingredients/Events/Trigger (Sphere)", false, 10)]
         static void CreateTriggerSphere()
         {
             var go = new GameObject();
@@ -33,7 +33,7 @@ namespace GameplayIngredients
                 go.transform.parent = Selection.activeGameObject.transform;
         }
 
-        [MenuItem("GameObject/GameplayIngredients/Events/Trigger (Capsule)", false, 10)]
+        [MenuItem("GameObject/Gameplay Ingredients/Events/Trigger (Capsule)", false, 10)]
         static void CreateTriggerCapsule()
         {
             var go = new GameObject();
@@ -46,7 +46,7 @@ namespace GameplayIngredients
                 go.transform.parent = Selection.activeGameObject.transform;
         }
 
-        [MenuItem("GameObject/GameplayIngredients/Events/On Awake", false, 10)]
+        [MenuItem("GameObject/Gameplay Ingredients/Events/On Awake", false, 10)]
         static void CreateOnAwake()
         {
             var go = new GameObject();
@@ -57,7 +57,7 @@ namespace GameplayIngredients
                 go.transform.parent = Selection.activeGameObject.transform;
         }
 
-        [MenuItem("GameObject/GameplayIngredients/Events/On Enable/Disable", false, 10)]
+        [MenuItem("GameObject/Gameplay Ingredients/Events/On Enable", false, 10)]
         static void CreateOnEnableDisable()
         {
             var go = new GameObject();
@@ -68,6 +68,16 @@ namespace GameplayIngredients
                 go.transform.parent = Selection.activeGameObject.transform;
         }
 
+        [MenuItem("GameObject/Gameplay Ingredients/Events/On Start", false, 10)]
+        static void CreateOnStart()
+        {
+            var go = new GameObject();
+            var evt = go.AddComponent<Events.OnStartEvent>();
+            go.name = "On Start";
+
+            if (Selection.activeGameObject != null)
+                go.transform.parent = Selection.activeGameObject.transform;
+        }
         #endregion
 
     }

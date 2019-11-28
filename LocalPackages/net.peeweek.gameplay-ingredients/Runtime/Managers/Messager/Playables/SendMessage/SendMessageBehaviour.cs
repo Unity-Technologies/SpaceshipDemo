@@ -9,6 +9,7 @@ namespace GameplayIngredients.Playables
     public class SendMessageBehaviour : PlayableBehaviour
     {
         public string StartMessage;
+        public GameObject Instigator;
 
         public override void OnBehaviourPlay(Playable playable, FrameData info)
         {
@@ -16,7 +17,7 @@ namespace GameplayIngredients.Playables
             if(StartMessage != "" )
             {
                 if (Application.isPlaying)
-                    Messager.Send(StartMessage);
+                    Messager.Send(StartMessage, Instigator);
                 else
                     Debug.Log("[SendMessageBehaviour] Would have sent broadcast message : '" + StartMessage + "'");
             }

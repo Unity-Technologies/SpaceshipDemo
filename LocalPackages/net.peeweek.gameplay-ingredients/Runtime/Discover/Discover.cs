@@ -18,7 +18,7 @@ public class Discover : MonoBehaviour
     public DiscoverSection[] Sections;
 
 #if UNITY_EDITOR
-    [UnityEditor.MenuItem("GameObject/GameplayIngredients/Discover", priority=10)]
+    [UnityEditor.MenuItem("GameObject/Gameplay Ingredients/Discover", priority=10)]
     static void CreateObject()
     {
         GameObject selected = UnityEditor.Selection.activeGameObject;

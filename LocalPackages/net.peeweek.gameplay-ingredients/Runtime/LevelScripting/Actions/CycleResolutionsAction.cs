@@ -23,9 +23,7 @@ namespace GameplayIngredients.Actions
 
         string getText(Resolution currentResolution)
         {
-    #if UNITY_EDITOR
-            return "No resolution switch in the editor";
-    #endif
+    #if !UNITY_EDITOR
 
             if (currentResolution.width == 0 || currentResolution.height == 0)
             {
@@ -34,6 +32,9 @@ namespace GameplayIngredients.Actions
             }
 
             return string.Format("Resolution: {0}X{1}", currentResolution.width, currentResolution.height);
+    #else
+            return "No resolution switch in the editor";
+    #endif
         }
 
         Resolution[] availableResolutions;

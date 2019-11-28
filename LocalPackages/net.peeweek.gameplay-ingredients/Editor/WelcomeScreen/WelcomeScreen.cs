@@ -52,7 +52,7 @@ namespace GameplayIngredients.Editor
             EditorApplication.update -= ShowAtStartup;
         }
 
-        [MenuItem("Window/Gameplay Ingredients")]
+        [MenuItem("Window/Gameplay Ingredients/Welcome Screen", priority = MenuItems.kWindowMenuPriority)]
         static void ShowFromMenu()
         {
             GetWindow<WelcomeScreen>(true, "Gameplay Ingredients");

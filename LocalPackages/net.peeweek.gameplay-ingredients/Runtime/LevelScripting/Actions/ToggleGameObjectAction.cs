@@ -5,6 +5,19 @@ namespace GameplayIngredients.Actions
 {
     public class ToggleGameObjectAction : ActionBase
     {
+        [ContextMenu("Update Toggles from Current State")]
+        void UpdateFromCurrentState()
+        {
+            for (int i = 0; i < Targets.Length; i++)
+            {
+                if (Targets[i].GameObject == null)
+                    continue;
+
+                Targets[i].State = Targets[i].GameObject.activeSelf ? GameObjectToggle.GameObjectToggleState.Enable : GameObjectToggle.GameObjectToggleState.Disable;
+
+            }
+        }
+
         [ReorderableList]
         public GameObjectToggle[] Targets;
 

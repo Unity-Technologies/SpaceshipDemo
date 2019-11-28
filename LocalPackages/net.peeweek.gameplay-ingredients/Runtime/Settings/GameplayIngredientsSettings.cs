@@ -9,6 +9,8 @@ namespace GameplayIngredients
     {
         public string[] excludedeManagers { get { return m_ExcludedManagers; } }
         public bool verboseCalls { get { return m_VerboseCalls; } }
+        public bool allowUpdateCalls { get { return m_AllowUpdateCalls; } }
+
         public bool disableWelcomeScreenAutoStart { get { return m_DisableWelcomeScreenAutoStart; } }
 
         [BoxGroup("Editor")]
@@ -20,8 +22,12 @@ namespace GameplayIngredients
         protected string[] m_ExcludedManagers;
 
         [BoxGroup("Callables")]
-        [SerializeField, InfoBox("Verbose Calls enable logging at runtime, this can lead to performance drop, use only when debugging.",InfoBoxType.Warning, "m_VerboseCalls")]
-        protected bool m_VerboseCalls;
+        [SerializeField, InfoBox("Verbose Calls enable logging at runtime, this can lead to performance drop, use only when debugging.", InfoBoxType.Warning, "m_VerboseCalls")]
+        private bool m_VerboseCalls = false;
+
+        [BoxGroup("Callables")]
+        [SerializeField, InfoBox("Per-update calls should be avoided due to high performance impact. Enable and use with care, only if strictly necessary.", InfoBoxType.Warning, "m_AllowUpdateCalls")]
+        private bool m_AllowUpdateCalls = false;
 
         const string kAssetName = "GameplayIngredientsSettings";
 
