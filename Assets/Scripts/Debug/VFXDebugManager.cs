@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Experimental.VFX;
+using UnityEngine.VFX;
 using System.Text;
 
 [ManagerDefaultPrefab("VFXDebugManager")]

@@ -97,6 +97,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000008, guid: a20d742a6e2cc974ba08423e9c5b39d2,
     type: 2}
   m_UseShadowmask: 1
@@ -811,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Source_WorldPos_position
   Target: {fileID: 806467935}
 --- !u!114 &71308636
@@ -843,6 +844,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -881,6 +883,8 @@ VisualEffect:
   m_GameObject: {fileID: 71308633}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 77ea475f326e0cf4b920e08f2407816d, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -956,6 +960,8 @@ VisualEffect:
   m_GameObject: {fileID: 76126237}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -998,6 +1004,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1071,10 +1078,11 @@ MonoBehaviour:
   DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle: []
-  Description: 'The elevator introduction introduces the player to the spaceship environment.
+  Description: 'The elevator introduction introduces the player to the spaceship
+    environment.
 
-    While it''s not a playable section, it''s initializing the HUD of the player and
-    performs some animation in a timeline.'
+    While it''s not a playable section, it''s initializing the
+    HUD of the player and performs some animation in a timeline.'
   Priority: 0
   Sections:
   - SectionName: Intro Timeline
@@ -1096,11 +1104,12 @@ MonoBehaviour:
     SectionContent: 'The HUD of the player is also made of particles.
 
 
-      During the introduction, the timeline broadcasts a message that is caught by
-      the VirtualCameraManager.
+      During
+      the introduction, the timeline broadcasts a message that is caught by the VirtualCameraManager.
 
 
-      Upon recieving the message, the <b>InitSequence</b> event is sent to the Visual
+      Upon
+      recieving the message, the <b>InitSequence</b> event is sent to the Visual
       Effect in order to spawn the text and the highlights of the meshes in the scene.'
     Actions:
     - Description: VirtualCameraManager (Spawned)
@@ -1286,8 +1295,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -1692,9 +1699,10 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 2
   m_Materials:
@@ -1801,6 +1809,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -1834,6 +1843,8 @@ VisualEffect:
   m_GameObject: {fileID: 128461317}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 97a14259dcc01c14ca0188d049dd1d1f, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -1925,12 +1936,13 @@ MonoBehaviour:
     State: 1
   - GameObject: {fileID: 693561816}
     State: 1
-  Description: 'Alert Mode is the final stage of the walkthrough. During this 30 second
-    state, missiles will hit the ship, and the holographic table will display an overview
-    of the battle between the player''s ship and its attackers.
+  Description: 'Alert Mode is the final stage of the walkthrough. During this 30
+    second state, missiles will hit the ship, and the holographic table will display
+    an overview of the battle between the player''s ship and its attackers.
 
 
-    The sequence ends with a big hit, fading to black.'
+    The
+    sequence ends with a big hit, fading to black.'
   Priority: 7
   Sections:
   - SectionName: Alert Sequence
@@ -1938,13 +1950,14 @@ MonoBehaviour:
       to display a map of the battle between our ship, and its attackers.
 
 
-      The Environment is split through 2 Visual effects, that are gathered into one
-      Main VFX one for the grid, one for the clouds and asteroids. This is intended
-      for readability.
+      The
+      Environment is split through 2 Visual effects, that are gathered into one Main
+      VFX one for the grid, one for the clouds and asteroids. This is intended for
+      readability.
 
 
-      Ships are different configuration of the ARUI-Battleship VFX with different
-      targets.'
+      Ships are different configuration of the ARUI-Battleship
+      VFX with different targets.'
     Actions:
     - Description: Alert Timeline
       Target: {fileID: 1724704496}
@@ -2195,6 +2208,8 @@ VisualEffect:
   m_GameObject: {fileID: 153884144}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -2240,6 +2255,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2311,24 +2327,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
+  customResolution: 512
   shadowDimmer: 1
   volumetricShadowDimmer: 1
   shadowFadeDistance: 10000
   contactShadows: 0
   shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
+  normalBias: 0.75
+  shadowUpdateMode: 0
   shadowCascadeRatios:
   - 0.05
   - 0.2
@@ -2353,53 +2359,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
   m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 0
-  m_VolumetricDimmer: 1
-  lightUnit: 0
-  fadeDistance: 10000
-  affectDiffuse: 1
-  affectSpecular: 1
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 0.2
-  maxSmoothness: 1
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 150
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 0
+  m_VolumetricDimmer: 1
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0.2
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 1
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 0
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 4
-  displayLightIntensity: 150
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.1
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &168320645
 Light:
   m_ObjectHideFlags: 0
@@ -2408,8 +2461,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168320641}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 0, g: 0.7365489, b: 1, a: 1}
   m_Intensity: 11.936621
   m_Range: 0.45019785
@@ -2526,6 +2580,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2569,6 +2624,8 @@ VisualEffect:
   m_GameObject: {fileID: 183492633}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 7fe66147a719b064dae2eca99b3e7760, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -2934,6 +2991,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: -1
   m_Materials:
@@ -2968,6 +3026,8 @@ VisualEffect:
   m_GameObject: {fileID: 222509505}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: d288ce6ee0619214eaab35322f03ac83, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 1777510755
   m_ResetSeedOnPlay: 0
   m_PropertySheet:
@@ -3109,6 +3169,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3144,6 +3205,8 @@ VisualEffect:
   m_GameObject: {fileID: 231637108}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 5a76904835c86af4f9089ceb91c1f8f3, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -3203,7 +3266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   check: 0
-  m_Parameter:
+  m_Property:
     m_Name: EnableLandingTarget
   Target: {fileID: 1070225890}
 --- !u!114 &231637115
@@ -3218,7 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: LandingTargetPosition
   Target: {fileID: 2022792878}
 --- !u!1 &237043697
@@ -3232,7 +3295,6 @@ GameObject:
   - component: {fileID: 237043698}
   - component: {fileID: 237043701}
   - component: {fileID: 237043700}
-  - component: {fileID: 237043699}
   - component: {fileID: 237043702}
   - component: {fileID: 237043703}
   m_Layer: 0
@@ -3256,48 +3318,6 @@ Transform:
   m_Father: {fileID: 1225818234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &237043699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237043697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 10000
-  contactShadows: 0
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 0
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &237043700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3310,53 +3330,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 1
-  m_VolumetricDimmer: 0.935
-  lightUnit: 0
-  fadeDistance: 10000
-  affectDiffuse: 1
-  affectSpecular: 0
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_Version: 6
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 0
-  maxSmoothness: 0.99
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 50
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 0.935
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 0
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.99
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 4
-  displayLightIntensity: 50
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.1
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &237043701
 Light:
   m_ObjectHideFlags: 0
@@ -3365,8 +3432,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237043697}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0.6076497, b: 0, a: 1}
   m_Intensity: 3.9788735
   m_Range: 2.1389213
@@ -3735,6 +3803,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3775,6 +3844,8 @@ VisualEffect:
   m_GameObject: {fileID: 288907320}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: a90015afc76247443adc491f5ce38870, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 1311849324
   m_ResetSeedOnPlay: 0
   m_PropertySheet:
@@ -3855,6 +3926,7 @@ MonoBehaviour:
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -3868,13 +3940,9 @@ MonoBehaviour:
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Cinemachine.CinemachineBrain+BrainEvent, Cinemachine, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &296498932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3887,46 +3955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
-  clearDepth: 1
-  volumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
-  SMAAQuality: 2
-  dithering: 0
-  stopNaNs: 0
-  physicalParameters:
-    m_Iso: 200
-    m_ShutterSpeed: 0.005
-    m_Aperture: 16
-    m_BladeCount: 5
-    m_Curvature: {x: 2, y: 11}
-    m_BarrelClipping: 0.25
-    m_Anamorphism: 0
-  flipYMode: 0
-  fullscreenPassthrough: 0
-  allowDynamicResolution: 0
-  customRenderingSettings: 0
-  invertFaceCulling: 0
-  probeLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPathCustomFrameSettings:
-    bitDatas:
-      data1: 69284256022301
-      data2: 4539628424389459968
-    lodBias: 1
-    lodBiasMode: 0
-    maximumLODLevel: 0
-    maximumLODLevelMode: 0
-  renderingPathCustomFrameSettingsOverrideMask:
-    mask:
-      data1: 0
-      data2: 0
-  defaultFrameSettings: 0
   m_Version: 5
   m_ObsoleteRenderingPath: 0
   m_ObsoleteFrameSettings:
@@ -3974,6 +4002,51 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+  clearColorMode: 0
+  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  clearDepth: 1
+  volumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  volumeAnchorOverride: {fileID: 0}
+  antialiasing: 0
+  SMAAQuality: 2
+  dithering: 0
+  stopNaNs: 0
+  taaSharpenStrength: 0.6
+  physicalParameters:
+    m_Iso: 200
+    m_ShutterSpeed: 0.005
+    m_Aperture: 16
+    m_BladeCount: 5
+    m_Curvature: {x: 2, y: 11}
+    m_BarrelClipping: 0.25
+    m_Anamorphism: 0
+  flipYMode: 0
+  fullscreenPassthrough: 0
+  allowDynamicResolution: 0
+  customRenderingSettings: 0
+  invertFaceCulling: 0
+  probeLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hasPersistentHistory: 0
+  m_RenderingPathCustomFrameSettings:
+    bitDatas:
+      data1: 69284256022301
+      data2: 4539628424389459968
+    lodBias: 1
+    lodBiasMode: 0
+    lodBiasQualityLevel: 0
+    maximumLODLevel: 0
+    maximumLODLevelMode: 0
+    maximumLODLevelQualityLevel: 0
+    materialQuality: 0
+  renderingPathCustomFrameSettingsOverrideMask:
+    mask:
+      data1: 0
+      data2: 0
+  defaultFrameSettings: 0
 --- !u!20 &296498933
 Camera:
   m_ObjectHideFlags: 0
@@ -4088,6 +4161,8 @@ VisualEffect:
   m_GameObject: {fileID: 322370822}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -4130,6 +4205,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4201,6 +4277,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4235,6 +4312,8 @@ VisualEffect:
   m_GameObject: {fileID: 322788246}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 8a1b5c50c48dd774b86f441e36e30399, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -4415,6 +4494,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4450,6 +4530,8 @@ VisualEffect:
   m_GameObject: {fileID: 397371872}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 5a76904835c86af4f9089ceb91c1f8f3, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -4951,9 +5033,10 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 2
   m_Materials:
@@ -5111,7 +5194,6 @@ GameObject:
   - component: {fileID: 428219002}
   - component: {fileID: 428219005}
   - component: {fileID: 428219004}
-  - component: {fileID: 428219003}
   - component: {fileID: 428219006}
   m_Layer: 0
   m_Name: Point Light
@@ -5134,48 +5216,6 @@ Transform:
   m_Father: {fileID: 397371873}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &428219003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428219001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 10000
-  contactShadows: 0
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 0
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &428219004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5188,53 +5228,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 1
-  m_VolumetricDimmer: 0.075
-  lightUnit: 0
-  fadeDistance: 20
-  affectDiffuse: 1
-  affectSpecular: 0
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_Version: 6
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 1.29
-  maxSmoothness: 0
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 600
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 0.075
+  m_LightUnit: 0
+  m_FadeDistance: 20
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 0
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 1.29
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 4
-  displayLightIntensity: 600
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.1
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &428219005
 Light:
   m_ObjectHideFlags: 0
@@ -5243,8 +5330,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428219001}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 0.18823424, g: 0.67178124, b: 0.8490566, a: 1}
   m_Intensity: 47.746483
   m_Range: 3.5
@@ -5355,6 +5443,8 @@ VisualEffect:
   m_GameObject: {fileID: 428561828}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -5397,6 +5487,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5496,6 +5587,8 @@ VisualEffect:
   m_GameObject: {fileID: 437809154}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -5538,6 +5631,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5743,8 +5837,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465552587}
-  m_LocalRotation: {x: 0.028491434, y: 0.9648117, z: -0.11780489, w: 0.23334232}
-  m_LocalPosition: {x: -15.331888, y: -4.239359, z: 44.76817}
+  m_LocalRotation: {x: 0.015543914, y: 0.97470045, z: -0.07176678, w: 0.21110885}
+  m_LocalPosition: {x: -13.382898, y: -4.5905437, z: 41.56158}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241389592}
@@ -5771,16 +5865,16 @@ MonoBehaviour:
     the security terminal.
 
 
-    There is an interactive item at the center of the room. When approaching this
-    interactive item, the HUD crosshair becomes visible, and the light dot can be
-    selected.'
+    There is an interactive item at the center of the
+    room. When approaching this interactive item, the HUD crosshair becomes visible,
+    and the light dot can be selected.'
   Priority: 1
   Sections:
   - SectionName: Interactive Item
     SectionContent: The Small dot in midair is an interactive element that is reactive
-      to the Player Controller. When hovering with the crosshair, it triggers an animation
-      and a state change. The visuals are made of a Visual Effect with a boolean property
-      (ARUI-Hover)
+      to the Player Controller. When hovering with the crosshair, it triggers an
+      animation and a state change. The visuals are made of a Visual Effect with
+      a boolean property (ARUI-Hover)
     Actions:
     - Description: InteractiveButton Game Object
       Target: {fileID: 1225765271}
@@ -5826,7 +5920,8 @@ MonoBehaviour:
       parameter to set the value in the HUD VFX.
 
 
-      (The HUD VFX is instanced in the VirtualCameraManager prefab)'
+      (The HUD VFX is instanced
+      in the VirtualCameraManager prefab)'
     Actions:
     - Description: Volume Game Object
       Target: {fileID: 1269486880}
@@ -6536,6 +6631,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6573,6 +6669,8 @@ VisualEffect:
   m_GameObject: {fileID: 558696550}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 85cb9755d9f33b4429d44c7a12cd90d2, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -6652,7 +6750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Target
   Target: {fileID: 1840947101}
 --- !u!114 &558696555
@@ -6961,7 +7059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Source_WorldPos_position
   Target: {fileID: 806467935}
 --- !u!114 &593816503
@@ -6993,6 +7091,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7031,6 +7130,8 @@ VisualEffect:
   m_GameObject: {fileID: 593816500}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 77ea475f326e0cf4b920e08f2407816d, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -7109,9 +7210,10 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7146,6 +7248,8 @@ VisualEffect:
   m_GameObject: {fileID: 613840993}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: e600b9a4857d47c41bb7c2dac650850a, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -7242,7 +7346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80994697e576624b97a67538d27ddcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Velocity
   Target: {fileID: 850627419}
 --- !u!1 &624558238
@@ -7414,6 +7518,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -7447,6 +7552,8 @@ VisualEffect:
   m_GameObject: {fileID: 651549134}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: b4fe7e91f1b528c49a45c21eb22d10d9, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -7599,7 +7706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Target
   Target: {fileID: 558696551}
 --- !u!114 &693561819
@@ -7631,6 +7738,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7668,6 +7776,8 @@ VisualEffect:
   m_GameObject: {fileID: 693561816}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 85cb9755d9f33b4429d44c7a12cd90d2, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -7844,6 +7954,8 @@ VisualEffect:
   m_GameObject: {fileID: 763931408}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -7889,6 +8001,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8630,6 +8743,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8667,6 +8781,8 @@ VisualEffect:
   m_GameObject: {fileID: 883443859}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 6b830685e16d61a46a32d42f18b41995, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -8740,7 +8856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: LandingTargetPosition
   Target: {fileID: 2022792878}
 --- !u!114 &883443864
@@ -8771,7 +8887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   check: 0
-  m_Parameter:
+  m_Property:
     m_Name: DisplayTarget
   Target: {fileID: 1070225890}
 --- !u!95 &883443866
@@ -8805,7 +8921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: BezierPTB
   Target: {fileID: 43809811}
 --- !u!114 &883443868
@@ -8820,7 +8936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: BezierPTA
   Target: {fileID: 1895739580}
 --- !u!114 &883443869
@@ -8835,7 +8951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: SourcePoint
   Target: {fileID: 667101583}
 --- !u!1 &894711425 stripped
@@ -9165,7 +9281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Source_WorldPos_position
   Target: {fileID: 806467935}
 --- !u!114 &977994860
@@ -9197,6 +9313,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9235,6 +9352,8 @@ VisualEffect:
   m_GameObject: {fileID: 977994857}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 77ea475f326e0cf4b920e08f2407816d, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -9572,6 +9691,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9607,6 +9727,8 @@ VisualEffect:
   m_GameObject: {fileID: 1038783468}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 6b907936e14202b44910ff01bb35bd8f, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -9717,9 +9839,10 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -9759,6 +9882,8 @@ VisualEffect:
   m_GameObject: {fileID: 1039813477}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 0dbeb55227748f74ca8971e80fb21dc8, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -9879,24 +10004,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
+  customResolution: 512
   shadowDimmer: 1
   volumetricShadowDimmer: 1
   shadowFadeDistance: 10000
   contactShadows: 0
   shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
+  normalBias: 0.75
+  shadowUpdateMode: 0
   shadowCascadeRatios:
   - 0.05
   - 0.2
@@ -9921,53 +10036,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
   m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 1
-  m_VolumetricDimmer: 1
-  lightUnit: 0
-  fadeDistance: 10000
-  affectDiffuse: 1
-  affectSpecular: 1
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 0
-  maxSmoothness: 0.99
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 100
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 1
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.99
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 0
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 4
-  displayLightIntensity: 100
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.1
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &1070225894
 Light:
   m_ObjectHideFlags: 0
@@ -9976,8 +10138,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070225890}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 7.957747
   m_Range: 1
@@ -10093,6 +10256,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10127,6 +10291,8 @@ VisualEffect:
   m_GameObject: {fileID: 1079244536}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -10288,6 +10454,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: -2
   m_Materials:
@@ -10322,6 +10489,8 @@ VisualEffect:
   m_GameObject: {fileID: 1103111085}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 168df2afee0b493489724c409dd64203, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -10465,6 +10634,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10499,6 +10669,8 @@ VisualEffect:
   m_GameObject: {fileID: 1112840375}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 2acfa6df73a4ecf43a4886757b70ad9d, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -10659,8 +10831,8 @@ MonoBehaviour:
   DefaultSelected: 0
   AlignViewToTransform: 1
   ObjectsToToggle: []
-  Description: 'The Holographic Table is made of a common setup of elements, and sequences
-    of events.
+  Description: 'The Holographic Table is made of a common setup of elements, and
+    sequences of events.
 
 
     The common elements are the following:'
@@ -10859,9 +11031,10 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10896,6 +11069,8 @@ VisualEffect:
   m_GameObject: {fileID: 1195578697}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: e600b9a4857d47c41bb7c2dac650850a, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -10993,6 +11168,8 @@ VisualEffect:
   m_GameObject: {fileID: 1209392201}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -11035,6 +11212,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11327,7 +11505,7 @@ PrefabInstance:
     - target: {fileID: 294085747218182596, guid: c8cc4323c2168764ab752d0fae360fe5,
         type: 3}
       propertyPath: MaxDistance
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7909995407418549096, guid: c8cc4323c2168764ab752d0fae360fe5,
         type: 3}
@@ -11388,6 +11566,61 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549098, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_Name
+      value: InteractiveButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: ColorScale
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0.2509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
+      value: Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909995407418549097, guid: c8cc4323c2168764ab752d0fae360fe5,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Bool.m_Array.Array.data[0].m_Value
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8cc4323c2168764ab752d0fae360fe5, type: 3}
@@ -11457,7 +11690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: GalaxyCenterPosition
   Target: {fileID: 237043698}
 --- !u!114 &1225818236
@@ -11489,6 +11722,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11525,6 +11759,8 @@ VisualEffect:
   m_GameObject: {fileID: 1225818233}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: a00ea9360a500a046b7289ccddea56d6, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 2133202336
   m_ResetSeedOnPlay: 0
   m_PropertySheet:
@@ -11635,15 +11871,15 @@ MonoBehaviour:
     State: 1
   - GameObject: {fileID: 397371872}
     State: 1
-  Description: 'At the beginning of the Gameplay, The Holographic table displays a
-    looping animation of the pin-screen. This animation will be interrupted when the
-    player comes close to the table. Triggering the next state of the walkthrough
+  Description: 'At the beginning of the Gameplay, The Holographic table displays
+    a looping animation of the pin-screen. This animation will be interrupted when
+    the player comes close to the table. Triggering the next state of the walkthrough
     : Galaxy Navigation.'
   Priority: 3
   Sections:
   - SectionName: Idle Pin Screen VFX
-    SectionContent: The Idle Pin Screen VFX is the same as the one used later in the
-      sequence. It is using a single Visual Effect and the whole looping animation
+    SectionContent: The Idle Pin Screen VFX is the same as the one used later in
+      the sequence. It is using a single Visual Effect and the whole looping animation
       is sequenced using a looping timeline.
     Actions:
     - Description: PinScreen Game Object
@@ -11781,6 +12017,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -11814,6 +12051,8 @@ VisualEffect:
   m_GameObject: {fileID: 1254043982}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 6707a930b27b77a48a31a09b9073d8d6, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -11899,9 +12138,9 @@ MonoBehaviour:
   - GameObject: {fileID: 222509505}
     State: 1
   Description: 'Solar System View lets the player choose a planet where to land with
-    different degrees of risk. High risk planets cannot be interacted, Selecting Low
-    and Medium Risk will advance the walkthrough to the next State : Finding Landing
-    Location.'
+    different degrees of risk. High risk planets cannot be interacted, Selecting
+    Low and Medium Risk will advance the walkthrough to the next State : Finding
+    Landing Location.'
   Priority: 5
   Sections:
   - SectionName: Solar System View
@@ -11924,8 +12163,8 @@ MonoBehaviour:
     - Description: Bridget Text VFX
       Target: {fileID: 60545647}
   - SectionName: 'Next State : Finding Landing Site'
-    SectionContent: Upon selecting a valid target, the State machine advances to the
-      next state and performs a transition.
+    SectionContent: Upon selecting a valid target, the State machine advances to
+      the next state and performs a transition.
     Actions:
     - Description: 'Next State : Landing Site'
       Target: {fileID: 1846261233}
@@ -12894,7 +13133,6 @@ GameObject:
   - component: {fileID: 1377818864}
   - component: {fileID: 1377818867}
   - component: {fileID: 1377818866}
-  - component: {fileID: 1377818865}
   - component: {fileID: 1377818868}
   m_Layer: 10
   m_Name: BridgeTable - Spot Light
@@ -12917,48 +13155,6 @@ Transform:
   m_Father: {fileID: 429552498}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &1377818865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377818863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 10000
-  contactShadows: 1
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 0
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &1377818866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12971,53 +13167,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 92.450005
-  lightDimmer: 1
-  m_VolumetricDimmer: 0.404
-  lightUnit: 0
-  fadeDistance: 10000
-  affectDiffuse: 1
-  affectSpecular: 1
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_Version: 9
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 1
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 0
-  maxSmoothness: 0.99
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 6000
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 92.450005
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 0.404
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.99
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 6.43
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.01
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 1
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 6000
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 6.43
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &1377818867
 Light:
   m_ObjectHideFlags: 0
@@ -13026,8 +13269,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377818863}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 0
+  m_Shape: 0
   m_Color: {r: 0, g: 0.7953818, b: 1, a: 1}
   m_Intensity: 477.4648
   m_Range: 9
@@ -13231,7 +13475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Source_WorldPos_position
   Target: {fileID: 806467935}
 --- !u!114 &1451063512
@@ -13263,6 +13507,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13301,6 +13546,8 @@ VisualEffect:
   m_GameObject: {fileID: 1451063509}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 77ea475f326e0cf4b920e08f2407816d, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -13487,7 +13734,6 @@ GameObject:
   - component: {fileID: 1466465740}
   - component: {fileID: 1466465743}
   - component: {fileID: 1466465742}
-  - component: {fileID: 1466465741}
   - component: {fileID: 1466465744}
   m_Layer: 10
   m_Name: Point Light
@@ -13510,48 +13756,6 @@ Transform:
   m_Father: {fileID: 1103111086}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1466465741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466465739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 10000
-  contactShadows: 0
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 0
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &1466465742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13564,53 +13768,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 1
-  m_VolumetricDimmer: 0.983
-  lightUnit: 0
-  fadeDistance: 10000
-  affectDiffuse: 1
-  affectSpecular: 1
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_Version: 6
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 0
-  maxSmoothness: 0.99
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 32
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 0.983
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.99
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 4
-  displayLightIntensity: 32
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.1
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &1466465743
 Light:
   m_ObjectHideFlags: 0
@@ -13619,8 +13870,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466465739}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0.52746165, b: 0, a: 1}
   m_Intensity: 2.546479
   m_Range: 3
@@ -13824,6 +14076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0.5
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
@@ -13918,8 +14171,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 9032e8ea109e3224eadf106014430938, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -14128,7 +14379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Set Hover ON
   visualEffect: {fileID: 1039813480}
-  parameter: ARUI-Hover
+  property: ARUI-Hover
   Override: 1
   dataType: 0
   BoolValue: 1
@@ -14204,7 +14455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Set Hover OFF
   visualEffect: {fileID: 1039813480}
-  parameter: ARUI-Hover
+  property: ARUI-Hover
   Override: 1
   dataType: 0
   BoolValue: 0
@@ -14399,6 +14650,8 @@ VisualEffect:
   m_GameObject: {fileID: 1600727576}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -14444,6 +14697,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14613,14 +14867,19 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
     LensShift: {x: 0, y: 0}
+    Iso: 0
+    ShutterSpeed: 0
+    Aperture: 1
+    BladeCount: 3
+    Curvature: {x: 1, y: 1}
+    BarrelClipping: 0
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1515429949}
 --- !u!114 &1639814697
@@ -14649,7 +14908,6 @@ GameObject:
   - component: {fileID: 1645769221}
   - component: {fileID: 1645769224}
   - component: {fileID: 1645769223}
-  - component: {fileID: 1645769222}
   - component: {fileID: 1645769225}
   m_Layer: 0
   m_Name: Spot Light main
@@ -14672,48 +14930,6 @@ Transform:
   m_Father: {fileID: 982348852}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &1645769222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645769220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 64
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 45
-  contactShadows: 0
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 4
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &1645769223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14726,53 +14942,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 67.2
-  lightDimmer: 1
-  m_VolumetricDimmer: 1
-  lightUnit: 0
-  fadeDistance: 55
-  affectDiffuse: 1
-  affectSpecular: 1
-  nonLightmappedOnly: 1
-  lightTypeExtent: 0
+  m_Version: 9
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 64
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 4
-  maxSmoothness: 0.373
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 12900
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 67.2
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 1
+  m_LightUnit: 0
+  m_FadeDistance: 55
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 1
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 4
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.373
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 10
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 32
+  m_MinFilterSize: 0.01
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 64
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 45
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 4
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  displayLightIntensity: 12900
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 10
-  shadowSoftness: 0.323
-  blockerSampleCount: 24
-  filterSampleCount: 32
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &1645769224
 Light:
   m_ObjectHideFlags: 0
@@ -14781,8 +15044,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645769220}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 0
+  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1026.5493
   m_Range: 25
@@ -15028,7 +15292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80994697e576624b97a67538d27ddcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Velocity
   Target: {fileID: 1840717203}
 --- !u!1 &1699927470
@@ -15717,7 +15981,6 @@ GameObject:
   - component: {fileID: 1753268414}
   - component: {fileID: 1753268417}
   - component: {fileID: 1753268416}
-  - component: {fileID: 1753268415}
   - component: {fileID: 1753268418}
   m_Layer: 0
   m_Name: Point Light Core (spec only)
@@ -15740,48 +16003,6 @@ Transform:
   m_Father: {fileID: 982348852}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1753268415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1753268413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
-  shadowDimmer: 1
-  volumetricShadowDimmer: 0
-  shadowFadeDistance: 10000
-  contactShadows: 0
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 1
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 4
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &1753268416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15794,53 +16015,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 0.1
-  m_VolumetricDimmer: 0.06
-  lightUnit: 0
-  fadeDistance: 45
-  affectDiffuse: 0
-  affectSpecular: 1
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_Version: 9
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 0
-  maxSmoothness: 0.774
-  applyRangeAttenuation: 0
+  m_AreaLightShape: 0
+  m_Intensity: 10000
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 0.1
+  m_VolumetricDimmer: 0.06
+  m_LightUnit: 0
+  m_FadeDistance: 45
+  m_AffectDiffuse: 0
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.774
+  m_ApplyRangeAttenuation: 0
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.2
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 32
+  m_MinFilterSize: 0.01
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 0
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 4
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  displayLightIntensity: 10000
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.2
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 32
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &1753268417
 Light:
   m_ObjectHideFlags: 0
@@ -15849,8 +16117,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753268413}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0.7737456, b: 0.5990566, a: 1}
   m_Intensity: 795.7747
   m_Range: 25.83183
@@ -16005,6 +16274,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -16039,6 +16309,8 @@ VisualEffect:
   m_GameObject: {fileID: 1767657850}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 7fd1fe30818191442813b086dc7858e4, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -16668,6 +16940,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -16705,6 +16978,8 @@ VisualEffect:
   m_GameObject: {fileID: 1840947100}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 85cb9755d9f33b4429d44c7a12cd90d2, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -16784,7 +17059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Target
   Target: {fileID: 558696551}
 --- !u!114 &1840947105
@@ -16862,12 +17137,12 @@ MonoBehaviour:
   Sections:
   - SectionName: Landing Site Pin-Screen Sequence
     SectionContent: 'This simple sequence is driven by a timeline in order to animate
-      the pin-screen and the target VFX. The landing site is displayed using the same
-      VFX as galaxy waypoints.
+      the pin-screen and the target VFX. The landing site is displayed using the
+      same VFX as galaxy waypoints.
 
 
-      No interaction from the player is required from this point. The next stage is
-      triggered at the end of the timeline.'
+      No interaction from the player is required
+      from this point. The next stage is triggered at the end of the timeline.'
     Actions:
     - Description: Transition + Scan Timeline
       Target: {fileID: 903704810}
@@ -17287,6 +17562,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[6]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7536699061915691602, guid: 36060410c536b7f41aef1167a497bc03,
+        type: 3}
+      propertyPath: m_MotionVectors
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36060410c536b7f41aef1167a497bc03, type: 3}
 --- !u!4 &1881349824 stripped
@@ -17434,7 +17714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parameter:
+  m_Property:
     m_Name: Target
   Target: {fileID: 558696551}
 --- !u!114 &1954251705
@@ -17466,6 +17746,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -17503,6 +17784,8 @@ VisualEffect:
   m_GameObject: {fileID: 1954251702}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 85cb9755d9f33b4429d44c7a12cd90d2, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -17808,6 +18091,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -17841,6 +18125,8 @@ VisualEffect:
   m_GameObject: {fileID: 2027073073}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 97a14259dcc01c14ca0188d049dd1d1f, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -17916,6 +18202,8 @@ VisualEffect:
   m_GameObject: {fileID: 2063190708}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -17958,6 +18246,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -18032,18 +18321,19 @@ MonoBehaviour:
   AlignViewToTransform: 1
   ObjectsToToggle: []
   Description: 'The core room holds one big effect that is controlled and animated
-    during the attack of the spaceship. While the energy depletes, the core will modify
-    its shape until it collapses.
+    during the attack of the spaceship. While the energy depletes, the core will
+    modify its shape until it collapses.
 
 
-    The effect is made of two distinct effects : Core and Rings (used twice), it''s
-    controlled using a timeline.'
+    The effect is made of two distinct
+    effects : Core and Rings (used twice), it''s controlled using a timeline.'
   Priority: 10
   Sections:
   - SectionName: Core Depletion Sequence.
     SectionContent: 'During the Attack, core energy depletes until the core collapses.
 
-      This sequence is orchestrated in a timeline that is controlled by the main timeline
+      This
+      sequence is orchestrated in a timeline that is controlled by the main timeline
       of the Alert.'
     Actions:
     - Description: Core Depletion Timeline
@@ -18055,12 +18345,13 @@ MonoBehaviour:
       Target: {fileID: 8926484042661614526, guid: e600b9a4857d47c41bb7c2dac650850a,
         type: 3}
   - SectionName: Shake "Missile" Events
-    SectionContent: "During the attack, big camera shake happen for each missile impact.
-      It triggers the sparkles (see \"Sparkle (Shake)\" section in Visual Effects).
-      \n\nIn order to preview these events, you can either open the VFX Graph instance
-      using the \"Edit\"button next to the field in the inspector, then, in the Target
-      GameObject panel of VFX Graph use the \"TakeHit\" Send Button.\nOr you can use
-      the Core Hit Timeline that controls both events and parameters."
+    SectionContent: "During the attack, big camera shake happen for each missile
+      impact. It triggers the sparkles (see \"Sparkle (Shake)\" section in Visual
+      Effects). \n\nIn order to preview these events, you can either open the VFX
+      Graph instance using the \"Edit\"button next to the field in the inspector,
+      then, in the Target GameObject panel of VFX Graph use the \"TakeHit\" Send
+      Button.\nOr you can use the Core Hit Timeline that controls both events and
+      parameters."
     Actions:
     - Description: Core Hit Timeline
       Target: {fileID: 493632548}
@@ -18071,7 +18362,8 @@ MonoBehaviour:
       shake, followed by a blackout.
 
 
-      Then starts the Wrecked part of the demo.'
+      Then starts the Wrecked part of the
+      demo.'
     Actions: []
 --- !u!1 &2084229567
 GameObject:
@@ -18084,7 +18376,6 @@ GameObject:
   - component: {fileID: 2084229568}
   - component: {fileID: 2084229572}
   - component: {fileID: 2084229571}
-  - component: {fileID: 2084229570}
   - component: {fileID: 2084229569}
   m_Layer: 0
   m_Name: PinScren - Point Light
@@ -18126,48 +18417,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2084229570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084229567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 512
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 10000
-  contactShadows: 0
-  shadowTint: {r: 0, g: 0, b: 0, a: 1}
-  viewBiasMin: 0.2
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 0
-  edgeToleranceNormal: 1
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 0
-  shadowVariant: 0
-  shadowPrecision: 0
 --- !u!114 &2084229571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18180,53 +18429,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
-  m_Version: 5
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
-  m_InnerSpotPercent: 0
-  lightDimmer: 1
-  m_VolumetricDimmer: 0.075
-  lightUnit: 0
-  fadeDistance: 20
-  affectDiffuse: 1
-  affectSpecular: 0
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_Version: 6
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.5
-  shapeHeight: 0.5
-  aspectRatio: 1
-  shapeRadius: 1.29
-  maxSmoothness: 0
-  applyRangeAttenuation: 1
+  m_AreaLightShape: 0
+  m_Intensity: 600
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 0.075
+  m_LightUnit: 0
+  m_FadeDistance: 20
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 0
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 1.29
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 150000000
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 4
-  displayLightIntensity: 600
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  useScreenSpaceShadows: 0
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  lightlayersMask: 1
-  linkShadowLayers: 1
-  shadowNearPlane: 0.1
-  shadowSoftness: 0.5
-  blockerSampleCount: 24
-  filterSampleCount: 16
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
 --- !u!108 &2084229572
 Light:
   m_ObjectHideFlags: 0
@@ -18235,8 +18531,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084229567}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 0.1882342, g: 0.6717812, b: 0.8490566, a: 1}
   m_Intensity: 47.746483
   m_Range: 3.5
@@ -18562,6 +18859,8 @@ VisualEffect:
   m_GameObject: {fileID: 852780542066357274}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -18607,6 +18906,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -18639,11 +18939,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 61859450}
     m_Modifications:
-    - target: {fileID: 885013420198261614, guid: c4aad5b023b2f664ba40df6c346c10ff,
-        type: 3}
-      propertyPath: m_Name
-      value: Door_Generic
-      objectReference: {fileID: 0}
     - target: {fileID: 885013420326399847, guid: c4aad5b023b2f664ba40df6c346c10ff,
         type: 3}
       propertyPath: m_IsActive
@@ -18703,6 +18998,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 885013420198261614, guid: c4aad5b023b2f664ba40df6c346c10ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Door_Generic
       objectReference: {fileID: 0}
     - target: {fileID: 7813292096462022605, guid: c4aad5b023b2f664ba40df6c346c10ff,
         type: 3}
@@ -19041,6 +19341,8 @@ VisualEffect:
   m_GameObject: {fileID: 2301695566403456010}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -19086,6 +19388,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19138,6 +19441,8 @@ VisualEffect:
   m_GameObject: {fileID: 2447134276605293780}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -19180,6 +19485,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19567,16 +19873,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1755164140}
     m_Modifications:
-    - target: {fileID: 4491288562457692636, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_Name
-      value: Door_SC_Intro
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491288562457692636, guid: 217d2408b2d414746963e5a4fda23bee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4491288562913473583, guid: 217d2408b2d414746963e5a4fda23bee,
         type: 3}
       propertyPath: m_Asset
@@ -19673,6 +19969,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288562457692636, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_Name
+      value: Door_SC_Intro
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491288562457692636, guid: 217d2408b2d414746963e5a4fda23bee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4491288562856828603, guid: 217d2408b2d414746963e5a4fda23bee,
         type: 3}
@@ -19811,6 +20117,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997696374024856}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -19856,6 +20164,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19908,6 +20217,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997696396923533}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -19953,6 +20264,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20005,6 +20317,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997696994237637}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20047,6 +20361,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20099,6 +20414,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997697168409016}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20144,6 +20461,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20196,6 +20514,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997697390168183}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20238,6 +20558,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20290,6 +20611,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997697693850005}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20335,6 +20658,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20387,6 +20711,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997698021389913}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20432,6 +20758,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20484,6 +20811,8 @@ VisualEffect:
   m_GameObject: {fileID: 5132997698067571737}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20529,6 +20858,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20561,15 +20891,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1892397008}
     m_Modifications:
-    - target: {fileID: 3595417953437637144, guid: ad004882a4525124aa5f0f62cb871e3f,
-        type: 3}
-      propertyPath: m_Name
-      value: Planet - K-1378 - Dead Ice
-      objectReference: {fileID: 0}
     - target: {fileID: 7204734205021346540, guid: ad004882a4525124aa5f0f62cb871e3f,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595417953437637144, guid: ad004882a4525124aa5f0f62cb871e3f,
+        type: 3}
+      propertyPath: m_Name
+      value: Planet - K-1378 - Dead Ice
       objectReference: {fileID: 0}
     - target: {fileID: 3595417953437637147, guid: ad004882a4525124aa5f0f62cb871e3f,
         type: 3}
@@ -20710,6 +21040,8 @@ VisualEffect:
   m_GameObject: {fileID: 5443603058004785216}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -20755,6 +21087,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20955,15 +21288,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1892397008}
     m_Modifications:
-    - target: {fileID: 2995061074926258836, guid: 54548549e90682c458551c1d59338a01,
-        type: 3}
-      propertyPath: m_Name
-      value: Planet - JUF01 - Hollow Dead
-      objectReference: {fileID: 0}
     - target: {fileID: 8901855251192433248, guid: 54548549e90682c458551c1d59338a01,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995061074926258836, guid: 54548549e90682c458551c1d59338a01,
+        type: 3}
+      propertyPath: m_Name
+      value: Planet - JUF01 - Hollow Dead
       objectReference: {fileID: 0}
     - target: {fileID: 2995061074926258839, guid: 54548549e90682c458551c1d59338a01,
         type: 3}
@@ -21099,6 +21432,8 @@ VisualEffect:
   m_GameObject: {fileID: 5886706305824563026}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -21141,6 +21476,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21193,6 +21529,8 @@ VisualEffect:
   m_GameObject: {fileID: 5935542567468369844}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -21238,6 +21576,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21270,15 +21609,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1892397008}
     m_Modifications:
-    - target: {fileID: 2430614744843432193, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
-        type: 3}
-      propertyPath: m_Name
-      value: Planet - ENDEX - Inhabitable
-      objectReference: {fileID: 0}
     - target: {fileID: 8332329160293298677, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430614744843432193, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
+        type: 3}
+      propertyPath: m_Name
+      value: Planet - ENDEX - Inhabitable
       objectReference: {fileID: 0}
     - target: {fileID: 2430614744843432194, guid: 86c3ac5285fac2b4189fd1467e2a28fe,
         type: 3}
@@ -21430,15 +21769,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1892397008}
     m_Modifications:
-    - target: {fileID: 1538546691493051037, guid: e62f6accf406c8c49a2704cfdc8464ef,
-        type: 3}
-      propertyPath: m_Name
-      value: Planet UX3-17 - Barren Ice
-      objectReference: {fileID: 0}
     - target: {fileID: 5134985462885825129, guid: e62f6accf406c8c49a2704cfdc8464ef,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538546691493051037, guid: e62f6accf406c8c49a2704cfdc8464ef,
+        type: 3}
+      propertyPath: m_Name
+      value: Planet UX3-17 - Barren Ice
       objectReference: {fileID: 0}
     - target: {fileID: 1538546691493051038, guid: e62f6accf406c8c49a2704cfdc8464ef,
         type: 3}
@@ -21594,6 +21933,8 @@ VisualEffect:
   m_GameObject: {fileID: 7919885526363374250}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -21639,6 +21980,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21678,6 +22020,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21733,6 +22076,8 @@ VisualEffect:
   m_GameObject: {fileID: 8040262647758390772}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -21775,6 +22120,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21827,6 +22173,8 @@ VisualEffect:
   m_GameObject: {fileID: 8215980004954881387}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -21875,6 +22223,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21932,6 +22281,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -21966,6 +22316,8 @@ VisualEffect:
   m_GameObject: {fileID: 8215980005588850818}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22027,6 +22379,8 @@ VisualEffect:
   m_GameObject: {fileID: 8215980005723456498}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22075,6 +22429,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22127,6 +22482,8 @@ VisualEffect:
   m_GameObject: {fileID: 8215980005759553535}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22175,6 +22532,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22227,6 +22585,8 @@ VisualEffect:
   m_GameObject: {fileID: 8356787022150064156}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22269,6 +22629,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22335,6 +22696,8 @@ VisualEffect:
   m_GameObject: {fileID: 8569735584696849522}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22377,6 +22740,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22429,6 +22793,8 @@ VisualEffect:
   m_GameObject: {fileID: 8569735585322086971}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22471,6 +22837,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22523,6 +22890,8 @@ VisualEffect:
   m_GameObject: {fileID: 8569735585666271013}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 475659b7a384a48428a3237a3e20180e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -22565,6 +22934,7 @@ VFXRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -23033,6 +23403,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RendererPriority
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2704855277785929649, guid: eae930db8733cb94faece5e5e28a6971,
+        type: 3}
+      propertyPath: m_MotionVectors
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eae930db8733cb94faece5e5e28a6971, type: 3}

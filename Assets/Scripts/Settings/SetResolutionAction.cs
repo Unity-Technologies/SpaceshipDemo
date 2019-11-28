@@ -1,9 +1,7 @@
 using GameplayIngredients;
 using GameplayIngredients.Actions;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.HDPipeline;
+using UnityEngine.Rendering.HighDefinition;
 
 public class SetResolutionAction : ActionBase
 {

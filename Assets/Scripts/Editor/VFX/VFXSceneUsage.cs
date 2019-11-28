@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-using UnityEngine.Experimental.VFX;
+using UnityEngine.VFX;
 using System.Collections.Generic;
 
 public class VFXSceneUsage : EditorWindow

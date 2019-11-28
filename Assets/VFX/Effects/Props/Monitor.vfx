@@ -64,9 +64,9 @@ MonoBehaviour:
       height: 275
     contents: '
 
-      This experimental feature enables to set up a mesh and a shader that will be
-      controlled by operators and parameters. Every exposed property of the shader
-      will be visible in VFX Graph and can be connected to the Graph'
+      This experimental feature enables to set up a mesh and a shader
+      that will be controlled by operators and parameters. Every exposed property
+      of the shader will be visible in VFX Graph and can be connected to the Graph'
     theme: Classic
     textSize: Medium
   systemInfos: []
@@ -245,7 +245,7 @@ MonoBehaviour:
     min: -Infinity
     max: Infinity
     descendantCount: 0
-  m_GraphVersion: 2
+  m_GraphVersion: 4
   m_saved: 1
   m_SubgraphDependencies: []
   m_CategoryPath: 
@@ -992,6 +992,7 @@ VisualEffectResource:
     m_UpdateMode: 0
     m_PreWarmDeltaTime: 0.05
     m_PreWarmStepCount: 0
+    m_InitialEventName: OnPlay
   m_Systems:
   - type: 2
     flags: 0
@@ -1029,6 +1030,8 @@ VisualEffectResource:
       params:
       - nameId: sortPriority
         index: 0
+      - nameId: 
+        index: 1519612219
       processor: {fileID: 4800000, guid: 38fe124e1087a5d4fb66bc9d832b922e, type: 3}
       shaderSourceIndex: -1
 --- !u!114 &8926484042661614532
@@ -1346,7 +1349,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The transform position.
+      m_Tooltip: Sets the transform position.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -1493,7 +1496,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The euler angles of the transform.
+      m_Tooltip: Sets the euler angles of the transform.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -1634,7 +1637,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The scale of the transform along each axis.
+      m_Tooltip: Sets the scale of the transform along each axis.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -1800,7 +1803,8 @@ MonoBehaviour:
   title: 
   m_Owners:
   - {fileID: 8926484042661614536}
-  shader: {fileID: 4800000, guid: 38fe124e1087a5d4fb66bc9d832b922e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 38fe124e1087a5d4fb66bc9d832b922e, type: 3}
+  shaderGUID: 38fe124e1087a5d4fb66bc9d832b922e
 --- !u!114 &8926484042661614553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2599,7 +2603,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The minimum value to be generated.
+      m_Tooltip: Sets the minimum range of the random value.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -2639,7 +2643,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The maximum value to be generated.
+      m_Tooltip: Sets the maximum range of the random value.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -2679,7 +2683,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: A random number between 0 and 1.
+      m_Tooltip: Outputs a random number between the min and max range.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 1
@@ -2742,7 +2746,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The curve to sample from.
+      m_Tooltip: Sets the curve to sample from.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -2782,7 +2786,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: The time along the curve to take a sample from.
+      m_Tooltip: Sets the time along the curve to take a sample from.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -2819,7 +2823,13 @@ MonoBehaviour:
     m_serializedType:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-    attributes: []
+    attributes:
+    - m_Type: 3
+      m_Min: -Infinity
+      m_Max: Infinity
+      m_Tooltip: Outputs the sampled value from the curve at the specified time.
+      m_Regex: 
+      m_RegexMaxLength: 0
   m_Direction: 1
   m_LinkedSlots:
   - {fileID: 8926484042661614601}
@@ -3614,7 +3624,7 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: 'Exponent '
+      m_Tooltip: Exponent
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
@@ -4888,7 +4898,8 @@ MonoBehaviour:
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
-      m_Tooltip: Seed to compute the constant random
+      m_Tooltip: Sets the value used when determining the random number. Using the
+        same seed results in the same random number every time.
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0

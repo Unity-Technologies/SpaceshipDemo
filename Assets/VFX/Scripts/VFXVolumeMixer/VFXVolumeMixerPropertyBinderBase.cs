@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.VFX;
-using UnityEngine.Experimental.VFX.Utility;
+using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 
 
 public abstract class VFXVolumeMixerPropertyBinderBase : VFXBinderBase

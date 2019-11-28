@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   m_AdvancedMode: 1
-  sampleCount:
+  quality:
     m_OverrideState: 0
-    m_Value: 8
-    min: 2
+    m_Value: 3
   intensity:
     m_OverrideState: 1
     m_Value: 1
@@ -42,6 +41,10 @@ MonoBehaviour:
     m_Value: 1
     min: 0
     max: 20
+  m_SampleCount:
+    m_OverrideState: 0
+    m_Value: 8
+    min: 2
 --- !u!114 &-6693115149998435178
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -94,44 +97,6 @@ MonoBehaviour:
     m_Value: 1
     min: 0
     max: 1
---- !u!114 &-5110546980584306082
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b8bcdf71d7fafa419fca1ed162f5fc9, type: 3}
-  m_Name: ColorAdjustments
-  m_EditorClassIdentifier: 
-  active: 0
-  m_AdvancedMode: 0
-  postExposure:
-    m_OverrideState: 0
-    m_Value: 0
-  contrast:
-    m_OverrideState: 1
-    m_Value: 15
-    min: -100
-    max: 100
-  colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
-  hueShift:
-    m_OverrideState: 0
-    m_Value: 0
-    min: -180
-    max: 180
-  saturation:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -100
-    max: 100
 --- !u!114 &-666641563329776592
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -146,6 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   m_AdvancedMode: 0
+  quality:
+    m_OverrideState: 0
+    m_Value: 3
   spectralLut:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -154,7 +122,7 @@ MonoBehaviour:
     m_Value: 0.1
     min: 0
     max: 1
-  maxSamples:
+  m_MaxSamples:
     m_OverrideState: 1
     m_Value: 4
     min: 3
@@ -177,7 +145,6 @@ MonoBehaviour:
   - {fileID: 1568505638543808401}
   - {fileID: -6693115149998435178}
   - {fileID: 6119052673018927670}
-  - {fileID: -5110546980584306082}
   - {fileID: -8583228107094791109}
   - {fileID: -666641563329776592}
   - {fileID: 2195859305517477362}
@@ -195,9 +162,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   m_AdvancedMode: 1
+  quality:
+    m_OverrideState: 0
+    m_Value: 3
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.15
     min: 0
     max: 1
   scatter:
@@ -218,18 +188,18 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
     min: 0
-  highQualityFiltering:
-    m_OverrideState: 1
-    m_Value: 0
-  resolution:
-    m_OverrideState: 0
-    m_Value: 2
   prefilter:
     m_OverrideState: 0
     m_Value: 0
   anamorphic:
     m_OverrideState: 0
     m_Value: 1
+  m_Resolution:
+    m_OverrideState: 0
+    m_Value: 2
+  m_HighQualityFiltering:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &2195859305517477362
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -270,10 +240,10 @@ MonoBehaviour:
   m_AdvancedMode: 0
   type:
     m_OverrideState: 1
-    m_Value: 7
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.65
     min: 0
     max: 1
   response:
@@ -401,3 +371,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
     min: 0.001
+  lutTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  lutContribution:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
