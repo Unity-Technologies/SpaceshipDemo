@@ -207,7 +207,7 @@ MonoBehaviour:
     x: 160
     y: -704
     width: 5406
-    height: 2302
+    height: 2303
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -361,7 +361,7 @@ MonoBehaviour:
     descendantCount: 3
   - name: position
     path: HoverMesh-Trasnform_position
-    tooltip: The transform position.
+    tooltip: Sets the transform position.
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -374,7 +374,7 @@ MonoBehaviour:
     descendantCount: 0
   - name: angles
     path: HoverMesh-Trasnform_angles
-    tooltip: The euler angles of the transform.
+    tooltip: Sets the euler angles of the transform.
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -387,7 +387,7 @@ MonoBehaviour:
     descendantCount: 0
   - name: scale
     path: HoverMesh-Trasnform_scale
-    tooltip: The scale of the transform along each axis.
+    tooltip: Sets the scale of the transform along each axis.
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -1272,8 +1272,8 @@ VisualEffectResource:
       uint indirectIndex = indirectBuffer.IncrementCounter();\n\t\tindirectBuffer[indirectIndex]
       = index;\n#endif\n#endif\n\t}\n}\n"
   - compute: 0
-    name: '[Hover Circle]Black Sphere'
-    source: "Shader \"Hidden/VFX/ARUI-Galaxy-Waypoint/Hover Circle/Black Sphere\"\n{\n\tSubShader\n\t{\n\t\tTags
+    name: '[Hover Circle]A Black Sphere'
+    source: "Shader \"Hidden/VFX/ARUI-Galaxy-Waypoint/Hover Circle/(A) Black Sphere\"\n{\n\tSubShader\n\t{\n\t\tTags
       { \"Queue\"=\"Geometry+0\" \"IgnoreProjector\"=\"False\" \"RenderType\"=\"Opaque\"
       }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
       LEqual\n\t\tZWrite On\n\t\tCull Front\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t\n\t\t#define
@@ -1791,8 +1791,8 @@ VisualEffectResource:
       = o.color.a < i.VFX_VARYING_ALPHATHRESHOLD ? 0.0f : 1.0f; //Independant clipping
       for motion vector pass\n\t\t#endif\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\n\t\t\n\t}\n}\n"
   - compute: 0
-    name: '[Hover Circle]Sphere Outline'
-    source: "Shader \"Hidden/VFX/ARUI-Galaxy-Waypoint/Hover Circle/Sphere Outline\"\n{\n\tSubShader\n\t{\n\t\tTags
+    name: '[Hover Circle]B Sphere Outline'
+    source: "Shader \"Hidden/VFX/ARUI-Galaxy-Waypoint/Hover Circle/(B) Sphere Outline\"\n{\n\tSubShader\n\t{\n\t\tTags
       { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\" \"RenderType\"=\"Transparent\"
       }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha OneMinusSrcAlpha \n\t\tBlend 1 SrcAlpha OneMinusSrcAlpha\n\t\tZTest
@@ -5819,7 +5819,8 @@ VisualEffectResource:
         index: 6
       - nameId: 
         index: 1519612219
-      processor: {fileID: 4800000, guid: cd270bc83dc0ce644bf351c3f5b7f30f, type: 3}
+      processor: {fileID: -6465566751694194690, guid: 7e8098d4b71f789438d7cc85e89a6879,
+        type: 3}
       shaderSourceIndex: -1
   - type: 1
     flags: 2
@@ -7694,8 +7695,9 @@ MonoBehaviour:
   title: 
   m_Owners:
   - {fileID: 8926484042661614579}
-  m_Shader: {fileID: 4800000, guid: cd270bc83dc0ce644bf351c3f5b7f30f, type: 3}
-  shaderGUID: cd270bc83dc0ce644bf351c3f5b7f30f
+  m_Shader: {fileID: -6465566751694194690, guid: 7e8098d4b71f789438d7cc85e89a6879,
+    type: 3}
+  shaderGUID: 7e8098d4b71f789438d7cc85e89a6879
 --- !u!114 &8926484042661614629
 MonoBehaviour:
   m_ObjectHideFlags: 0
