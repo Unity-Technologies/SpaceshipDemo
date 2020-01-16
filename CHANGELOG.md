@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 2020 - 01 - 20
+
+**Version Tag** : `2019.3.0`
+
+* Updated all project to **Unity 2019.3.0f5**
+* Updated HD Render Pipeline / VFX Graph to package `7.1.7`
+
+**Known Issues:**
+
+* macOS build has trouble rendering SSAO
+* Visual Effect Issues with macOS/metal
+* HDRP renders pitch-black on Linux Vulkan
+
+
+
 ## 2019 - 08 - 07 - Initial Release
 
 **Version Tag :** `2019.2.0`
