@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2020 - 01 - 20
+## 2020 - 01 - XX
 
 **Version Tag** : `2019.3.0`
 
@@ -9,9 +9,7 @@
 
 **Known Issues:**
 
-* macOS build has trouble rendering SSAO
-* Visual Effect Issues with macOS/metal
-* HDRP renders pitch-black on Linux Vulkan
+* HDRP renders pitch-black on Linux Vulkan.
 
 
 
