@@ -44,6 +44,9 @@ namespace GameOptionsUtility.HDRP
 
         public override void Apply()
         {
+            if (s_Cameras == null)
+                return;
+
             foreach (var camera in s_Cameras)
             {
                 camera.antialiasing = antiAliasing;
