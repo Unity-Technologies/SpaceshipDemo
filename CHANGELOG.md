@@ -1,11 +1,11 @@
 # CHANGELOG
 
-## 2020 - 01 - XX
+## 2020 - 01 - 30
 
 **Version Tag** : `2019.3.0`
 
-* Updated all project to **Unity 2019.3.0f5**
-* Updated HD Render Pipeline / VFX Graph to package `7.1.7`
+* Updated all project to **Unity 2019.3.0f6**
+* Updated HD Render Pipeline / VFX Graph to package `7.1.8
 
 **Known Issues:**
 
