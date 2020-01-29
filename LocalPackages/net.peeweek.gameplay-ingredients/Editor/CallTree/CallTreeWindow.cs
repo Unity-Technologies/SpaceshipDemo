@@ -537,7 +537,7 @@ namespace GameplayIngredients.Editor
 
                 base.SelectionChanged(selectedIds);
                 if (selectedIds.Count > 0 && m_Bindings.ContainsKey(selectedIds[0]))
-                    Selection.activeObject = m_Bindings[selectedIds[0]].Target;
+                    Selection.activeObject = m_Bindings[selectedIds[0]].Target.gameObject;
             }
 
             public static class Styles

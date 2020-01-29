@@ -11,13 +11,28 @@ namespace GameplayIngredients.StateMachines
         public string DefaultState;
 
         [ReorderableList, NonNullCheck]
-        public State[] States;
+        public State[] States = new State[0];
 
         public State CurrentState { get { return m_CurrentState; } }
 
         State m_CurrentState;
-        
-        [ContextMenu("Reset State Objects")]
+
+        [Button("Create New State")]
+        private void AddNewState()
+        {
+            var newState = new GameObject($"State {States.Length}");
+            var state = newState.AddComponent<State>();
+            newState.transform.parent = transform;
+            newState.transform.localPosition = Vector3.zero;
+            newState.transform.localRotation = Quaternion.identity;
+            newState.transform.localScale = Vector3.one;
+            States = States.Concat(new State[] { state }).ToArray();
+
+            if (m_CurrentState == null)
+                m_CurrentState = state;
+        }
+
+        [Button("Reset State Objects")]
         private void UpdateFromState()
         {
             foreach(var state in States)

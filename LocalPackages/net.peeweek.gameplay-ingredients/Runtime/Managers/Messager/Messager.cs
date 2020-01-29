@@ -47,9 +47,12 @@ namespace GameplayIngredients
             {
                 try
                 {
-                    foreach (var message in m_RegisteredMessages[eventName])
+                    // Get a copy of registered messages to iterate on. This prevents issues while deregistering message recievers while iterating.
+                    var messages = m_RegisteredMessages[eventName].ToArray();
+                    foreach (var message in messages)
                     {
-                        message.Invoke(instigator);
+                        if(message != null)
+                            message.Invoke(instigator);
                     }
                 }
                 catch (Exception e)
@@ -60,7 +63,8 @@ namespace GameplayIngredients
             }
             else
             {
-                Debug.Log("[MessageManager] could not find any listeners for event : " + eventName);
+                if(GameplayIngredientsSettings.currentSettings.verboseCalls)
+                    Debug.Log("[MessageManager] could not find any listeners for event : " + eventName);
             }
         }
     }
