@@ -11,7 +11,12 @@ namespace GameplayIngredients.StateMachines
         public Callable[] OnStateEnter;
         [ReorderableList]
         public Callable[] OnStateExit;
-        [ReorderableList]
+        [ReorderableList, ShowIf("AllowUpdateCalls")]
         public Callable[] OnStateUpdate;
+
+        private bool AllowUpdateCalls()
+        {
+            return GameplayIngredientsSettings.currentSettings.allowUpdateCalls;
+        }
     }
 }

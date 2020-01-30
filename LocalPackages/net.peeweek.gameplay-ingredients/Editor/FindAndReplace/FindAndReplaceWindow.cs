@@ -45,6 +45,7 @@ namespace GameplayIngredients.Editor
             Layer,
             Mesh,
             Material,
+            Selection
         }
 
         private void OnEnable()
@@ -94,6 +95,8 @@ namespace GameplayIngredients.Editor
         Mesh meshSearch;
         [SerializeField]
         Material materialSearch;
+        [SerializeField]
+        bool selectionRecurse = false;
 
         [SerializeField]
         bool keepPosition = true;
@@ -126,7 +129,7 @@ namespace GameplayIngredients.Editor
             EditorGUIUtility.labelWidth = 120;
             GUILayout.Space(4);
             GUILayout.Label("Search Scene Objects", Styles.boldLabel);
-            searchBy = (SearchBy)EditorGUILayout.EnumPopup(Contents.searchBy, searchBy);
+            searchBy = (SearchBy)EditorGUILayout.EnumPopup(Contents.criteria, searchBy);
             switch (searchBy)
             {
                 case SearchBy.Name:
@@ -153,6 +156,11 @@ namespace GameplayIngredients.Editor
                     materialSearch = (Material)EditorGUILayout.ObjectField(Contents.materialSearch, materialSearch, typeof(Material), true);
                     SearchButtonsGUI(searchBy, materialSearch);
                     break;
+                case SearchBy.Selection:
+                    selectionRecurse = EditorGUILayout.Toggle(Contents.selectionRecurse, selectionRecurse);
+                    SearchButtonsGUI(searchBy, selectionRecurse);
+                    break;
+
             }
 
 
@@ -169,7 +177,7 @@ namespace GameplayIngredients.Editor
             }
             EditorGUI.BeginDisabledGroup(prefabReplacement == null);
              
-            GUILayout.Label("Keep Properties:");
+            GUILayout.Label("Keep Properties from Original:");
 
             using (new GUILayout.HorizontalScope())
             {
@@ -333,6 +341,17 @@ namespace GameplayIngredients.Editor
                         }
                     }
                     break;
+                case SearchBy.Selection:
+
+                    foreach(var selected in Selection.gameObjects)
+                    {
+                        bool recurse = (bool)criteria;
+                        if(!recurse)
+                            query.Add(selected);
+                        else
+                            query.AddRange(selected.GetAllChildren());
+                    }
+                    break;
             }
 
             switch (op)
@@ -369,13 +388,14 @@ namespace GameplayIngredients.Editor
             {
                 GUILayout.Label("Search Results", Styles.boldLabel);
                 GUILayout.FlexibleSpace();
-                if(GUILayout.Button("From Selection", GUILayout.Height(24)))
-                {
-                    searchResults = Selection.gameObjects.ToList();
-                }
-                if(GUILayout.Button("Select", GUILayout.Height(24)))
+
+                if(GUILayout.Button("Select in Scene", GUILayout.Height(24)))
                 {
                     Selection.objects = searchResults.ToArray();
+                }
+                if(GUILayout.Button("Clear", GUILayout.Height(24)))
+                {
+                    searchResults.Clear();
                 }
             }
 
@@ -408,14 +428,14 @@ namespace GameplayIngredients.Editor
         static class Contents
         {
             public static GUIContent title = new GUIContent("Find and Replace", (Texture)EditorGUIUtility.LoadRequired("ViewToolZoom On"));
-            public static GUIContent searchBy = new GUIContent("Search by");
+            public static GUIContent criteria = new GUIContent("Criteria");
             public static GUIContent nameSearch = new GUIContent("GameObject Name");
             public static GUIContent tagSearch = new GUIContent("Tag");
             public static GUIContent layerSearch = new GUIContent("Layer");
             public static GUIContent componentSearch = new GUIContent("Component Type");
             public static GUIContent meshSearch = new GUIContent("Mesh");
             public static GUIContent materialSearch = new GUIContent("Material");
-
+            public static GUIContent selectionRecurse = new GUIContent("Include Children");
             public static GUIContent prefabReplacement = new GUIContent("Prefab Replacement");
         }
 

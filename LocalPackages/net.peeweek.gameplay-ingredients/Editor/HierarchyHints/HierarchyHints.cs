@@ -60,6 +60,7 @@ namespace GameplayIngredients.Editor
 
         static Dictionary<Type, string> s_Definitions = new Dictionary<Type, string>()
         {
+            { typeof(Folder), "Folder Icon"},
             { typeof(MonoBehaviour), "cs Script Icon"},
             { typeof(Camera), "Camera Icon"},
             { typeof(MeshRenderer), "MeshRenderer Icon"},
@@ -101,18 +102,38 @@ namespace GameplayIngredients.Editor
             if (o == null) return;
             
             var c = GUI.color;
-            if (o.isStatic)
-            {
-                GUI.Label(fullRect, " S");
-                EditorGUI.DrawRect(fullRect, Colors.dimGray);
-            }
 
-            foreach(var type in s_Definitions.Keys)
-            {
-                if (o.GetComponents(type).Length > 0) selectionRect = DrawIcon(selectionRect, Contents.GetContent(type), Color.white);
-            }
+            bool isFolder = o.GetComponent<Folder>() != null;
 
+            if(isFolder)
+            {
+                fullRect.xMin += 28 + 14 * GetObjectDepth(o.transform);
+                fullRect.width = 16;
+                EditorGUI.DrawRect(fullRect, EditorGUIUtility.isProSkin? Styles.proBackground : Styles.personalBackground);
+                DrawIcon(fullRect, Contents.GetContent(typeof(Folder)), o.GetComponent<Folder>().Color);
+            }
+            else
+            {
+                if (o.isStatic)
+                {
+                    GUI.Label(fullRect, " S");
+                    EditorGUI.DrawRect(fullRect, Colors.dimGray);
+                }
+
+                foreach (var type in s_Definitions.Keys)
+                {
+                    if (o.GetComponents(type).Length > 0) selectionRect = DrawIcon(selectionRect, Contents.GetContent(type), Color.white);
+                }
+            }
             GUI.color = c;
+        }
+
+        static int GetObjectDepth(Transform t, int depth=0)
+        {
+            if (t.parent == null)
+                return depth;
+            else
+                return GetObjectDepth(t.parent, depth + 1);
         }
 
         
@@ -167,6 +188,9 @@ namespace GameplayIngredients.Editor
         {
             public static GUIStyle rightLabel;
             public static GUIStyle icon;
+
+            public static Color proBackground = new Color(0.25f, 0.25f, 0.25f, 1.0f);
+            public static Color personalBackground = new Color(0.75f, 0.75f, 0.75f, 1.0f);
 
             static Styles()
             {

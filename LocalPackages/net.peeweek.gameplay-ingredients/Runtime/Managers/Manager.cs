@@ -21,6 +21,11 @@ namespace GameplayIngredients
             }
         }
 
+        public static bool Has<T>() where T:Manager
+        {
+            return(s_Managers.ContainsKey(typeof(T)));
+        }
+
         static readonly Type[] kAllManagerTypes = GetAllManagerTypes();
 
         [RuntimeInitializeOnLoadMethod]

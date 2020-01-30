@@ -12,6 +12,7 @@ namespace GameplayIngredients.Events
         public Callable[] onTriggerExit;
 
         public bool OnlyInteractWithTag = true;
+        [EnableIf("OnlyInteractWithTag")]
         public string Tag = "Player";
 
         private void OnTriggerEnter(Collider other)

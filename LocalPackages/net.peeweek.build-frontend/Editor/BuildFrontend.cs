@@ -19,7 +19,7 @@ public class BuildFrontend : EditorWindow
 
     private void OnEnable()
     {
-        titleContent = Contents.title;
+        titleContent = Contents.windowTitle;
         PopulateAssets();
     }
     
@@ -43,7 +43,9 @@ public class BuildFrontend : EditorWindow
                 DrawProgressBar();
                 GUILayout.Space(8);
             }
-            using(new GUILayout.VerticalScope(GUILayout.Width(128)))
+            GUILayout.Space(8);
+
+            using (new GUILayout.VerticalScope(GUILayout.Width(116)))
             {
                 GUILayout.Space(8);
                 if(GUILayout.Button("Build All", Styles.BuildButton, GUILayout.Height(32)))
@@ -53,11 +55,11 @@ public class BuildFrontend : EditorWindow
                 }
 
                 BuildTemplate template = (Selection.activeObject as BuildTemplate);
-                GUILayout.Space(6);
+                GUILayout.Space(2);
                 using (new GUILayout.HorizontalScope())
                 {
                     EditorGUI.BeginDisabledGroup(template == null);
-                    if (GUILayout.Button("Build Selected", EditorStyles.miniButtonLeft))
+                    if (GUILayout.Button("Build Selected", Styles.MiniButtonLeft))
                     {
                         nextAction = () =>
                         {
@@ -69,7 +71,7 @@ public class BuildFrontend : EditorWindow
                             Repaint();
                         };
                     }
-                    if(GUILayout.Button("+ Run", EditorStyles.miniButtonRight, GUILayout.Width(48)))
+                    if(GUILayout.Button("+ Run", Styles.MiniButtonRight, GUILayout.Width(48)))
                     {
                         nextAction = () =>
                         {
@@ -86,7 +88,7 @@ public class BuildFrontend : EditorWindow
                 EditorGUI.EndDisabledGroup();
 
                 EditorGUI.BeginDisabledGroup(template == null || !template.canRunBuild);
-                if (GUILayout.Button("Run Last Build", EditorStyles.miniButton))
+                if (GUILayout.Button("Run Last Build", Styles.MiniButton))
                 {
                     nextAction = () =>
                     {
@@ -487,6 +489,9 @@ public class BuildFrontend : EditorWindow
     static class Styles
     {
         public static GUIStyle BuildButton;
+        public static GUIStyle MiniButton;
+        public static GUIStyle MiniButtonLeft;
+        public static GUIStyle MiniButtonRight;
         public static GUIStyle progressBarItem;
         public static GUIStyle SelectedProfile;
         public static GUIStyle Title;
@@ -498,6 +503,17 @@ public class BuildFrontend : EditorWindow
         {
             BuildButton = new GUIStyle(EditorStyles.miniButton);
             BuildButton.fontSize = 14;
+            BuildButton.fixedHeight = 32;
+
+            MiniButton = new GUIStyle(EditorStyles.miniButton);
+            MiniButton.fontSize = 10;
+
+            MiniButtonLeft = new GUIStyle(EditorStyles.miniButtonLeft);
+            MiniButtonLeft.fontSize = 10;
+
+            MiniButtonRight = new GUIStyle(EditorStyles.miniButtonRight);
+            MiniButtonRight.fontSize = 10;
+
 
             SelectedProfile = new GUIStyle(EditorStyles.label);
             var pink = EditorGUIUtility.isProSkin? new Color(1.0f, 0.2f, 0.5f, 1.0f) : new Color(1.0f, 0.05f, 0.4f, 1.0f);
@@ -538,7 +554,8 @@ public class BuildFrontend : EditorWindow
     }
     static class Contents
     {
-        public static GUIContent title = new GUIContent("Build Frontend");
+        public static GUIContent windowTitle; 
+        public static GUIContent title; 
         public static GUIContent build = new GUIContent("Build");
         public static GUIContent template = new GUIContent("Template:");
         public static GUIContent profile = new GUIContent("Profile:");
@@ -563,6 +580,9 @@ public class BuildFrontend : EditorWindow
         static Contents()
         {
             icon = AssetDatabase.LoadAssetAtPath<Texture>("Packages/net.peeweek.build-frontend/Editor/Icons/BuildFrontend.png");
+            var titleIcon = AssetDatabase.LoadAssetAtPath<Texture>($"Packages/net.peeweek.build-frontend/Editor/Icons/BuildFrontendTab{(EditorGUIUtility.isProSkin?"":"Personal")}.png");
+            windowTitle = new GUIContent("Build Frontend", titleIcon);
+            title = new GUIContent("Build Frontend");
         }
 
     }

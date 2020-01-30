@@ -7,7 +7,16 @@ using Debug = UnityEngine.Debug;
 
 public class BuildTemplate : BuildFrontendAssetBase
 {
-    public bool BuildEnabled;
+    public bool BuildEnabled
+    {
+        get { return EditorPrefs.GetBool(preferenceName, true); }
+        set { EditorPrefs.SetBool(preferenceName, value); }
+    }
+
+    string preferenceName
+    {
+        get { return $"BuildFrontend.{AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(this))}.Enabled"; }
+    }
 
     [Header("Build Template")]
     public string BuildPath;

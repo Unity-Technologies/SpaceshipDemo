@@ -19,6 +19,12 @@ namespace GameplayIngredients
 
         public static void Call(Callable[] calls, GameObject instigator = null)
         {
+            if (calls == null)
+            {
+                Debug.LogError("Cannot execute callable list: Null or Missing");
+                return;
+            }
+
             foreach (var call in calls)
             {
                 if (GameplayIngredientsSettings.currentSettings.verboseCalls)

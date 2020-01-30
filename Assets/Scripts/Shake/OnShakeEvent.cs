@@ -4,8 +4,8 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.VFX;
-using UnityEngine.Experimental.VFX.Utility;
+using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 
 public class OnShakeEvent : EventBase
 {
@@ -48,9 +48,9 @@ public class OnShakeEvent : EventBase
     }
 
     Dictionary<VisualEffect, VFXEventAttribute> eventAttributes;
-    ExposedParameter position = "position";
-    ExposedParameter size = "size";
-    ExposedParameter velocity = "velocity";
+    ExposedProperty position = "position";
+    ExposedProperty size = "size";
+    ExposedProperty velocity = "velocity";
 
     Coroutine shakeCoroutine;
 

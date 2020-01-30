@@ -10,16 +10,23 @@ namespace GameplayIngredients.Editor
     {
         Dictionary<string, List<string>> m_AssignableTypeNames;
 
+        Type type;
+
+        
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            Type type = ((TypeDropDownAttribute)attribute).m_BaseType;
+            if(type == null)
+                type = ((TypeDropDownAttribute)attribute).m_BaseType;
+
             CacheType(type);
             string TypeName = type.FullName;
 
             int index = m_AssignableTypeNames[TypeName].IndexOf(property.stringValue);
-             
+            
+            EditorGUI.BeginChangeCheck();
             int newVal = EditorGUI.Popup(position, index, m_AssignableTypeNames[TypeName].ToArray());
-            if(GUI.changed && index != newVal)
+            if(EditorGUI.EndChangeCheck() && index != newVal)
             {
                 property.stringValue = m_AssignableTypeNames[TypeName][newVal];
             }
@@ -28,20 +35,22 @@ namespace GameplayIngredients.Editor
         void CacheType(Type baseType)
         {
             if (m_AssignableTypeNames == null)
+            {
                 m_AssignableTypeNames = new Dictionary<string, List<string>>();
 
-            string key = baseType.FullName;
+                string key = baseType.FullName;
 
-            if (!m_AssignableTypeNames.ContainsKey(key))
-                m_AssignableTypeNames.Add(key, new List<string>());
+                if (!m_AssignableTypeNames.ContainsKey(key))
+                    m_AssignableTypeNames.Add(key, new List<string>());
 
-            foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach(var type in assembly.GetTypes())
+                foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    if(baseType.IsAssignableFrom(type) && !type.IsAbstract)
+                    foreach(var type in assembly.GetTypes())
                     {
-                        m_AssignableTypeNames[key].Add(type.Name);
+                        if(baseType.IsAssignableFrom(type) && !type.IsAbstract)
+                        {
+                            m_AssignableTypeNames[key].Add(type.Name);
+                        }
                     }
                 }
             }

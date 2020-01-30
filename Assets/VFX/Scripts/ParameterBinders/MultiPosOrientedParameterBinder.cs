@@ -1,19 +1,20 @@
 //MultiPosOrientedParameterBinder
 using System.Collections.Generic;
-using UnityEngine.Experimental.VFX;
+using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
-namespace UnityEngine.Experimental.VFX.Utility
+namespace UnityEngine.VFX.Utility
 {
     [AddComponentMenu("VFX/Utilities/Parameters/VFX Multiple Position (Oriented) Binder")]
     [VFXBinder("Point Cache/Multiple Position (Oriented) Binder")]
     public class MultiPosOrientedParameterBinder : VFXBinderBase
     {
-        [VFXParameterBinding("UnityEngine.Texture2D")]
-        public ExposedParameter PositionMapParameter = "PositionMap";
-        [VFXParameterBinding("UnityEngine.Texture2D")]
-        public ExposedParameter DirectionMapParameter = "DirectionMap";
-        [VFXParameterBinding("System.Int32")]
-        public ExposedParameter PositionCountParameter = "PositionCount";
+        [VFXPropertyBinding("UnityEngine.Texture2D"), FormerlySerializedAs("PositionMapParameter")]
+        public ExposedProperty PositionMapProperty = "PositionMap";
+        [VFXPropertyBinding("UnityEngine.Texture2D"), FormerlySerializedAs("DirectionMapParameter")]
+        public ExposedProperty DirectionMapProperty = "DirectionMap";
+        [VFXPropertyBinding("System.Int32"), FormerlySerializedAs("PositionCountParameter")]
+        public ExposedProperty PositionCountProperty = "PositionCount";
 
         public Transform[] Targets;
         public bool EveryFrame = false;
@@ -34,9 +35,9 @@ namespace UnityEngine.Experimental.VFX.Utility
         public override bool IsValid(VisualEffect component)
         {
             return Targets != null &&
-                component.HasTexture(PositionMapParameter) &&
-                component.HasTexture(DirectionMapParameter) &&
-                component.HasInt(PositionCountParameter);
+                component.HasTexture(PositionMapProperty) &&
+                component.HasTexture(DirectionMapProperty) &&
+                component.HasInt(PositionCountProperty);
         }
 
         public override void UpdateBinding(VisualEffect component)
@@ -44,9 +45,9 @@ namespace UnityEngine.Experimental.VFX.Utility
             if (EveryFrame || Application.isEditor)
                 UpdateTextures();
 
-            component.SetTexture(PositionMapParameter, positionMap);
-            component.SetTexture(DirectionMapParameter, directionMap);
-            component.SetInt(PositionCountParameter, count);
+            component.SetTexture(PositionMapProperty, positionMap);
+            component.SetTexture(DirectionMapProperty, directionMap);
+            component.SetInt(PositionCountProperty, count);
         }
 
         void UpdateTextures()

@@ -36,6 +36,16 @@ namespace GameplayIngredients.Editor
         {
             using (new GUILayout.HorizontalScope())
             {
+                if (GUILayout.Button("Align Discover to View"))
+                {
+                    var transform = (serializedObject.targetObject as Discover).gameObject.transform;
+                    var svTransform = SceneView.lastActiveSceneView.camera.transform;
+
+                    transform.position = svTransform.position;
+                    transform.rotation = svTransform.rotation;
+                    transform.localScale = Vector3.one;
+                }
+                
                 GUILayout.FlexibleSpace();
                 editing = GUILayout.Toggle(editing, "Edit", EditorStyles.miniButton, GUILayout.Width(48));
             }

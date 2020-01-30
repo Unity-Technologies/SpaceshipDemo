@@ -42,5 +42,10 @@ namespace GameplayIngredients.Logic
                     break;
             }
         }
+
+        public override string GetDefaultName()
+        {
+            return $"If {ExecutionPath} {(DisableOnPlayFromHere? "(Not Play From Here)":"")}" ;
+        }
     }
 }

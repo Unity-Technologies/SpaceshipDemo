@@ -125,8 +125,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Paused
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0e7210a9c7afbc4ca4da9f095376e73, type: 2}
@@ -307,6 +305,7 @@ MonoBehaviour:
   specifiedLevel: {fileID: 0}
   UserSaveIndex: 0
   UserSaveName: Progress
+  SaveProgress: 0
   OnComplete:
   - {fileID: 6284821371905785195}
 --- !u!114 &6284821371905785195
@@ -337,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9f0f69fcd64a844806009285029727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Set Mixer Silent
+  Name: Set Silent
   Mixer: {fileID: 24100000, guid: 6ba17f8357488334ab441a3007933556, type: 2}
   TimeToReach: 1
   SnapshotName: silent
@@ -455,6 +454,7 @@ GameObject:
   - component: {fileID: 8337870159690988933}
   - component: {fileID: 1060065517927892606}
   - component: {fileID: 6660587632761425014}
+  - component: {fileID: 6667661773671719468}
   m_Layer: 0
   m_Name: On RETURN_TO_MENU
   m_TagString: Untagged
@@ -491,6 +491,7 @@ MonoBehaviour:
   MessageName: RETURN_TO_MENU
   OnMessageRecieved:
   - {fileID: 8337870159690988933}
+  - {fileID: 6667661773671719468}
 --- !u!114 &8337870159690988933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +527,7 @@ MonoBehaviour:
   specifiedLevel: {fileID: 0}
   UserSaveIndex: 0
   UserSaveName: Progress
+  SaveProgress: 0
   OnComplete:
   - {fileID: 6660587632761425014}
 --- !u!114 &6660587632761425014
@@ -544,6 +546,22 @@ MonoBehaviour:
   Fading: 0
   Duration: 1
   OnComplete: []
+--- !u!114 &6667661773671719468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649708764804311072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9f0f69fcd64a844806009285029727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Set Silent
+  Mixer: {fileID: 24100000, guid: 6ba17f8357488334ab441a3007933556, type: 2}
+  TimeToReach: 1
+  SnapshotName: silent
 --- !u!1 &4188357256964928576
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +627,7 @@ MonoBehaviour:
   specifiedLevel: {fileID: 0}
   UserSaveIndex: 0
   UserSaveName: Progress
+  SaveProgress: 0
   OnComplete: []
 --- !u!114 &3266239837786560799
 MonoBehaviour:
@@ -950,8 +969,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &6819337295468039105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1029,7 @@ MonoBehaviour:
   MainMenuGameLevel: {fileID: 11400000, guid: 95379e6c955115740add9fed6a040f0b, type: 2}
   MainGameLevels:
   - {fileID: 11400000, guid: 3e51384be566c5942b8b3c50a7bc0f93, type: 2}
+  EnableSaveProgress: 1
   ProgressSaveName: Progress
 --- !u!1 &6921545616970046735
 GameObject:
@@ -1120,8 +1138,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &7902412300840088629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,15 +1450,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5924b4e4a61a794293cea4ef7c3c6f6, type: 3}
---- !u!1 &3352890470543022687 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 593389043489366252, guid: c5924b4e4a61a794293cea4ef7c3c6f6,
-    type: 3}
-  m_PrefabInstance: {fileID: 2791097273579780787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3352890470543022672 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 593389043489366243, guid: c5924b4e4a61a794293cea4ef7c3c6f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 2791097273579780787}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3352890470543022687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 593389043489366252, guid: c5924b4e4a61a794293cea4ef7c3c6f6,
     type: 3}
   m_PrefabInstance: {fileID: 2791097273579780787}
   m_PrefabAsset: {fileID: 0}
@@ -2041,18 +2057,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd858da4c7d786143b9993acc1b30217, type: 3}
---- !u!114 &5170492799999248411 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3033398032675037669, guid: cd858da4c7d786143b9993acc1b30217,
-    type: 3}
-  m_PrefabInstance: {fileID: 7915512571080043006}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5170492800521921993 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3033398031040875575, guid: cd858da4c7d786143b9993acc1b30217,
@@ -2071,6 +2075,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc3d684aff0c5b4290e088e4b8a735e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5170492799999248411 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3033398032675037669, guid: cd858da4c7d786143b9993acc1b30217,
+    type: 3}
+  m_PrefabInstance: {fileID: 7915512571080043006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8614954221457543793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2078,11 +2094,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1994204251719921874}
     m_Modifications:
-    - target: {fileID: 2255765566591169876, guid: 7032562b6942e724cb3c1db0fe904b11,
-        type: 3}
-      propertyPath: m_Name
-      value: DisableOnConsole
-      objectReference: {fileID: 0}
     - target: {fileID: 7862324043835442194, guid: 7032562b6942e724cb3c1db0fe904b11,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2138,6 +2149,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2255765566591169876, guid: 7032562b6942e724cb3c1db0fe904b11,
+        type: 3}
+      propertyPath: m_Name
+      value: DisableOnConsole
+      objectReference: {fileID: 0}
     - target: {fileID: 1525667865134529129, guid: 7032562b6942e724cb3c1db0fe904b11,
         type: 3}
       propertyPath: Calls.Array.size
@@ -2150,15 +2166,15 @@ PrefabInstance:
       objectReference: {fileID: 7459332375849164145}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7032562b6942e724cb3c1db0fe904b11, type: 3}
---- !u!4 &1914840421480633955 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7862324043835442194, guid: 7032562b6942e724cb3c1db0fe904b11,
-    type: 3}
-  m_PrefabInstance: {fileID: 8614954221457543793}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7548140644448069413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2255765566591169876, guid: 7032562b6942e724cb3c1db0fe904b11,
+    type: 3}
+  m_PrefabInstance: {fileID: 8614954221457543793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1914840421480633955 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7862324043835442194, guid: 7032562b6942e724cb3c1db0fe904b11,
     type: 3}
   m_PrefabInstance: {fileID: 8614954221457543793}
   m_PrefabAsset: {fileID: 0}

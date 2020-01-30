@@ -9,8 +9,9 @@ namespace GameplayIngredients.Editor
 {
     public static class MenuItems
     {
-        const int kPlayMenuPriority = 160;
-        const int kMenuPriority = 330;
+        public const int kWindowMenuPriority = 100;
+        public const int kPlayMenuPriority = 160;
+        public const int kMenuPriority = 330;
 
         #region PLAY HERE
 

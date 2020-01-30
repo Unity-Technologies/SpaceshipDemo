@@ -6,7 +6,7 @@ namespace GameplayIngredients
 {
     public static class Messager
     {
-        public delegate void Message();
+        public delegate void Message(GameObject instigator = null);
 
         private static Dictionary<string, List<Message>> m_RegisteredMessages;
 
@@ -38,7 +38,7 @@ namespace GameplayIngredients
                 m_RegisteredMessages.Remove(messageName);
         }
 
-        public static void Send(string eventName)
+        public static void Send(string eventName, GameObject instigator = null)
         {
             if(GameplayIngredientsSettings.currentSettings.verboseCalls)
                 Debug.Log(string.Format("[MessageManager] Broadcast: {0}", eventName));
@@ -47,9 +47,12 @@ namespace GameplayIngredients
             {
                 try
                 {
-                    foreach (var message in m_RegisteredMessages[eventName])
+                    // Get a copy of registered messages to iterate on. This prevents issues while deregistering message recievers while iterating.
+                    var messages = m_RegisteredMessages[eventName].ToArray();
+                    foreach (var message in messages)
                     {
-                        message.Invoke();
+                        if(message != null)
+                            message.Invoke(instigator);
                     }
                 }
                 catch (Exception e)
@@ -60,7 +63,8 @@ namespace GameplayIngredients
             }
             else
             {
-                Debug.Log("[MessageManager] could not find any listeners for event : " + eventName);
+                if(GameplayIngredientsSettings.currentSettings.verboseCalls)
+                    Debug.Log("[MessageManager] could not find any listeners for event : " + eventName);
             }
         }
     }

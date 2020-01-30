@@ -8,7 +8,7 @@ namespace GameplayIngredients.Actions
 
         public override void Execute(GameObject instigator = null)
         {
-            Messager.Send(MessageToSend);
+            Messager.Send(MessageToSend, instigator);
         }
     }
 }

@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Playables;
-using UnityEngine.Experimental.Rendering.HDPipeline;
 
 public class LightSourceEvents : MonoBehaviour
 {

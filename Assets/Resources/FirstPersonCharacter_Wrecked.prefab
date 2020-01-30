@@ -59,14 +59,19 @@ MonoBehaviour:
     FarClipPlane: 80
     Dutch: 0
     LensShift: {x: 0, y: 0}
+    Iso: 0
+    ShutterSpeed: 0
+    Aperture: 1
+    BladeCount: 3
+    Curvature: {x: 1, y: 1}
+    BarrelClipping: 0
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6323511202291256043}
 --- !u!1 &939882621719096344
@@ -281,8 +286,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &351975026943329236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,9 +316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9f0f69fcd64a844806009285029727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 'Set Mixer : Silent'
+  Name: AudioMixSnapshotAction
   Mixer: {fileID: 24100000, guid: 6ba17f8357488334ab441a3007933556, type: 2}
-  TimeToReach: 5
+  TimeToReach: 1
   SnapshotName: silent
 --- !u!114 &2881467268160669342
 MonoBehaviour:
@@ -478,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 20e46be82478fa24b90f748044c06b4b, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 3
   m_FrequencyGain: 0.4
   mNoiseOffsets: {x: 0, y: 0, z: 0}
@@ -659,14 +663,19 @@ MonoBehaviour:
     FarClipPlane: 80
     Dutch: 0
     LensShift: {x: 0, y: 0}
+    Iso: 0
+    ShutterSpeed: 0
+    Aperture: 1
+    BladeCount: 3
+    Curvature: {x: 1, y: 1}
+    BarrelClipping: 0
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1203376030261627651}
 --- !u!114 &766438211854726260
@@ -792,6 +801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 20e46be82478fa24b90f748044c06b4b, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 3
   m_FrequencyGain: 0.4
   mNoiseOffsets: {x: 0, y: 0, z: 0}
@@ -953,14 +963,19 @@ MonoBehaviour:
     FarClipPlane: 80
     Dutch: 0
     LensShift: {x: 0, y: 0}
+    Iso: 0
+    ShutterSpeed: 0
+    Aperture: 1
+    BladeCount: 3
+    Curvature: {x: 1, y: 1}
+    BarrelClipping: 0
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_TypeName: Cinemachine.CinemachineBrain+VcamActivatedEvent, Cinemachine, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6172125887059803618}
 --- !u!1 &4347683475076697643
@@ -1027,8 +1042,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 9032e8ea109e3224eadf106014430938, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -1122,9 +1135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9f0f69fcd64a844806009285029727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: MixerSetSnapshotAction
+  Name: AudioMixSnapshotAction
   Mixer: {fileID: 24100000, guid: 6ba17f8357488334ab441a3007933556, type: 2}
-  TimeToReach: 5
+  TimeToReach: 1
   SnapshotName: master
 --- !u!1 &5082086261426248219
 GameObject:
@@ -1234,6 +1247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 20e46be82478fa24b90f748044c06b4b, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 3
   m_FrequencyGain: 0.4
   mNoiseOffsets: {x: 0, y: 0, z: 0}
@@ -1463,8 +1477,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &9067134517269184308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1472,11 +1484,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1203376030672308018}
     m_Modifications:
-    - target: {fileID: 3970548685644215920, guid: 03ed0d24e92345c4f9a7a81ded981439,
-        type: 3}
-      propertyPath: m_Name
-      value: DisableOnConsole_KeyboardAndMouse
-      objectReference: {fileID: 0}
     - target: {fileID: 4992442657400538934, guid: 03ed0d24e92345c4f9a7a81ded981439,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1531,6 +1538,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3970548685644215920, guid: 03ed0d24e92345c4f9a7a81ded981439,
+        type: 3}
+      propertyPath: m_Name
+      value: DisableOnConsole_KeyboardAndMouse
       objectReference: {fileID: 0}
     - target: {fileID: 5213021541675929506, guid: 03ed0d24e92345c4f9a7a81ded981439,
         type: 3}

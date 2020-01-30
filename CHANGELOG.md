@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2020 - 01 - 30 - Updated project to Unity 2019.3
+
+**Version Tag** : `2019.3.0`
+
+* Updated all project to **Unity 2019.3.0f6**
+* Updated HD Render Pipeline / VFX Graph to package `7.1.8`
+
+**Known Issues:**
+
+* HDRP renders pitch-black on Linux Vulkan
+* Post-Processing Issues on macOS metal
+
 ## 2019 - 08 - 07 - Initial Release
 
 **Version Tag :** `2019.2.0`

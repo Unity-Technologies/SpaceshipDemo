@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1766907399}
   - component: {fileID: 1766907402}
   - component: {fileID: 1766907401}
-  - component: {fileID: 1766907400}
   m_Layer: 0
   m_Name: Spotlight spec
   m_TagString: Untagged
@@ -31,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1.000001, y: 1.0000005, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 5925943696293534409}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &1766907402
 Light:
@@ -41,8 +40,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766907398}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 0
+  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 31.830988
   m_Range: 10.14
@@ -105,101 +105,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 4
-  m_Version: 4
-  directionalIntensity: 3.1415927
-  punctualIntensity: 600
-  areaIntensity: 200
-  enableSpotReflector: 0
-  luxAtDistance: 1
+  m_Version: 6
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 256
+  m_ObsoleteContactShadows: 0
+  m_Intensity: 400
+  m_EnableSpotReflector: 0
+  m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
-  lightDimmer: 1
+  m_LightDimmer: 1
   m_VolumetricDimmer: 0
-  lightUnit: 0
-  sunDiskSize: 1
-  sunHaloSize: 0.1
-  fadeDistance: 10000
-  affectDiffuse: 0
-  affectSpecular: 1
-  nonLightmappedOnly: 0
-  lightTypeExtent: 0
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_AffectDiffuse: 0
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_LightTypeExtent: 0
   m_SpotLightShape: 0
-  shapeWidth: 0.2
-  shapeHeight: 0.2
-  aspectRatio: 1
-  shapeRadius: 0
-  maxSmoothness: 0.789
-  applyRangeAttenuation: 1
+  m_ShapeWidth: 0.2
+  m_ShapeHeight: 0.2
+  m_AspectRatio: 1
+  m_ShapeRadius: 0
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.789
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0
+  m_Distance: 150000000
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.75
+  m_ShadowSoftness: 0.23
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 32
+  m_MinFilterSize: 0.00001
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 256
+    m_UseOverride: 1
+    m_Level: 1
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 15
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_NormalBias: 0.75
+  m_ConstantBias: 0.15
+  m_ShadowUpdateMode: 0
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 4
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
   useOldInspector: 0
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 1
-  displayLightIntensity: 400
-  displayAreaLightEmissiveMesh: 0
-  areaLightCookie: {fileID: 0}
-  areaLightShadowCone: 120
-  evsmExponent: 15
-  evsmLightLeakBias: 0
-  evsmVarianceBias: 0.00001
-  evsmBlurPasses: 0
-  lightLayers: 1
-  shadowNearPlane: 0.75
-  shadowSoftness: 0.23
-  blockerSampleCount: 24
-  filterSampleCount: 32
-  minFilterSize: 0.00001
-  kernelSize: 5
-  lightAngle: 1
-  maxDepthBias: 0.001
---- !u!114 &1766907400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766907398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  shadowResolution: 256
-  shadowDimmer: 1
-  volumetricShadowDimmer: 1
-  shadowFadeDistance: 15
-  contactShadows: 0
-  viewBiasMin: 0
-  viewBiasMax: 100
-  viewBiasScale: 1
-  normalBiasMin: 0.5
-  normalBiasMax: 0.5
-  normalBiasScale: 1
-  sampleBiasScale: 0
-  edgeLeakFixup: 1
-  edgeToleranceNormal: 0
-  edgeTolerance: 1
-  shadowCascadeCount: 4
-  shadowCascadeRatios:
-  - 0.05
-  - 0.2
-  - 0.3
-  shadowCascadeBorders:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  shadowAlgorithm: 4
-  shadowVariant: 0
-  shadowPrecision: 0
-  shadowData:
-    format: 32
-    data: 6f12833a00008042
-  shadowDatas:
-  - format: 0
-    data: 000000000000803f
-  - format: 32
-    data: 6f12833a00008042
 --- !u!1001 &4799167200748379645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -307,6 +290,31 @@ PrefabInstance:
       propertyPath: displayLightIntensity
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 6479278061725810393, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_Version
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479278061725810393, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ObsoleteCustomShadowResolution
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479278061725810393, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShadowResolution.m_Override
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479278061725810393, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShadowResolution.m_Level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479278061725810393, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShadowFadeDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
         type: 3}
       propertyPath: lightTypeExtent
@@ -327,6 +335,41 @@ PrefabInstance:
       propertyPath: displayLightIntensity
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_Version
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShadowResolution.m_Level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShadowFadeDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShadowAlgorithm
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_LightTypeExtent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShapeWidth
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199997374325723715, guid: a23583ad573d4fa4392e44cc28683bed,
+        type: 3}
+      propertyPath: m_ShapeHeight
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1199997374325723714, guid: a23583ad573d4fa4392e44cc28683bed,
         type: 3}
       propertyPath: m_Type
@@ -345,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 1199997374325723714, guid: a23583ad573d4fa4392e44cc28683bed,
         type: 3}
       propertyPath: m_Intensity
-      value: 318.30988
+      value: 11140.846
       objectReference: {fileID: 0}
     - target: {fileID: 1199997374325723714, guid: a23583ad573d4fa4392e44cc28683bed,
         type: 3}
@@ -400,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 2021285170005611879, guid: a23583ad573d4fa4392e44cc28683bed,
         type: 3}
       propertyPath: m_Intensity
-      value: 15.915494
+      value: 27.852114
       objectReference: {fileID: 0}
     - target: {fileID: 2021285170005611879, guid: a23583ad573d4fa4392e44cc28683bed,
         type: 3}
@@ -437,7 +480,9 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 241d9c6421c67f44f8f777a706614bf0, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1199997374325723724, guid: a23583ad573d4fa4392e44cc28683bed, type: 3}
+    - {fileID: 8267964665546329363, guid: a23583ad573d4fa4392e44cc28683bed, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a23583ad573d4fa4392e44cc28683bed, type: 3}
 --- !u!4 &5925943696293534409 stripped
 Transform:

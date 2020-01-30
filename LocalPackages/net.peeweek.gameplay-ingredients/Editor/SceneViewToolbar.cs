@@ -6,7 +6,7 @@ using System;
 
 namespace GameplayIngredients.Editor
 {
-    static class SceneViewToolbar
+    public static class SceneViewToolbar
     {
         public delegate void SceneViewToolbarDelegate(SceneView sceneView);
 
