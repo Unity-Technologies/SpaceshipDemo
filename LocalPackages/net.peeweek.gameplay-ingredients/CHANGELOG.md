@@ -1,5 +1,11 @@
 # Changelog
 
+## 2019.3.4
+
+#### Changed
+
+* Game Save manager now saves to the Application.persistentDataPath folder
+
 ## 2019.3.3
 
 #### Added
