@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using GameplayIngredients;
-using Console;
+using ConsoleUtility;
 
 [AutoRegisterConsoleCommand]
 public class POVConsoleCommand : IConsoleCommand
@@ -12,7 +12,7 @@ public class POVConsoleCommand : IConsoleCommand
 
     public string help => @"pov [index]";
 
-    public IEnumerable<Console.Console.Alias> aliases => null;
+    public IEnumerable<Console.Alias> aliases => null;
 
     public void Execute(string[] args)
     {
@@ -31,23 +31,23 @@ public class POVConsoleCommand : IConsoleCommand
                     }
                     else
                     {
-                        Console.Console.Log("POV", $"Could not set POV #{index} : found  {allPOVs.Length} ScenePOVRoot objects", LogType.Error);
+                        Console.Log("POV", $"Could not set POV #{index} : found  {allPOVs.Length} ScenePOVRoot objects", LogType.Error);
                     }
                 }
                 else
                 {
-                    Console.Console.Log("POV", $"Could not find any ScenePOVRoot objects", LogType.Error);
+                    Console.Log("POV", $"Could not find any ScenePOVRoot objects", LogType.Error);
                 }
             }
             else
             {
-                Console.Console.Log("POV", $"Invalid argument: {args[0]}", LogType.Error);
+                Console.Log("POV", $"Invalid argument: {args[0]}", LogType.Error);
             }
         }
         else
         {
             Manager.Get<DebugPOVManager>().SetCamera(null);
-            Console.Console.Log("POV", $"Disabled POV", LogType.Log);
+            Console.Log("POV", $"Disabled POV", LogType.Log);
         }
     }
 }

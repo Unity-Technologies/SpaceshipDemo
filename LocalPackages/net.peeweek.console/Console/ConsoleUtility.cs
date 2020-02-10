@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Console
+namespace ConsoleUtility
 {
     static class ConsoleUtility
     {

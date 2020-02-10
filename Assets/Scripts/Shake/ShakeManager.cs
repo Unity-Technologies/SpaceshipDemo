@@ -3,6 +3,7 @@ using GameplayIngredients;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ConsoleUtility;
 
 [ManagerDefaultPrefab("ShakeManager")]
 public class ShakeManager : Manager
@@ -50,7 +51,7 @@ public class ShakeManager : Manager
     void DebugLog(string message)
     {
         if(LogShakes)
-            Console.Console.Log("ShakeManager", message, LogType.Log);
+            Console.Log("ShakeManager", message, LogType.Log);
     }
 
     public void Shake(Settings shake, bool force = false)

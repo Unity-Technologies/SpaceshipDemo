@@ -6,14 +6,14 @@ Oh, and the console catches unity Logs.
 
 ## Install
 
-Either Clone the repository and reference the package.json in the Package Manager UI, or add directly this line to the `Packages/manifest.json` under `dependencies` : 
+Either Clone the repository and reference the `package.json` in the Package Manager UI, or add directly this line to the `Packages/manifest.json` under `dependencies` : 
 
-`"net.peeweek.console": "https://github.com/peeweek/net.peeweek.console.git#1.0.0-preview",`
+`"net.peeweek.console": "https://github.com/peeweek/net.peeweek.console.git#1.1.0",`
 
-## Usage
+## How to use
 
-* ~~Drop the Console/Console.prefab into your scene~~
-* Voilà! You can access the console by pressing F12 at runtime
+* Press the Backslash `\` key at runtime to toggle the Console (Can be customized if you use the package as local package)
+* Use the input field to input commands and execute button or return key to execute.
 
 ### Navigation (Defaults)
 
@@ -28,7 +28,7 @@ Either Clone the repository and reference the package.json in the Package Manage
 * `clear` clears the console output.
 
 ### API Summary
-
+* `using ConsoleUtility;`
 * `Console.Log("Module", "Message", LogType.Warning);`for a detailed log and coloration.
 * `Console.Log("Module", "Message");`shortcut with `LogType.Log`.
 * `Console.Log("Message");`Simplest one, without module.
@@ -48,7 +48,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Console
+namespace ConsoleUtility
 {
     [AutoRegisterConsoleCommand]
     public class MyConsoleCommand : IConsoleCommand

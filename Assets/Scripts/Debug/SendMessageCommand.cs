@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Console;
+using ConsoleUtility;
 using GameplayIngredients;
 
 [AutoRegisterConsoleCommand]
@@ -13,7 +13,7 @@ public class SendMessageCommand : IConsoleCommand
 
     public string help => "usage: send <message>";
 
-    public IEnumerable<Console.Console.Alias> aliases => null;
+    public IEnumerable<Console.Alias> aliases => null;
 
     public void Execute(string[] args)
     {
@@ -24,7 +24,7 @@ public class SendMessageCommand : IConsoleCommand
         }
         else
         {
-            Console.Console.Log(name, help, LogType.Warning);
+            Console.Log(name, help, LogType.Warning);
         }
     }
 }

@@ -1,4 +1,4 @@
-using Console;
+using ConsoleUtility;
 using GameplayIngredients;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +12,11 @@ public class LoadLevelConsoleCommand : IConsoleCommand
 
     public string help => "load <level-Id>";
 
-    public IEnumerable<Console.Console.Alias> aliases
+    public IEnumerable<Console.Alias> aliases
     {
         get
         {
-            yield return new Console.Console.Alias() { AliasString = "mainmenu", Command = "load -1"  } ;
+            yield return new Console.Alias() { AliasString = "mainmenu", Command = "load -1"  } ;
         }
     }
 
@@ -29,7 +29,7 @@ public class LoadLevelConsoleCommand : IConsoleCommand
             {
                 var manager = GameplayIngredients.Manager.Get<GameManager>();
                 idx = Mathf.Clamp(idx, -1, manager.MainGameLevels.Length-1);
-                Console.Console.Log(name, $"Loading Game level #{idx} ...");
+                Console.Log(name, $"Loading Game level #{idx} ...");
                 manager.SwitchLevel(idx, true, null);
             }
         }

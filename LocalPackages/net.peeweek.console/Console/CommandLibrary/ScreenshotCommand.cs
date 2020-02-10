@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Console
+namespace ConsoleUtility
 {
     [AutoRegisterConsoleCommand]
     public class ScreenshotCommand : IConsoleCommand
