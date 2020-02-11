@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2020 - 02 - 11 - Updated to HDRP 7.2.0
+
+**Version Tag** : `2019.3.1`
+
+* Updated HD Render Pipeline / VFX Graph to package `7.2.0`
+* Removed UnityBall Duplicate FBX from project
+
 ## 2020 - 01 - 30 - Updated project to Unity 2019.3
 
 **Version Tag** : `2019.3.0`
