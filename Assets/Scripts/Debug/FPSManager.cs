@@ -8,10 +8,17 @@ using UnityEngine.UI;
 public class FPSManager : Manager
 {
     public KeyCode ToggleKey = KeyCode.F8;
+
     public GameObject FPSRoot;
     public Text FPSCounter;
     public Text MillisecondCounter;
     public float smoothDeltaTimePeriod = 1.5f;
+
+    public KeyCode PauseKey = KeyCode.F5;
+    public KeyCode StepKey = KeyCode.F6;
+
+    bool paused = false;
+    bool step = false;
 
     private void Update()
     {
@@ -27,6 +34,33 @@ public class FPSManager : Manager
 
             if (MillisecondCounter != null)
                 MillisecondCounter.text = $"{((dt * 1000).ToString("F2"))}ms.";
+        }
+
+        if(paused)
+        {
+            if(step)
+            {
+                Time.timeScale = 1.0f;
+                step = false;
+            }
+            else
+            {
+                Time.timeScale = 0.0f;
+            }
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
+
+        if (Input.GetKeyDown(PauseKey))
+        {
+            paused = !paused;
+        }
+        else if (Input.GetKeyDown(StepKey))
+        {
+            paused = true;
+            step = true;
         }
     }
 
