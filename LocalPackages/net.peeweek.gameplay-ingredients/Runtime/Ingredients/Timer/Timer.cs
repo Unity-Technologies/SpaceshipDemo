@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GameplayIngredients
 {
+    [AdvancedHierarchyIcon("Packages/net.peeweek.gameplay-ingredients/Icons/Misc/ic-timer.png")]
     public class Timer : MonoBehaviour
     {
         public bool StartOnEnable = false;

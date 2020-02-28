@@ -50,14 +50,29 @@ namespace GameplayIngredients.Editor
 
                     if(isLinked && isLocked)
                     {
-                        GUI.color = Color.green *2;
+                        GUI.color = Styles.lockedLinkColor * 2;
+                    }
+                    else if (isLinked && LinkGameView.CinemachineActive)
+                    {
+                        GUI.color = Styles.cineColor * 2;
                     }
 
-                    isLinked = GUILayout.Toggle(isLinked, Contents.linkGameView, EditorStyles.toolbarButton, GUILayout.Width(64));
+                    isLinked = GUILayout.Toggle(isLinked, LinkGameView.CinemachineActive? Contents.linkGameViewCinemachine: Contents.linkGameView, EditorStyles.toolbarButton, GUILayout.Width(64));
 
                     if (GUI.changed)
                     {
-                        LinkGameView.Active = isLinked;
+                        if(Event.current.shift)
+                        {
+                            if (!LinkGameView.Active)
+                                LinkGameView.Active = true;
+
+                            LinkGameView.CinemachineActive = !LinkGameView.CinemachineActive;
+                        }
+                        else
+                        {
+                            LinkGameView.Active = isLinked;
+                            LinkGameView.CinemachineActive = false;
+                        }
                     }
 
                     isLocked = GUILayout.Toggle(isLocked, Contents.lockLinkGameView, EditorStyles.toolbarButton);
@@ -66,6 +81,7 @@ namespace GameplayIngredients.Editor
                     {
                         if (isLocked)
                         {
+                            LinkGameView.CinemachineActive = false;
                             LinkGameView.LockedSceneView = sceneView;
                         }
                         else
@@ -96,7 +112,36 @@ namespace GameplayIngredients.Editor
 
                 }
             }
+
+            if (LinkGameView.CinemachineActive)
+            {
+                DisplayText("CINEMACHINE PREVIEW", Styles.cineColor);
+            }
+            else if (LinkGameView.Active)
+            {
+                if (LinkGameView.LockedSceneView == sceneView)
+                {
+                    DisplayText("GAME VIEW LINKED (LOCKED)", Styles.lockedLinkColor);
+                }
+                else if(LinkGameView.LockedSceneView == null && SceneView.lastActiveSceneView == sceneView)
+                {
+                    DisplayText("GAME VIEW LINKED", Color.white);
+                }
+            }
+
             Handles.EndGUI();
+        }
+
+        static void DisplayText(string text, Color color)
+        {
+            Rect r = new Rect(16, 24, 512, 32);
+            GUI.color = Color.black;
+            GUI.Label(r, text);
+            r.x--;
+            r.y--;
+            GUI.color = color;
+            GUI.Label(r, text);
+            GUI.color = Color.white;
         }
 
         static class Contents
@@ -104,12 +149,18 @@ namespace GameplayIngredients.Editor
             public static GUIContent playFromHere;
             public static GUIContent lockLinkGameView;
             public static GUIContent linkGameView;
+            public static GUIContent linkGameViewCinemachine;
 
             static Contents()
             {
                 lockLinkGameView = new GUIContent(EditorGUIUtility.IconContent("IN LockButton"));
                 linkGameView = new GUIContent(EditorGUIUtility.Load("Packages/net.peeweek.gameplay-ingredients/Icons/GUI/Camera16x16.png") as Texture);
                 linkGameView.text = " Game";
+
+                linkGameViewCinemachine = new GUIContent(EditorGUIUtility.Load("Packages/net.peeweek.gameplay-ingredients/Icons/GUI/Camera16x16.png") as Texture);
+                linkGameViewCinemachine.text = " Cine";
+
+
 
                 playFromHere = new GUIContent(EditorGUIUtility.IconContent("Animation.Play"));
                 playFromHere.text = "Here";
@@ -119,6 +170,8 @@ namespace GameplayIngredients.Editor
         static class Styles
         {
             public static GUIStyle toolbar;
+            public static Color lockedLinkColor = new Color(0.5f, 1.0f, 0.1f, 1.0f);
+            public static Color cineColor = new Color(1.0f, 0.5f, 0.1f, 1.0f);
 
             static Styles()
             {

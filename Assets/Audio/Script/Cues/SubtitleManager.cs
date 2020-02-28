@@ -15,13 +15,45 @@ public class SubtitleManager : Manager
         public string Text;
     }
 
+    [Header("UI")]
     public GameObject SubtitleContainer;
     public TMPro.TMP_Text SubtitleText;
 
+
+    [Header("Pause")]
+    public string PauseMessage = "PAUSE";
+    public string UnPauseMessage = "UNPAUSE";
+
     Subtitle[] m_Subtitles;
-    public List<Coroutine> m_Coroutines;
+    List<Coroutine> m_Coroutines;
 
+    private void OnEnable()
+    {
+        Messager.RegisterMessage(PauseMessage, OnPause);
+        Messager.RegisterMessage(UnPauseMessage, OnUnPause);
+    }
 
+    private void OnDisable()
+    {
+        Messager.RemoveMessage(PauseMessage, OnPause);
+        Messager.RemoveMessage(UnPauseMessage, OnUnPause);
+    }
+
+    bool bWasVisible;
+
+    void OnPause(GameObject instigator = null)
+    {
+        bWasVisible = SubtitleContainer.activeSelf;
+
+        if(bWasVisible)
+            SubtitleContainer.SetActive(false);
+    }
+
+    void OnUnPause(GameObject instigator = null)
+    {
+        if(bWasVisible)
+            SubtitleContainer.SetActive(true);
+    }
     public void StopSubtitles()
     {
         if (m_Coroutines == null)

@@ -120,10 +120,10 @@ MonoBehaviour:
   - title: Computing the Bounding AABox around the camera
     position:
       serializedVersion: 2
-      x: -219
-      y: -137
-      width: 580
-      height: 226
+      x: -619
+      y: 641
+      width: 641
+      height: 218
     contents:
     - model: {fileID: 8926484042661614552}
       id: 0
@@ -138,23 +138,23 @@ MonoBehaviour:
   - title: Spawn Position at origin
     position:
       serializedVersion: 2
-      x: 1146
-      y: -18
+      x: 1219
+      y: -54
       width: 564
       height: 262
-    contents: ' Particles are simulated in a volume of same size but at the origin
-      of the world.
+    contents: 'Particles are simulated in a volume of same size but at the origin
+      of the world, before being wrapped and tiled around the camera.
 
 
-      Placement and tiling around the camera is made at a later
-      time'
+      Placement
+      and tiling around the camera is made at a later time, during the output context.'
     theme: Classic
     textSize: Medium
   - title: Placing particles around camera / Make them tile
     position:
       serializedVersion: 2
-      x: 1151
-      y: 1361
+      x: 1209
+      y: 1495
       width: 564
       height: 262
     contents: 'Using Tile/Warp:
@@ -185,10 +185,10 @@ MonoBehaviour:
     collapsed: 1
   uiBounds:
     serializedVersion: 2
-    x: -219
+    x: -594
     y: -467
-    width: 1934
-    height: 2168
+    width: 2377
+    height: 2272
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -973,7 +973,7 @@ VisualEffectResource:
       \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommon.hlsl\"\n\n\r\n\r\nvoid
       Turbulence_18D(float3 position, inout float3 velocity, float mass, float4x4
       InvFieldTransform, float4x4 FieldTransform, float Intensity, float Drag, float
-      frequency, float roughness, float lacunarity, int octaves, float deltaTime)
+      frequency, int octaves, float roughness, float lacunarity, float deltaTime)
       /*Mode:Relative NoiseType:Value */\n{\n    float3 vectorFieldCoord = mul(InvFieldTransform,
       float4(position,1.0f)).xyz;\n    \n    float3 value = GenerateValueCurlNoise(vectorFieldCoord
       + 0.5f, frequency, octaves, roughness, lacunarity);\n    value = mul(FieldTransform,float4(value,0.0f)).xyz
@@ -1010,7 +1010,7 @@ VisualEffectResource:
       PARTICLE_PER_STRIP_COUNT);\r\n            InitStripAttributes(index, attributes,
       stripData);\r\n#endif\r\n\t\t\t\r\n\t\t\t{\n\t\t\t    Turbulence_18D(attributes.position, 
       /*inout */attributes.velocity, attributes.mass, InvFieldTransform_a, FieldTransform_a,
-      Intensity_a, Drag_a, (float)1.5, (float)0.980831921, (float)2, (int)3, deltaTime_a);\n\t\t\t}\n\t\t\tAttributeFromCurve_45ABB90F(
+      Intensity_a, Drag_a, (float)1.5, (int)3, (float)0.980831921, (float)2, deltaTime_a);\n\t\t\t}\n\t\t\tAttributeFromCurve_45ABB90F(
       /*inout */attributes.size, attributes.age, attributes.lifetime, Size_b);\n\t\t\tColorOverLife_736FB(attributes.age,
       attributes.lifetime,  /*inout */attributes.color,  /*inout */attributes.alpha,
       gradient_c);\n\t\t\tEulerIntegration( /*inout */attributes.position, attributes.velocity,
@@ -1049,9 +1049,9 @@ VisualEffectResource:
       stripData = GetStripDataFromParticleIndex(index, PARTICLE_PER_STRIP_COUNT);\r\n       
       InitStripAttributes(index, attributes, stripData);\r\n#endif\r\n\t\t\r\n\t\t{\n\t\t   
       Turbulence_18D(attributes.position,  /*inout */attributes.velocity, attributes.mass,
-      InvFieldTransform_a, FieldTransform_a, Intensity_a, Drag_a, (float)1.5, (float)0.980831921,
-      (float)2, (int)3, deltaTime_a);\n\t\t}\n\t\tAttributeFromCurve_45ABB90F( /*inout
-      */attributes.size, attributes.age, attributes.lifetime, Size_b);\n\t\tColorOverLife_736FB(attributes.age,
+      InvFieldTransform_a, FieldTransform_a, Intensity_a, Drag_a, (float)1.5, (int)3,
+      (float)0.980831921, (float)2, deltaTime_a);\n\t\t}\n\t\tAttributeFromCurve_45ABB90F(
+      /*inout */attributes.size, attributes.age, attributes.lifetime, Size_b);\n\t\tColorOverLife_736FB(attributes.age,
       attributes.lifetime,  /*inout */attributes.color,  /*inout */attributes.alpha,
       gradient_c);\n\t\tEulerIntegration( /*inout */attributes.position, attributes.velocity,
       deltaTime_a);\n\t\tAge( /*inout */attributes.age, deltaTime_a);\n\t\tReap(attributes.age,
@@ -1888,7 +1888,7 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 5
+        data[3]: 1
       - op: 1
         valueIndex: 119
         data[0]: -1
@@ -1900,7 +1900,7 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 1
+        data[3]: 5
       - op: 1
         valueIndex: 121
         data[0]: -1
@@ -1995,10 +1995,10 @@ VisualEffectResource:
           m_Value: 1
         - m_ExpressionIndex: 18
           m_Value: 0
+        - m_ExpressionIndex: 29
+          m_Value: 2
         - m_ExpressionIndex: 30
           m_Value: 64
-        - m_ExpressionIndex: 31
-          m_Value: 0.9808319
         - m_ExpressionIndex: 32
           m_Value: 1.5
         - m_ExpressionIndex: 38
@@ -2006,7 +2006,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 41
           m_Value: 0.1
         - m_ExpressionIndex: 43
-          m_Value: 2
+          m_Value: 0.9808319
       m_Vector2f:
         m_Array:
         - m_ExpressionIndex: 0
@@ -2035,7 +2035,7 @@ VisualEffectResource:
           m_Value: 0
       m_Int:
         m_Array:
-        - m_ExpressionIndex: 29
+        - m_ExpressionIndex: 31
           m_Value: 3
       m_Matrix4x4f:
         m_Array:
@@ -2802,7 +2802,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614545}
   - {fileID: 8926484042661614626}
   - {fileID: 8926484042661614621}
-  m_UIPosition: {x: 715, y: 1096}
+  m_UIPosition: {x: 730, y: 1155}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -3026,7 +3026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -144, y: -75}
+  m_UIPosition: {x: -545, y: 701}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -3046,7 +3046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 22, y: -69}
+  m_UIPosition: {x: -378, y: 704}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -4472,7 +4472,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614652}
       inputSlot: {fileID: 8926484042661614580}
-    position: {x: -194, y: 11}
+    position: {x: -594, y: 784}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614652
@@ -5038,7 +5038,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614627}
     - outputSlot: {fileID: 8926484042661614696}
       inputSlot: {fileID: 8926484042661614628}
-    position: {x: 435, y: 1572}
+    position: {x: 402, y: 1682}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614694
@@ -5996,7 +5996,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614786}
       inputSlot: {fileID: 8926484042661614750}
-    position: {x: 520, y: 1295}
+    position: {x: 515, y: 1398}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614786
@@ -6769,6 +6769,12 @@ MonoBehaviour:
       m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
     attributes:
+    - m_Type: 0
+      m_Min: 1
+      m_Max: 8
+      m_Tooltip: 
+      m_Regex: 
+      m_RegexMaxLength: 0
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity

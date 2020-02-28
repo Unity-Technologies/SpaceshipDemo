@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5287945060474684853}
   - component: {fileID: 5250466977172080201}
   - component: {fileID: 247113525463523334}
+  - component: {fileID: 5685114479465610878}
   m_Layer: 9
   m_Name: Interactive
   m_TagString: Untagged
@@ -61,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnInteract:
   - {fileID: 1363049396738489863}
+  - {fileID: 5685114479465610878}
   MaxDistance: 5
   OnHoverIn:
   - {fileID: 247113525463523334}
@@ -81,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 'VFX ARUI-Hover = False '
   visualEffect: {fileID: 7134091276119853856}
-  parameter: ARUI-Hover
+  property: ARUI-Hover
   Override: 1
   dataType: 0
   BoolValue: 0
@@ -107,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: VFX ARUI-Hover = True
   visualEffect: {fileID: 7134091276119853856}
-  parameter: ARUI-Hover
+  property: ARUI-Hover
   Override: 1
   dataType: 0
   BoolValue: 1
@@ -119,6 +121,135 @@ MonoBehaviour:
   Texture3DValue: {fileID: 0}
   UIntValue: 0
   IntValue: 0
+--- !u!114 &5685114479465610878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280514025168862034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846d5f33f7af4014ea15adf7a92dc953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Disable Highlight
+  Targets:
+  - GameObject: {fileID: 2889974624162614199}
+    State: 0
+--- !u!1 &2889974624162614199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8117853888319312732}
+  - component: {fileID: 1523985402491027206}
+  - component: {fileID: 2092198507462036155}
+  m_Layer: 0
+  m_Name: Highlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8117853888319312732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889974624162614199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3999544795325332812}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!2083052967 &1523985402491027206
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889974624162614199}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: a6da47e691fd76d43a13eda07ff1a63e, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 0.22
+        m_Name: Radius
+        m_Overridden: 1
+      - m_Value: 1.5
+        m_Name: CheckDistance
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
+--- !u!73398921 &2092198507462036155
+VFXRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889974624162614199}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &3386493105140817582
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,8 +309,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!82 &7054907629668396193
 AudioSource:
   m_ObjectHideFlags: 0
@@ -309,6 +438,7 @@ Transform:
   - {fileID: 3173096996506704711}
   - {fileID: 6456437248210268453}
   - {fileID: 1472195841513303902}
+  - {fileID: 8117853888319312732}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -321,6 +451,8 @@ VisualEffect:
   m_GameObject: {fileID: 3999544795325332815}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 0dbeb55227748f74ca8971e80fb21dc8, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
@@ -351,7 +483,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: ARUI-Hover
+        m_Overridden: 0
 --- !u!73398921 &7536699061915691602
 VFXRenderer:
   m_ObjectHideFlags: 0
@@ -363,9 +498,10 @@ VFXRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 0
+  m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 1
   m_Materials:
@@ -455,8 +591,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!82 &8694034831394248087
 AudioSource:
   m_ObjectHideFlags: 0

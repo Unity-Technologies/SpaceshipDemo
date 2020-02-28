@@ -202,6 +202,22 @@ namespace GameplayIngredients.Editor
                     AssetDatabase.OpenAsset(shader);
                 }
             }
+            else if (t == typeof(SceneAsset))
+            {
+                if (GUILayout.Button("Open Scene"))
+                {
+                    SceneAsset scene = target as SceneAsset;
+                    AssetDatabase.OpenAsset(scene);
+                }
+            }
+            else if (t == typeof(EditorSceneSetup))
+            {
+                if (GUILayout.Button("Open Scenes"))
+                {
+                    EditorSceneSetup scene = target as EditorSceneSetup;
+                    AssetDatabase.OpenAsset(scene);
+                }
+            }
             else
             {
                 if (GUILayout.Button("Select"))

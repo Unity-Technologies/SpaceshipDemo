@@ -1,5 +1,7 @@
 ![](https://raw.githubusercontent.com/peeweek/net.peeweek.gameplay-ingredients/master/Documentation%7E/Images/site-banner.png)
 
+[![openupm](https://img.shields.io/npm/v/net.peeweek.gameplay-ingredients?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/net.peeweek.gameplay-ingredients/) [![Documentation Status](https://readthedocs.org/projects/pip/badge/?version=stable)](http://pip.pypa.io/en/stable/?badge=stable)
+
 Gameplay Ingredients for your Unity Games - A collection of scripts that ease simple tasks while making games and prototypes.
 
 <u>You can read Documentation at this address :</u> [https://peeweek.readthedocs.io/en/latest/gameplay-ingredients/](https://peeweek.readthedocs.io/en/latest/gameplay-ingredients/)
@@ -12,18 +14,24 @@ Gameplay Ingredients for your Unity Games - A collection of scripts that ease si
 
 ## How to install
 
+### Install as Local Package
+
 You can use a manual, local package installation if you need to alter the code locally or update the code base regularly. 
-
-Otherwise, you can perform a git referenced package in your `manifset.json` file : this option shall download and manage automatically the repository, with the drawback of being read-only.
-
-### Manual Version
 
 - Clone this repository somewhere of your liking
 - In your project, open the `Window/Package Manager` window and use the + button to select the `Add Package from Disk...` option.
 - Navigate to your repository folder and select the `package.json` file
 - The package shall be added as a **local package**
 
-### Git reference version
+### Install via OpenUPM
+
+The package is available on the [openupm registry](https://openupm.com). It's recommended to install it via [openupm-cli](https://github.com/openupm/openupm-cli).
+
+```
+openupm add net.peeweek.gameplay-ingredients
+```
+
+### Git Reference Version
 
 - Ensure you have a **[Command Line Git](https://gitforwindows.org/) Installed**
 - With Unity 2019.3 closed, edit the `Packages/manifest.json` with a text editor

@@ -2,9 +2,23 @@
 
 ## 2019.3.4
 
+#### Added
+
+* Preferences for Advanced Hierarchy View
+* Added API to AdvancedHierarchyView to add other Icons from component types
+* Help Menu links (github, documentation, openUPM)
+* Added support for SceneAsset and EditorSceneSetup in Discover
+* Added an option to change the Game View Link camera behavior to Cinemachine Brain preview.
+
 #### Changed
 
 * Game Save manager now saves to the Application.persistentDataPath folder
+* Renamed HierarchyHints to AdvancedHierarchyView + Changed behaviour to apply visibility from preferences
+* Managers: Adjusted RuntimeInitializeOnLoad for new Quick Enter Play Mode Settings
+
+#### Fixed
+
+* Fixed FocusUIAction that did not update the focus of a button in certain conditions.
 
 ## 2019.3.3
 

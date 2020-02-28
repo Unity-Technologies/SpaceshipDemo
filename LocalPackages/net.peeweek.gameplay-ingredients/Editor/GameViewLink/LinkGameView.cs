@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Cinemachine;
 
 namespace GameplayIngredients.Editor
 {
     public static class LinkGameView
     {
         static readonly string kPreferenceName = "GameplayIngredients.LinkGameView";
+        static readonly string kCinemachinePreferenceName = "GameplayIngredients.LinkGameViewCinemachine";
         static readonly string kLinkCameraName = "___LINK__SCENE__VIEW__CAMERA___";
 
         public static bool Active
@@ -36,7 +38,32 @@ namespace GameplayIngredients.Editor
             }
         }
 
+        public static bool CinemachineActive
+        {
+            get
+            {
+                // Get preference only when not playing
+                if (!Application.isPlaying)
+                    m_CinemachineActive = EditorPrefs.GetBool(kCinemachinePreferenceName, false);
+
+                return m_CinemachineActive;
+            }
+
+            set
+            {
+                // Update preference only when not playing
+                if (!Application.isPlaying)
+                    EditorPrefs.SetBool(kCinemachinePreferenceName, value);
+
+                UpdateCinemachinePreview(value);
+
+                m_CinemachineActive = value;
+            }
+        }
+
         static bool m_Active = false;
+        static bool m_CinemachineActive = false;
+
 
 
         public static SceneView LockedSceneView
@@ -70,6 +97,12 @@ namespace GameplayIngredients.Editor
                     Active = true;
                 else
                     Active = false;
+
+                if (CinemachineActive)
+                    CinemachineActive = true;
+                else
+                    CinemachineActive = false;
+
             }
             else // Cleanup before switching state
             {
@@ -98,7 +131,6 @@ namespace GameplayIngredients.Editor
         }
         
         static GameObject s_GameObject;
-
 
         static void Update(SceneView sceneView)
         {
@@ -132,7 +164,7 @@ namespace GameplayIngredients.Editor
                 }
             }
 
-            if (Active)
+            if (Active && !CinemachineActive)
             {
                 var sv = s_LockedSceneView == null ? SceneView.lastActiveSceneView : s_LockedSceneView;
                 var sceneCamera = sv.camera;
@@ -155,12 +187,12 @@ namespace GameplayIngredients.Editor
             }
         }
 
-        const string kDefaultPrefabName = "LinkGameViewCamera";
+        const string kDefaultLinkPrefabName = "LinkGameViewCamera";
 
         static GameObject CreateLinkedCamera()
         {
             // Try to find an Asset named as the default name
-            string[] assets = AssetDatabase.FindAssets(kDefaultPrefabName);
+            string[] assets = AssetDatabase.FindAssets(kDefaultLinkPrefabName);
             if(assets.Length > 0)
             {
                 string path = AssetDatabase.GUIDToAssetPath(assets[0]);
@@ -196,6 +228,21 @@ namespace GameplayIngredients.Editor
             camera.depth = int.MaxValue;
             go.SetActive(Active);
             return go;
+        }
+
+        static void UpdateCinemachinePreview(bool value)
+        {
+            if (s_GameObject == null)
+                return;
+
+            CinemachineBrain brain;
+
+            if (!s_GameObject.TryGetComponent<CinemachineBrain>(out brain))
+            {
+                brain = s_GameObject.AddComponent<CinemachineBrain>();
+            }
+
+            brain.enabled = value;
         }
 
     }

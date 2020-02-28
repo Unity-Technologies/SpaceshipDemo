@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace GameplayIngredients.Events
 {
+    [AdvancedHierarchyIcon("Packages/net.peeweek.gameplay-ingredients/Icons/Events/ic-event-message.png")]
     public class OnMessageEvent : EventBase
     {
         public string MessageName = "Message";

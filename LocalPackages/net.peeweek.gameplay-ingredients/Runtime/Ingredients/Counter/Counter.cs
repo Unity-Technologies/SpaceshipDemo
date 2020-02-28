@@ -5,6 +5,8 @@ using NaughtyAttributes;
 
 namespace GameplayIngredients
 {
+    [AdvancedHierarchyIcon("Packages/net.peeweek.gameplay-ingredients/Icons/Misc/ic-counter.png")]
+
     public class Counter : MonoBehaviour
     {
         public enum ValueSourceType

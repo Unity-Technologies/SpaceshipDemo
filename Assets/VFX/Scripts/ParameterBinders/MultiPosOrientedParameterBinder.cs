@@ -65,10 +65,15 @@ namespace UnityEngine.VFX.Utility
 
             count = candidates.Count;
 
-            if (positionMap == null || positionMap.width != count)
+            if (positionMap == null) 
             {
                 positionMap = new Texture2D(count, 1, TextureFormat.RGBAFloat, false);
                 directionMap = new Texture2D(count, 1, TextureFormat.RGBAHalf, false);
+            }
+            else if (positionMap.width != count)
+            {
+                positionMap.Resize(count, 1);
+                directionMap.Resize(count, 1);
             }
 
             List<Color> positions = new List<Color>();

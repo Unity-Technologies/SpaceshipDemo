@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GameplayIngredients.StateMachines
 {
+    [AdvancedHierarchyIcon("Packages/net.peeweek.gameplay-ingredients/Icons/Misc/ic-StateMachine.png")]
     public class StateMachine : MonoBehaviour
     {
         [StateMachineState]

@@ -8,10 +8,46 @@ using NaughtyAttributes;
 [ManagerDefaultPrefab("AudioManager")]
 public class AudioManager : Manager
 {
+    [Header("Cues")]
     [ReorderableList, NonNullCheck]
     public AudioSource[] CueSources;
 
     public bool DisableCues = false;
+
+    [Header("Pause Management")]
+    public string PauseMessage = "PAUSE";
+    public string UnPauseMessage = "UNPAUSE";
+
+    List<AudioSource> PauseManagedSources;
+
+    private void Awake()
+    {
+        PauseManagedSources = new List<AudioSource>();
+    }
+
+    void OnEnable()
+    {
+        Messager.RegisterMessage(PauseMessage, Pause);
+        Messager.RegisterMessage(UnPauseMessage, UnPause);
+    }
+
+    private void OnDisable()
+    {
+        Messager.RemoveMessage(PauseMessage, Pause);
+        Messager.RemoveMessage(UnPauseMessage, UnPause);
+    }
+
+    public void RegisterPausedManagedSource(AudioSource source)
+    {
+        if (!PauseManagedSources.Contains(source))
+            PauseManagedSources.Add(source);
+    }
+
+    public void RemovePausedManagedSource(AudioSource source)
+    {
+        if (PauseManagedSources.Contains(source))
+            PauseManagedSources.Remove(source);
+    }
 
     public void PlayCueAsset(AudioCue cue)
     {
@@ -52,7 +88,7 @@ public class AudioManager : Manager
         } 
     }
 
-    public void Pause()
+    public void Pause(GameObject instigator = null)
     {
         foreach(var CueSource in CueSources)
         {
@@ -60,14 +96,25 @@ public class AudioManager : Manager
                 CueSource.Pause();
         }
 
+        foreach(var source in PauseManagedSources)
+        {
+            if (source != null)
+                source.Pause();
+        }
     }
 
-    public void UnPause()
+    public void UnPause(GameObject instigator = null)
     {
         foreach (var CueSource in CueSources)
         {
             if (CueSource != null)
                 CueSource.UnPause();
+        }
+
+        foreach (var source in PauseManagedSources)
+        {
+            if (source != null)
+                source.UnPause();
         }
     }
 }

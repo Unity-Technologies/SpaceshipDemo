@@ -28,9 +28,15 @@ namespace GameplayIngredients
 
         static readonly Type[] kAllManagerTypes = GetAllManagerTypes();
 
+#if UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+#else
         [RuntimeInitializeOnLoadMethod]
+#endif
         static void AutoCreateAll()
         {
+            s_Managers.Clear();
+
             var exclusionList = GameplayIngredientsSettings.currentSettings.excludedeManagers;
 
             Debug.Log("Initializing all Managers...");

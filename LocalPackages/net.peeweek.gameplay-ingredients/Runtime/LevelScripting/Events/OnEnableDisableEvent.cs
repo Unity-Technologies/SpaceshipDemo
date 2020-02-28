@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace GameplayIngredients.Events
 {
+    [AdvancedHierarchyIcon("Packages/net.peeweek.gameplay-ingredients/Icons/Events/ic-event-enable-disable.png")]
     public class OnEnableDisableEvent : EventBase
     {
         [ReorderableList]

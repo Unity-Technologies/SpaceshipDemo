@@ -98,6 +98,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -195,7 +196,9 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4491288561851777413}
   m_Enabled: 1
-  m_Asset: {fileID: 0}
+  m_Asset: {fileID: 8926484042661614526, guid: fc44f1dbc812e4244ba33f039f033128, type: 3}
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 984888463
   m_ResetSeedOnPlay: 0
   m_PropertySheet:
@@ -255,11 +258,13 @@ VFXRenderer:
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 0
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
-  m_RenderingLayerMask: 128
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -337,6 +342,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -402,7 +408,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4491288562457692578}
-  - component: {fileID: 4491288562457692637}
   m_Layer: 0
   m_Name: Door_SC_Intro
   m_TagString: Untagged
@@ -429,21 +434,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -90.00001}
---- !u!114 &4491288562457692637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4491288562457692636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a42a87995c7dd1418e01c581ec175f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MessageName: INTRO_DOOR_OPEN
-  OnMessageRecieved:
-  - {fileID: 4491288562983873915}
 --- !u!1 &4491288562913473579
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +475,9 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4491288562913473579}
   m_Enabled: 1
-  m_Asset: {fileID: 0}
+  m_Asset: {fileID: 8926484042661614526, guid: fc44f1dbc812e4244ba33f039f033128, type: 3}
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 0
   m_StartSeed: 984888463
   m_ResetSeedOnPlay: 0
   m_PropertySheet:
@@ -545,11 +537,13 @@ VFXRenderer:
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 0
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
-  m_RenderingLayerMask: 128
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -580,7 +574,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4491288562983873914}
   - component: {fileID: 4491288562856828603}
-  - component: {fileID: 4491288562983873915}
   m_Layer: 0
   m_Name: DoorFrameOpening
   m_TagString: Untagged
@@ -629,9 +622,9 @@ PlayableDirector:
     value: {fileID: 4491288561851777417}
   - key: {fileID: 114064039324454500, guid: c80e66561545a504783becc3baa74648, type: 2}
     value: {fileID: 4491288562913473583}
-  - key: {fileID: 114547641118593530, guid: c80e66561545a504783becc3baa74648, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 4491288561851777418}
-  - key: {fileID: 114385689721484762, guid: c80e66561545a504783becc3baa74648, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 4491288562913473576}
   - key: {fileID: 2656878958636586900, guid: c80e66561545a504783becc3baa74648, type: 2}
     value: {fileID: 0}
@@ -641,21 +634,6 @@ PlayableDirector:
     value: {fileID: 1834339522087240068}
   m_ExposedReferences:
     m_References: []
---- !u!114 &4491288562983873915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4491288562983873909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f06b970d3ee59945985c11cd9e66868, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: PlayTimeline
-  director: {fileID: 4491288562856828603}
-  mode: 0
 --- !u!1 &5881245685050414743
 GameObject:
   m_ObjectHideFlags: 0

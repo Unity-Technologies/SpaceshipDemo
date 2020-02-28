@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace GameplayIngredients
 {
+    [AdvancedHierarchyIcon("Packages/net.peeweek.gameplay-ingredients/Icons/Misc/ic-Factory.png")]
     public class Factory : MonoBehaviour
     {
         public enum BlueprintSelectionMode
