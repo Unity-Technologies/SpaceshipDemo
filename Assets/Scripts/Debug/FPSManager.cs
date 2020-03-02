@@ -34,33 +34,24 @@ public class FPSManager : Manager
 
             if (MillisecondCounter != null)
                 MillisecondCounter.text = $"{((dt * 1000).ToString("F2"))}ms.";
-        }
 
-        if(paused)
-        {
-            if(step)
+            if (paused && step)
             {
-                Time.timeScale = 1.0f;
                 step = false;
-            }
-            else
-            {
                 Time.timeScale = 0.0f;
             }
-        }
-        else
-        {
-            Time.timeScale = 1.0f;
-        }
 
-        if (Input.GetKeyDown(PauseKey))
-        {
-            paused = !paused;
-        }
-        else if (Input.GetKeyDown(StepKey))
-        {
-            paused = true;
-            step = true;
+            if (Input.GetKeyDown(PauseKey))
+            {
+                paused = !paused;
+                Time.timeScale = paused? 0.0f : 1.0f;
+            }
+            else if (Input.GetKeyDown(StepKey))
+            {
+                paused = true;
+                step = true;
+                Time.timeScale = 1.0f;
+            }
         }
     }
 
