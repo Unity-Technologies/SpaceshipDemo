@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2020 - XX - XX - Content Update
+## 2020 - 02 - 03 - Content Update
 
 **Version Tag** : `2019.3.2`
 
