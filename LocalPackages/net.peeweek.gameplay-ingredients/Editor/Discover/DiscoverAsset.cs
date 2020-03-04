@@ -43,6 +43,17 @@ namespace GameplayIngredients.Editor
         [Tooltip("The name of the preference for auto showing at startup, will be ")]
         public string PreferenceName = "Discover";
 
+        [Header("Filter Content")]
+        public FilterMode filterMode = FilterMode.ShowAll;
+        public string Tags = "";
+
+        public enum FilterMode
+        { 
+            ShowAll,
+            IncludeTags,
+            ExcludeTags
+        }
+
         [Header("Content")]
         public string Title = "Welcome!";
         [Multiline]

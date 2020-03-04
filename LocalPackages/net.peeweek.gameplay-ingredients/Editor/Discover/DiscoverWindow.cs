@@ -150,6 +150,29 @@ namespace GameplayIngredients.Editor
             UpdateDiscoverObjects();
         }
 
+
+        /// <summary>
+        /// Filters object based on asset tags, object tags and FilterMode
+        /// </summary>
+        /// <param name="asset"></param>
+        /// <param name="discoverObject"></param>
+        /// <returns>true to discard, false to keep</returns>
+        static bool FilterDiscoverObject(DiscoverAsset asset, Discover discoverObject)
+        {
+            string[] assetTags = asset.Tags.Split(' ');
+            string[] objectTags = discoverObject.Tags.Split(' ');
+
+            switch(asset.filterMode)
+            {
+                case DiscoverAsset.FilterMode.ShowAll: return false;
+                case DiscoverAsset.FilterMode.IncludeTags:
+                    return !assetTags.Intersect(objectTags).Any();
+                case DiscoverAsset.FilterMode.ExcludeTags:
+                    return assetTags.Intersect(objectTags).Any();
+            }
+            return false;
+        }
+
         void UpdateDiscoverObjects(bool clear = false)
         {
             if (discoverObjects == null)
@@ -163,6 +186,10 @@ namespace GameplayIngredients.Editor
             // Add new ones
             foreach (var item in newOnes)
             {
+                // Apply Filter
+                if (FilterDiscoverObject(discoverAsset, item))
+                    continue;
+
                 if (!discoverObjects.ContainsKey(item.Category))
                 {
                     discoverObjects.Add(item.Category, new List<Discover>());

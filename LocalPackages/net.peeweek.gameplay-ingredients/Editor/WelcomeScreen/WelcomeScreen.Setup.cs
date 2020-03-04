@@ -93,19 +93,19 @@ While this is not mandatory we advise you to create it in order to be able to mo
             GUILayout.Space(12);
             GUILayout.Label(@"In order to customize your project, you can create default assets that you will be able to customize. 
 
-Please select a package depending on your project's render loop. If you do not know about render loops, you will probably need the Legacy Package.", Styles.body);
+Please select a package depending on your project's render loop. If you do not know about render loops, you will probably need to install the Built-in Renderer Package.", Styles.body);
             GUILayout.Space(16);
             using (new GUILayout.HorizontalScope())
             {
                 GUILayout.FlexibleSpace();
                 using (new GUILayout.VerticalScope())
                 {
-                    if (GUILayout.Button("Legacy Renderer"))
-                        AssetDatabase.ImportPackage("Packages/net.peeweek.gameplay-ingredients/StarterAssets/GameplayIngredients-Starter-LegacyRenderer.unitypackage", false);
+                    if (GUILayout.Button("Built-in Renderer"))
+                        AssetDatabase.ImportPackage("Packages/net.peeweek.gameplay-ingredients/StarterAssets/GameplayIngredients-Starter-BuiltInRenderer.unitypackage", false);
                     if (GUILayout.Button("HD Render Pipeline"))
                         AssetDatabase.ImportPackage("Packages/net.peeweek.gameplay-ingredients/StarterAssets/GameplayIngredients-Starter-HDRP.unitypackage", false);
-                    if (GUILayout.Button("Lightweight Render Pipeline"))
-                        AssetDatabase.ImportPackage("Packages/net.peeweek.gameplay-ingredients/StarterAssets/GameplayIngredients-Starter-LWRP.unitypackage", false);
+                    if (GUILayout.Button("Universal Render Pipeline"))
+                        AssetDatabase.ImportPackage("Packages/net.peeweek.gameplay-ingredients/StarterAssets/GameplayIngredients-Starter-URP.unitypackage", false);
                 }
             }
         }
