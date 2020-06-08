@@ -7,6 +7,8 @@
 * Updated Unity to 2019.3.15f1
 * Updated HD Render Pipeline / VFX Graph to package `7.4.1`
 * Updated Timeline Package to `1.3.0`
+* Removed references to many unnecessary built-in modules
+* Removed reference to Recorder Package
 * **Fixes and Changes:**
   * Rebuilt VFX Graphs
   * Fixes Area Light meshes that were broken (always visible) while using `7.3.1`
