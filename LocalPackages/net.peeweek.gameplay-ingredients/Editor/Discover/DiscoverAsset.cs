@@ -30,6 +30,7 @@ namespace GameplayIngredients.Editor
         [Header("General Properties")]
         public string WindowTitle = "Discover";
         public Texture2D HeaderTexture;
+        public bool dockable = false;
 
         [Tooltip("Width of the Window, in pixels")]
         public int WindowWidth = 640;
@@ -56,6 +57,7 @@ namespace GameplayIngredients.Editor
 
         [Header("Content")]
         public string Title = "Welcome!";
+        public Texture2D Image;
         [Multiline]
         public string Description = "This is a sample body for your discover window.";
         [Header("Scenes")]
@@ -69,6 +71,7 @@ namespace GameplayIngredients.Editor
     public struct DiscoverSceneInfo
     {
         public string Title;
+        public Texture2D Image;
         [Multiline]
         public string Description;
         public EditorSceneSetup[] SceneSetups;

@@ -129,7 +129,8 @@ namespace GameplayIngredients.Editor
             Menu.SetChecked(kMenuPath, Active);
             return SceneView.sceneViews.Count > 0;
         }
-        
+
+        public static GameObject Camera { get {return s_GameObject;} }
         static GameObject s_GameObject;
 
         static void Update(SceneView sceneView)

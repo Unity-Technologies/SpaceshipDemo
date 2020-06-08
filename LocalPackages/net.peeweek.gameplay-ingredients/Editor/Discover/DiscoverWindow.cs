@@ -85,7 +85,7 @@ namespace GameplayIngredients.Editor
         {
             if (discoverAsset != null)
             {
-                var window = GetWindow<DiscoverWindow>(true);
+                var window = GetWindow<DiscoverWindow>(!discoverAsset.dockable);
                 window.SetDiscoverAsset(discoverAsset);
             }
             else
@@ -94,6 +94,7 @@ namespace GameplayIngredients.Editor
             }
         }
 
+        [SerializeField]
         public DiscoverAsset discoverAsset { get; private set; }
         Texture2D header;
         bool forceGlobal;
@@ -104,11 +105,11 @@ namespace GameplayIngredients.Editor
             titleContent = new GUIContent(discoverAsset.WindowTitle);
             minSize = new Vector2(discoverAsset.WindowWidth, discoverAsset.WindowHeight);
             maxSize = new Vector2(discoverAsset.WindowWidth, discoverAsset.WindowHeight);
+            UpdateDiscoverObjects();
         }
 
         private void OnEnable()
         {
-            UpdateDiscoverObjects();
             EditorSceneManager.newSceneCreated += UpdateDiscoverObjectsOnCreate;
             EditorSceneManager.sceneOpened += UpdateDiscoverObjectsOnLoad;
             EditorSceneSetup.onSetupLoaded += UpdateDiscoverObjectsOnLoadSetup;
@@ -159,6 +160,11 @@ namespace GameplayIngredients.Editor
         /// <returns>true to discard, false to keep</returns>
         static bool FilterDiscoverObject(DiscoverAsset asset, Discover discoverObject)
         {
+            if (string.IsNullOrEmpty(asset.Tags))
+                asset.Tags = string.Empty;
+            if (string.IsNullOrEmpty(discoverObject.Tags))
+                discoverObject.Tags = string.Empty;
+
             string[] assetTags = asset.Tags.Split(' ');
             string[] objectTags = discoverObject.Tags.Split(' ');
 
@@ -345,6 +351,11 @@ namespace GameplayIngredients.Editor
                 GUILayout.Label(discoverAsset.Title, Styles.header);
                 using (new GUILayout.VerticalScope(Styles.indent))
                 {
+                    if(discoverAsset.Image != null)
+                    {
+                        DiscoverEditor.DrawImage(discoverAsset.Image);
+                    }
+
                     GUILayout.Label(discoverAsset.Description, Styles.body);
 
                     if(discoverAsset.Scenes != null)
@@ -353,6 +364,11 @@ namespace GameplayIngredients.Editor
                         {
                             using (new GroupLabelScope(map.Title))
                             {
+                                if(map.Image != null)
+                                {
+                                    DiscoverEditor.DrawImage(map.Image);
+                                }
+
                                 GUILayout.Label(map.Description, Styles.body);
 
                                 using (new GUILayout.HorizontalScope())
@@ -580,6 +596,8 @@ namespace GameplayIngredients.Editor
 
             public static GUIStyle tabContainer;
 
+            public static GUIStyle image;
+
             static Styles()
             {
                 header = new GUIStyle(EditorStyles.wordWrappedLabel);
@@ -605,8 +623,8 @@ namespace GameplayIngredients.Editor
 
                 boxHeader = new GUIStyle(GUI.skin.box);
                 boxHeader.normal.textColor = GUI.skin.label.normal.textColor;
-                boxHeader.fixedHeight = 20;
-                boxHeader.fontSize = 11;
+                boxHeader.fixedHeight = 24;
+                boxHeader.fontSize = 16;
                 boxHeader.fontStyle = FontStyle.Bold;
                 boxHeader.alignment = TextAnchor.UpperLeft;
                 boxHeader.margin = new RectOffset(0, 0, 0, 6);
@@ -623,6 +641,9 @@ namespace GameplayIngredients.Editor
 
                 tabContainer = new GUIStyle(EditorStyles.miniButton);
                 tabContainer.padding = new RectOffset(4, 4, 0, 0);
+
+                image = new GUIStyle(GUIStyle.none);
+                image.stretchWidth = true ;
 
             }
         }

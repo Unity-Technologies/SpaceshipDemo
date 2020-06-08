@@ -11,6 +11,10 @@ public class Discover : MonoBehaviour
     public bool DefaultSelected = false;
     public bool AlignViewToTransform = false;
 
+#if UNITY_EDITOR
+    public Texture2D image;
+#endif
+
     public GameObjectToggle[] ObjectsToToggle = new GameObjectToggle[0];
     [Multiline]
     public string Description = "Some Description of the Component\n\nCan be set as multiple lines.";
@@ -40,6 +44,9 @@ public class Discover : MonoBehaviour
 public struct DiscoverSection
 {
     public string SectionName;
+#if UNITY_EDITOR
+    public Texture2D image;
+#endif
     [Multiline]
     public string SectionContent;
     public SectionAction[] Actions;

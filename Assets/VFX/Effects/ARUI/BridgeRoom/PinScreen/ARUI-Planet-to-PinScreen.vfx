@@ -844,8 +844,8 @@ VisualEffectResource:
       PADDING_1;\nCBUFFER_END\n\nstruct Attributes\n{\n    float3 position;\n   
       uint particleId;\n    float3 targetPosition;\n    float2 BasePosition;\n   
       float Morph;\n    float height;\n    float3 color;\n};\n\nstruct SourceAttributes\n{\n};\n\nTexture2D
-      attributeMap_a;\nSamplerState samplerattributeMap_a;\nfloat4 attributeMap_a_TexelSize;\nTexture2D
-      attributeMap_b;\nSamplerState samplerattributeMap_b;\nfloat4 attributeMap_b_TexelSize;\n\n\r\n\r\n#define
+      attributeMap_a;\nSamplerState samplerattributeMap_a;\nfloat4 attributeMap_a_TexelSize;\n\nTexture2D
+      attributeMap_b;\nSamplerState samplerattributeMap_b;\nfloat4 attributeMap_b_TexelSize;\n\n\n\r\n\r\n#define
       USE_DEAD_LIST (VFX_USE_ALIVE_CURRENT && !HAS_STRIPS)\r\n\r\nRWByteAddressBuffer
       attributeBuffer;\r\nByteAddressBuffer sourceAttributeBuffer;\r\n\r\nCBUFFER_START(initParams)\r\n#if
       !VFX_USE_SPAWNER_FROM_GPU\r\n    uint nbSpawned;\t\t\t\t\t// Numbers of particle
@@ -876,17 +876,20 @@ VisualEffectResource:
       _BasePosition) /*attribute:BasePosition Composition:Overwrite Random:Off AttributeType:Vector2
       */\n{\n    BasePosition = _BasePosition;\n}\nvoid SetCustomAttribute_F90DBB64(inout
       float Morph, float _Morph) /*attribute:Morph Composition:Overwrite Random:Off
-      AttributeType:Float */\n{\n    Morph = _Morph;\n}\n\n\r\n\r\n#if HAS_STRIPS\r\nbool
-      GetParticleIndex(inout uint particleIndex, uint stripIndex)\r\n{\r\n\tuint
+      AttributeType:Float */\n{\n    Morph = _Morph;\n}\n\n\r\n\r\n// Due to a bug
+      in HLSL compiler, disable spurious \"unitialized variable\" due to mid function
+      return statement\r\n#pragma warning(push)\r\n#pragma warning(disable : 4000)\r\n#if
+      HAS_STRIPS\r\nbool GetParticleIndex(inout uint particleIndex, uint stripIndex)\r\n{\r\n\tuint
       relativeIndex;\r\n\tInterlockedAdd(STRIP_DATA(STRIP_NEXT_INDEX, stripIndex),
       1, relativeIndex);\r\n\tif (relativeIndex >= PARTICLE_PER_STRIP_COUNT) // strip
       is full\r\n\t{\r\n\t\tInterlockedAdd(STRIP_DATA(STRIP_NEXT_INDEX, stripIndex),
       -1); // Remove previous increment\r\n\t\treturn false;\r\n\t}\r\n\r\n\tparticleIndex
       = stripIndex * PARTICLE_PER_STRIP_COUNT + ((STRIP_DATA(STRIP_FIRST_INDEX, stripIndex)
-      + relativeIndex) % PARTICLE_PER_STRIP_COUNT);\r\n    return true;\r\n}\r\n#endif\r\n\r\n[numthreads(NB_THREADS_PER_GROUP,1,1)]\r\nvoid
-      CSMain(uint3 groupId          : SV_GroupID,\r\n            uint3 groupThreadId   
-      : SV_GroupThreadID)\r\n{\r\n    uint id = groupThreadId.x + groupId.x * NB_THREADS_PER_GROUP;\r\n#if
-      !VFX_USE_SPAWNER_FROM_GPU\r\n    id += groupId.y * dispatchWidth * NB_THREADS_PER_GROUP;\r\n#endif\r\n\r\n#if
+      + relativeIndex) % PARTICLE_PER_STRIP_COUNT);\r\n    return true;\r\n}\r\n#endif\r\n#pragma
+      warning(pop)\r\n\r\n[numthreads(NB_THREADS_PER_GROUP,1,1)]\r\nvoid CSMain(uint3
+      groupId          : SV_GroupID,\r\n            uint3 groupThreadId    : SV_GroupThreadID)\r\n{\r\n   
+      uint id = groupThreadId.x + groupId.x * NB_THREADS_PER_GROUP;\r\n#if !VFX_USE_SPAWNER_FROM_GPU\r\n   
+      id += groupId.y * dispatchWidth * NB_THREADS_PER_GROUP;\r\n#endif\r\n\r\n#if
       VFX_USE_SPAWNER_FROM_GPU\r\n    uint maxThreadId = inputAdditional.Load((offsetInAdditionalOutput
       * 2 + 0) << 2);\r\n    uint currentSpawnIndex = inputAdditional.Load((offsetInAdditionalOutput
       * 2 + 1) << 2) - maxThreadId;\r\n#else\r\n    uint maxThreadId = nbSpawned;\r\n   
@@ -945,14 +948,14 @@ VisualEffectResource:
       1\n#define VFX_USE_TARGETPOSITION_CURRENT 1\n#define VFX_USE_BASEPOSITION_CURRENT
       1\n#define VFX_USE_MORPH_CURRENT 1\n#define VFX_USE_HEIGHT_CURRENT 1\n#define
       VFX_USE_COLOR_CURRENT 1\n#define VFX_LOCAL_SPACE 1\n#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXDefines.hlsl\"\n\n\r\nCBUFFER_START(parameters)\n   
-      float4 uniform_e;\n    float4 uniform_l;\n    float3 uniform_g;\n    float
+      float4 uniform_e;\n    float4 uniform_k;\n    float3 uniform_h;\n    float
       uniform_d;\n    float2 uniform_b;\n    float2 uniform_c;\n    float uniform_f;\n   
-      float uniform_h;\n    float Blend_b;\n    float uniform_j;\n    float Blend_c;\n   
+      float uniform_i;\n    float Blend_b;\n    float uniform_j;\n    float Blend_c;\n   
       uint3 PADDING_0;\nCBUFFER_END\n\nstruct Attributes\n{\n    float3 position;\n   
       uint particleId;\n    float3 targetPosition;\n    float2 BasePosition;\n   
       float Morph;\n    float height;\n    float3 color;\n};\n\nstruct SourceAttributes\n{\n};\n\nTexture2D
-      texture_b;\nSamplerState samplertexture_b;\nfloat4 texture_b_TexelSize;\nTexture2D
-      texture_c;\nSamplerState samplertexture_c;\nfloat4 texture_c_TexelSize;\n\n\r\n\r\n#define
+      texture_a;\nSamplerState samplertexture_a;\nfloat4 texture_a_TexelSize;\n\nTexture2D
+      texture_g;\nSamplerState samplertexture_g;\nfloat4 texture_g_TexelSize;\n\n\n\r\n\r\n#define
       USE_DEAD_LIST (VFX_USE_ALIVE_CURRENT && !HAS_STRIPS)\r\n\r\nRWByteAddressBuffer
       attributeBuffer;\r\n\r\n#if USE_DEAD_LIST\r\nRWStructuredBuffer<uint> deadListOut;\r\n#endif\r\n\r\n#if
       VFX_HAS_INDIRECT_DRAW\r\nRWStructuredBuffer<uint> indirectBuffer;\r\n#endif\r\n\r\n#if
@@ -988,14 +991,14 @@ VisualEffectResource:
       PARTICLE_PER_STRIP_COUNT);\r\n            InitStripAttributes(index, attributes,
       stripData);\r\n#endif\r\n\t\t\t\r\n\t\t\t{\n\t\t\t    float2 tmp_bj = uniform_b
       - attributes.BasePosition;\n\t\t\t    float2 tmp_bk = tmp_bj / uniform_c;\n\t\t\t   
-      float2 tmp_bm = tmp_bk - float2(0.5, 0.5);\n\t\t\t    float4 tmp_bo = SampleTexture(VFX_SAMPLER(texture_b),tmp_bm,(float)0);\n\t\t\t   
+      float2 tmp_bm = tmp_bk - float2(0.5, 0.5);\n\t\t\t    float4 tmp_bo = SampleTexture(VFX_SAMPLER(texture_a),tmp_bm,(float)0);\n\t\t\t   
       float tmp_bp = tmp_bo[1];\n\t\t\t    float2 tmp_bq = attributes.BasePosition
       * attributes.BasePosition;\n\t\t\t    float tmp_br = tmp_bq[1];\n\t\t\t   
       float tmp_bs = tmp_bq[0];\n\t\t\t    float tmp_bt = tmp_br + tmp_bs;\n\t\t\t   
       float tmp_bv = pow(tmp_bt, (float)0.5);\n\t\t\t    float tmp_bw = SampleCurve(uniform_e,tmp_bv);\n\t\t\t   
       float tmp_bx = uniform_d * tmp_bw;\n\t\t\t    float tmp_by = tmp_bx / uniform_f;\n\t\t\t   
       float tmp_bz = tmp_bp * tmp_by;\n\t\t\t    float3 tmp_ca = attributes.targetPosition
-      - uniform_g;\n\t\t\t    float3 tmp_cc = tmp_ca * tmp_ca;\n\t\t\t    float tmp_cd
+      - uniform_h;\n\t\t\t    float3 tmp_cc = tmp_ca * tmp_ca;\n\t\t\t    float tmp_cd
       = tmp_cc[2];\n\t\t\t    float tmp_ce = tmp_cc[1];\n\t\t\t    float tmp_cf =
       tmp_cd + tmp_ce;\n\t\t\t    float tmp_cg = tmp_cc[0];\n\t\t\t    float tmp_ch
       = tmp_cf + tmp_cg;\n\t\t\t    float tmp_ci = pow(tmp_ch, (float)0.5);\n\t\t\t   
@@ -1010,15 +1013,15 @@ VisualEffectResource:
       float tmp_cy = asin(tmp_cx);\n\t\t\t    float2 tmp_cz = float2(tmp_co, tmp_cy);\n\t\t\t   
       float2 tmp_db = tmp_cz - float2(-3.14159298, -3.14159298);\n\t\t\t    float2
       tmp_dd = tmp_db / float2(6.28318596, 6.28318596);\n\t\t\t    float4 tmp_de
-      = SampleTexture(VFX_SAMPLER(texture_c),tmp_dd,(float)0);\n\t\t\t    float tmp_df
-      = tmp_de[0];\n\t\t\t    float tmp_dg = tmp_df * uniform_h;\n\t\t\t    float
+      = SampleTexture(VFX_SAMPLER(texture_g),tmp_dd,(float)0);\n\t\t\t    float tmp_df
+      = tmp_de[0];\n\t\t\t    float tmp_dg = tmp_df * uniform_i;\n\t\t\t    float
       tmp_dh = tmp_dg - tmp_bz;\n\t\t\t    float tmp_di = attributes.Morph * tmp_dh;\n\t\t\t   
       float tmp_dj = tmp_bz + tmp_di;\n\t\t\t    SetCustomAttribute_8C03EDA7( /*inout
       */attributes.height, tmp_dj);\n\t\t\t}\n\t\t\t{\n\t\t\t    float tmp_bj = attributes.BasePosition[0];\n\t\t\t   
       float tmp_bl = attributes.BasePosition[1];\n\t\t\t    float3 tmp_bm = float3(tmp_bj,
       (float)0, tmp_bl);\n\t\t\t    float2 tmp_bn = uniform_b - attributes.BasePosition;\n\t\t\t   
       float2 tmp_bo = tmp_bn / uniform_c;\n\t\t\t    float2 tmp_bq = tmp_bo - float2(0.5,
-      0.5);\n\t\t\t    float4 tmp_br = SampleTexture(VFX_SAMPLER(texture_b),tmp_bq,(float)0);\n\t\t\t   
+      0.5);\n\t\t\t    float4 tmp_br = SampleTexture(VFX_SAMPLER(texture_a),tmp_bq,(float)0);\n\t\t\t   
       float tmp_bs = tmp_br[1];\n\t\t\t    float2 tmp_bt = attributes.BasePosition
       * attributes.BasePosition;\n\t\t\t    float tmp_bu = tmp_bt[1];\n\t\t\t   
       float tmp_bv = tmp_bt[0];\n\t\t\t    float tmp_bw = tmp_bu + tmp_bv;\n\t\t\t   
@@ -1031,7 +1034,7 @@ VisualEffectResource:
       / (float)65536;\n\t\t\t    bool tmp_bm = tmp_bl >= uniform_j;\n\t\t\t    float
       tmp_bp = tmp_bm ? (float)0 : (float)1;\n\t\t\t    SetCustomAttribute_F914F25F(
       /*inout */attributes.Morph, tmp_bp, Blend_c);\n\t\t\t}\n\t\t\t{\n\t\t\t   
-      float3 tmp_bj = attributes.targetPosition - uniform_g;\n\t\t\t    float3 tmp_bl
+      float3 tmp_bj = attributes.targetPosition - uniform_h;\n\t\t\t    float3 tmp_bl
       = tmp_bj * tmp_bj;\n\t\t\t    float tmp_bm = tmp_bl[2];\n\t\t\t    float tmp_bn
       = tmp_bl[1];\n\t\t\t    float tmp_bo = tmp_bm + tmp_bn;\n\t\t\t    float tmp_bp
       = tmp_bl[0];\n\t\t\t    float tmp_bq = tmp_bo + tmp_bp;\n\t\t\t    float tmp_bs
@@ -1046,14 +1049,14 @@ VisualEffectResource:
       float tmp_ch = tmp_bz / tmp_cg;\n\t\t\t    float tmp_ci = asin(tmp_ch);\n\t\t\t   
       float2 tmp_cj = float2(tmp_by, tmp_ci);\n\t\t\t    float2 tmp_cl = tmp_cj -
       float2(-3.14159298, -3.14159298);\n\t\t\t    float2 tmp_cn = tmp_cl / float2(6.28318596,
-      6.28318596);\n\t\t\t    float4 tmp_cp = SampleTexture(VFX_SAMPLER(texture_c),tmp_cn,(float)0);\n\t\t\t   
-      float tmp_cq = tmp_cp[0];\n\t\t\t    float tmp_cr = tmp_cq * uniform_h;\n\t\t\t   
+      6.28318596);\n\t\t\t    float4 tmp_cp = SampleTexture(VFX_SAMPLER(texture_g),tmp_cn,(float)0);\n\t\t\t   
+      float tmp_cq = tmp_cp[0];\n\t\t\t    float tmp_cr = tmp_cq * uniform_i;\n\t\t\t   
       float3 tmp_cs = float3(tmp_cr, tmp_cr, tmp_cr);\n\t\t\t    float3 tmp_ct =
       tmp_cs * tmp_bv;\n\t\t\t    float3 tmp_cu = float3(attributes.Morph, attributes.Morph,
       attributes.Morph);\n\t\t\t    float3 tmp_cv = tmp_ct * tmp_cu;\n\t\t\t    float3
       tmp_cw = attributes.targetPosition + tmp_cv;\n\t\t\t    float tmp_cx = saturate(attributes.Morph);\n\t\t\t   
       SetAttribute_CE7D5850( /*inout */attributes.position, tmp_cw, tmp_cx);\n\t\t\t}\n\t\t\t{\n\t\t\t   
-      float tmp_bj = SampleCurve(uniform_l,attributes.height);\n\t\t\t    float3
+      float tmp_bj = SampleCurve(uniform_k,attributes.height);\n\t\t\t    float3
       tmp_bk = float3(tmp_bj, tmp_bj, tmp_bj);\n\t\t\t    SetAttribute_FDD06EC7(
       /*inout */attributes.color, tmp_bk);\n\t\t\t}\n\t\t\t\n\r\n\r\n\t\t\tif (attributes.alive)\r\n\t\t\t{\r\n\t\t\t\tattributeBuffer.Store3((index
       * 0x4 + 0x0) << 2,asuint(attributes.position));\n\t\t\t\tattributeBuffer.Store((index
@@ -1084,14 +1087,14 @@ VisualEffectResource:
       PARTICLE_PER_STRIP_COUNT);\r\n        InitStripAttributes(index, attributes,
       stripData);\r\n#endif\r\n\t\t\r\n\t\t{\n\t\t    float2 tmp_bj = uniform_b -
       attributes.BasePosition;\n\t\t    float2 tmp_bk = tmp_bj / uniform_c;\n\t\t   
-      float2 tmp_bm = tmp_bk - float2(0.5, 0.5);\n\t\t    float4 tmp_bo = SampleTexture(VFX_SAMPLER(texture_b),tmp_bm,(float)0);\n\t\t   
+      float2 tmp_bm = tmp_bk - float2(0.5, 0.5);\n\t\t    float4 tmp_bo = SampleTexture(VFX_SAMPLER(texture_a),tmp_bm,(float)0);\n\t\t   
       float tmp_bp = tmp_bo[1];\n\t\t    float2 tmp_bq = attributes.BasePosition
       * attributes.BasePosition;\n\t\t    float tmp_br = tmp_bq[1];\n\t\t    float
       tmp_bs = tmp_bq[0];\n\t\t    float tmp_bt = tmp_br + tmp_bs;\n\t\t    float
       tmp_bv = pow(tmp_bt, (float)0.5);\n\t\t    float tmp_bw = SampleCurve(uniform_e,tmp_bv);\n\t\t   
       float tmp_bx = uniform_d * tmp_bw;\n\t\t    float tmp_by = tmp_bx / uniform_f;\n\t\t   
       float tmp_bz = tmp_bp * tmp_by;\n\t\t    float3 tmp_ca = attributes.targetPosition
-      - uniform_g;\n\t\t    float3 tmp_cc = tmp_ca * tmp_ca;\n\t\t    float tmp_cd
+      - uniform_h;\n\t\t    float3 tmp_cc = tmp_ca * tmp_ca;\n\t\t    float tmp_cd
       = tmp_cc[2];\n\t\t    float tmp_ce = tmp_cc[1];\n\t\t    float tmp_cf = tmp_cd
       + tmp_ce;\n\t\t    float tmp_cg = tmp_cc[0];\n\t\t    float tmp_ch = tmp_cf
       + tmp_cg;\n\t\t    float tmp_ci = pow(tmp_ch, (float)0.5);\n\t\t    float tmp_cj
@@ -1105,15 +1108,15 @@ VisualEffectResource:
       float tmp_cx = tmp_cp / tmp_cw;\n\t\t    float tmp_cy = asin(tmp_cx);\n\t\t   
       float2 tmp_cz = float2(tmp_co, tmp_cy);\n\t\t    float2 tmp_db = tmp_cz - float2(-3.14159298,
       -3.14159298);\n\t\t    float2 tmp_dd = tmp_db / float2(6.28318596, 6.28318596);\n\t\t   
-      float4 tmp_de = SampleTexture(VFX_SAMPLER(texture_c),tmp_dd,(float)0);\n\t\t   
-      float tmp_df = tmp_de[0];\n\t\t    float tmp_dg = tmp_df * uniform_h;\n\t\t   
+      float4 tmp_de = SampleTexture(VFX_SAMPLER(texture_g),tmp_dd,(float)0);\n\t\t   
+      float tmp_df = tmp_de[0];\n\t\t    float tmp_dg = tmp_df * uniform_i;\n\t\t   
       float tmp_dh = tmp_dg - tmp_bz;\n\t\t    float tmp_di = attributes.Morph *
       tmp_dh;\n\t\t    float tmp_dj = tmp_bz + tmp_di;\n\t\t    SetCustomAttribute_8C03EDA7(
       /*inout */attributes.height, tmp_dj);\n\t\t}\n\t\t{\n\t\t    float tmp_bj =
       attributes.BasePosition[0];\n\t\t    float tmp_bl = attributes.BasePosition[1];\n\t\t   
       float3 tmp_bm = float3(tmp_bj, (float)0, tmp_bl);\n\t\t    float2 tmp_bn =
       uniform_b - attributes.BasePosition;\n\t\t    float2 tmp_bo = tmp_bn / uniform_c;\n\t\t   
-      float2 tmp_bq = tmp_bo - float2(0.5, 0.5);\n\t\t    float4 tmp_br = SampleTexture(VFX_SAMPLER(texture_b),tmp_bq,(float)0);\n\t\t   
+      float2 tmp_bq = tmp_bo - float2(0.5, 0.5);\n\t\t    float4 tmp_br = SampleTexture(VFX_SAMPLER(texture_a),tmp_bq,(float)0);\n\t\t   
       float tmp_bs = tmp_br[1];\n\t\t    float2 tmp_bt = attributes.BasePosition
       * attributes.BasePosition;\n\t\t    float tmp_bu = tmp_bt[1];\n\t\t    float
       tmp_bv = tmp_bt[0];\n\t\t    float tmp_bw = tmp_bu + tmp_bv;\n\t\t    float
@@ -1126,7 +1129,7 @@ VisualEffectResource:
       bool tmp_bm = tmp_bl >= uniform_j;\n\t\t    float tmp_bp = tmp_bm ? (float)0
       : (float)1;\n\t\t    SetCustomAttribute_F914F25F( /*inout */attributes.Morph,
       tmp_bp, Blend_c);\n\t\t}\n\t\t{\n\t\t    float3 tmp_bj = attributes.targetPosition
-      - uniform_g;\n\t\t    float3 tmp_bl = tmp_bj * tmp_bj;\n\t\t    float tmp_bm
+      - uniform_h;\n\t\t    float3 tmp_bl = tmp_bj * tmp_bj;\n\t\t    float tmp_bm
       = tmp_bl[2];\n\t\t    float tmp_bn = tmp_bl[1];\n\t\t    float tmp_bo = tmp_bm
       + tmp_bn;\n\t\t    float tmp_bp = tmp_bl[0];\n\t\t    float tmp_bq = tmp_bo
       + tmp_bp;\n\t\t    float tmp_bs = pow(tmp_bq, (float)0.5);\n\t\t    float tmp_bt
@@ -1140,14 +1143,14 @@ VisualEffectResource:
       float tmp_ch = tmp_bz / tmp_cg;\n\t\t    float tmp_ci = asin(tmp_ch);\n\t\t   
       float2 tmp_cj = float2(tmp_by, tmp_ci);\n\t\t    float2 tmp_cl = tmp_cj - float2(-3.14159298,
       -3.14159298);\n\t\t    float2 tmp_cn = tmp_cl / float2(6.28318596, 6.28318596);\n\t\t   
-      float4 tmp_cp = SampleTexture(VFX_SAMPLER(texture_c),tmp_cn,(float)0);\n\t\t   
-      float tmp_cq = tmp_cp[0];\n\t\t    float tmp_cr = tmp_cq * uniform_h;\n\t\t   
+      float4 tmp_cp = SampleTexture(VFX_SAMPLER(texture_g),tmp_cn,(float)0);\n\t\t   
+      float tmp_cq = tmp_cp[0];\n\t\t    float tmp_cr = tmp_cq * uniform_i;\n\t\t   
       float3 tmp_cs = float3(tmp_cr, tmp_cr, tmp_cr);\n\t\t    float3 tmp_ct = tmp_cs
       * tmp_bv;\n\t\t    float3 tmp_cu = float3(attributes.Morph, attributes.Morph,
       attributes.Morph);\n\t\t    float3 tmp_cv = tmp_ct * tmp_cu;\n\t\t    float3
       tmp_cw = attributes.targetPosition + tmp_cv;\n\t\t    float tmp_cx = saturate(attributes.Morph);\n\t\t   
       SetAttribute_CE7D5850( /*inout */attributes.position, tmp_cw, tmp_cx);\n\t\t}\n\t\t{\n\t\t   
-      float tmp_bj = SampleCurve(uniform_l,attributes.height);\n\t\t    float3 tmp_bk
+      float tmp_bj = SampleCurve(uniform_k,attributes.height);\n\t\t    float3 tmp_bk
       = float3(tmp_bj, tmp_bj, tmp_bj);\n\t\t    SetAttribute_FDD06EC7( /*inout */attributes.color,
       tmp_bk);\n\t\t}\n\t\t\n\r\n\t\tattributeBuffer.Store3((index * 0x4 + 0x0) <<
       2,asuint(attributes.position));\n\t\tattributeBuffer.Store((index * 0x1 + 0xB0000)
@@ -1157,11 +1160,11 @@ VisualEffectResource:
       uint indirectIndex = indirectBuffer.IncrementCounter();\r\n\t\tindirectBuffer[indirectIndex]
       = index;\r\n#endif\r\n#endif\r\n\t}\r\n}\r\n"
   - compute: 0
-    name: '[Pins Interpolated Sphere -> PinScreen]A Pin Caps'
+    name: '[Pins Interpolated Sphere -> PinScreen]Pin Caps'
     source: "Shader \"Hidden/VFX/ARUI-Planet-to-PinScreen/Pins Interpolated Sphere
-      -> PinScreen/(A) Pin Caps\"\n{\r\n\tSubShader\r\n\t{\t\r\n\t\tCull Off\r\n\t\t\r\n\t\tTags
+      -> PinScreen/Pin Caps\"\n{\r\n\tSubShader\r\n\t{\t\r\n\t\tCull Off\r\n\t\t\r\n\t\tTags
       { \"Queue\"=\"Geometry+450\" \"IgnoreProjector\"=\"False\" \"RenderType\"=\"Opaque\"
-      }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
+      }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
       LEqual\n\t\tZWrite On\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t\n\t\t#define
       NB_THREADS_PER_GROUP 64\n\t\t#define HAS_ATTRIBUTES 1\n\t\t#define VFX_PASSDEPTH_ACTUAL
       (0)\n\t\t#define VFX_PASSDEPTH_MOTION_VECTOR (1)\n\t\t#define VFX_PASSDEPTH_SELECTION
@@ -1178,16 +1181,16 @@ VisualEffectResource:
       HDRP_MATERIAL_TYPE_TRANSLUCENT 1\n\t\t#define HDRP_USE_BASE_COLOR_MAP 1\n\t\t#define
       HDRP_USE_BASE_COLOR_MAP_ALPHA 1\n\t\t#define HDRP_USE_BASE_COLOR 1\n\t\t#define
       IS_OPAQUE_NOT_SIMPLE_LIT_PARTICLE 1\n\t\t#define USE_NORMAL_BENDING 1\n\t\t#define
-      FORCE_NORMAL_VARYING 1\n\t\t#define VFX_PRIMITIVE_QUAD 1\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t#define
+      FORCE_NORMAL_VARYING 1\n\t\t#define VFX_PRIMITIVE_QUAD 1\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t#define
       VFX_LOCAL_SPACE 1\n\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXDefines.hlsl\"\n\t\t\n\n\t\tCBUFFER_START(parameters)\n\t\t   
-      float uniform_b;\n\t\t    float uniform_c;\n\t\t    uint2 PADDING_0;\n\t\tCBUFFER_END\n\t\t\n\t\tstruct
+      float uniform_a;\n\t\t    float uniform_b;\n\t\t    uint2 PADDING_0;\n\t\tCBUFFER_END\n\t\t\n\t\tstruct
       Attributes\n\t\t{\n\t\t    float3 position;\n\t\t    float2 BasePosition;\n\t\t   
       float3 color;\n\t\t    float alpha;\n\t\t    bool alive;\n\t\t    float3 axisX;\n\t\t   
       float3 axisY;\n\t\t    float3 axisZ;\n\t\t    float angleX;\n\t\t    float
       angleY;\n\t\t    float angleZ;\n\t\t    float pivotX;\n\t\t    float pivotY;\n\t\t   
       float pivotZ;\n\t\t    float size;\n\t\t    float scaleX;\n\t\t    float scaleY;\n\t\t   
       float scaleZ;\n\t\t};\n\t\t\n\t\tstruct SourceAttributes\n\t\t{\n\t\t};\n\t\t\n\t\tTexture2D
-      baseColorMap;\n\t\tSamplerState samplerbaseColorMap;\n\t\tfloat4 baseColorMap_TexelSize;\n\t\t\n\n\t\t\n\t\t#define
+      baseColorMap;\n\t\tSamplerState samplerbaseColorMap;\n\t\tfloat4 baseColorMap_TexelSize;\n\t\t\n\t\t\n\n\t\t\n\t\t#define
       VFX_NEEDS_COLOR_INTERPOLATOR (VFX_USE_COLOR_CURRENT || VFX_USE_ALPHA_CURRENT)\n\t\t#if
       HAS_STRIPS\n\t\t#define VFX_OPTIONAL_INTERPOLATION \n\t\t#else\n\t\t#define
       VFX_OPTIONAL_INTERPOLATION nointerpolation\n\t\t#endif\n\t\t\n\t\tByteAddressBuffer
@@ -1203,8 +1206,7 @@ VisualEffectResource:
       instanceID : SV_InstanceID;\n\t\t\t#define VFX_GET_INSTANCE_ID(i)      i.instanceID\n\t\t#endif\n\t\t\n\t\tENDHLSL\n\t\t\n\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
       { \"LightMode\"=\"SceneSelectionPass\" }\n\t\t\n\t\t\tZWrite On\n\t\t\tBlend
       Off\n\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#define VFX_PASSDEPTH VFX_PASSDEPTH_SELECTION\n\t\t\t#pragma
-      target 4.5\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t#pragma multi_compile _
-      WRITE_NORMAL_BUFFER\n\t\t\t\n\t\t\t#define NEEDS_NORMAL\tdefined(WRITE_NORMAL_BUFFER)
+      target 4.5\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t\n\t\t\t#define NEEDS_NORMAL\tdefined(WRITE_NORMAL_BUFFER)
       || FORCE_NORMAL_VARYING || SHADERGRAPH_NEEDS_NORMAL_DEPTHONLY\n\t\t\t#define
       NEEDS_TANGENT\tUSE_NORMAL_MAP || USE_NORMAL_BENDING || SHADERGRAPH_NEEDS_TANGENT_DEPTHONLY\n\t\t\t\n\t\t\tstruct
       ps_input\n\t\t\t{\n\t\t\t\tfloat4 pos : SV_POSITION;\n\t\t\t\t#if USE_FLIPBOOK_INTERPOLATION\n\t\t\t\tfloat4
@@ -1323,12 +1325,12 @@ VisualEffectResource:
       /*inout */attributes.scaleX,  /*inout */attributes.scaleY, float2(0.00999999978,
       0.00999999978));\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    float tmp_ba = attributes.BasePosition[0];\n\t\t\t\t   
       float tmp_bb = attributes.BasePosition[1];\n\t\t\t\t    float3 tmp_bc = float3(tmp_ba,
-      tmp_bb, uniform_c);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
+      tmp_bb, uniform_b);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
       float3(1, 0.470988303, 2).x, (int)5, float3(1, 0.470988303, 2).y, float3(1,
       0.470988303, 2).z);\n\t\t\t\t    float tmp_bg = tmp_bf[0];\n\t\t\t\t    float
       tmp_bi = tmp_bg - (float)-1;\n\t\t\t\t    float tmp_bk = tmp_bi / (float)2;\n\t\t\t\t   
       float tmp_bm = tmp_bk * (float)1.75;\n\t\t\t\t    float tmp_bn = (float)-0.479999989
-      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_b >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
+      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_a >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
       /*inout */attributes.alive, tmp_bo);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if
       !HAS_STRIPS\n\t\t\t\tif (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
       VFX_PRIMITIVE_QUAD\n\t\t\t\n\t\t\t#if HAS_STRIPS\n\t\t\t#if VFX_STRIPS_UV_STRECHED\n\t\t\t\to.VFX_VARYING_UV.x
@@ -1409,80 +1411,94 @@ VisualEffectResource:
       = uvData.blend;\n\t\t\t\t\t\t#if USE_FLIPBOOK_MOTIONVECTORS && defined(VFX_VARYING_MOTIONVECTORSCALE)\n\t\t\t\t\t\t\n\t\t\t\t\t\to.VFX_VARYING_MOTIONVECTORSCALE
       = motionVectorScale * invFlipBookSize;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t   
       \n\t\t\t    \n\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t#define SHADERPASS SHADERPASS_MOTION_VECTORS\n\t\t\t#else\n\t\t\t#define
-      SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t#endif\n\t\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\n\t\t\t#ifndef
-      VFX_SHADERGRAPH\n\t\t\t\n\t\t\tvoid VFXGetHDRPLitData(out SurfaceData surfaceData,
-      out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData preLightData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData, uint2 tileIndex)\n\t\t\t{\t\n\t\t\t\t#if
-      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t\t{\n\t\t\t\t   
-      \n\t\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t\t}\n\t\t\t\t\n
-      // Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
-      = 0;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\tfloat4
-      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
-      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\n\t\t\t\tfloat
-      alpha;\n\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\tbsdfData
-      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\n\t\t\t\tpreLightData
-      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t    //TODO: investigate why this is needed\n\t\t\t    preLightData.coatPartLambdaV
-      = 0;\n\t\t\t    preLightData.coatIblR = 0;\n\t\t\t    preLightData.coatIblF
-      = 0;\n\t\t\t    \n\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t}\n\t\t\t\n\t\t\tvoid
+      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t#define SHADERPASS
+      SHADERPASS_MOTION_VECTORS\n\t\t\t\t\t#else\n\t\t\t\t\t#define SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t\t\t#endif\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t#ifndef
+      VFX_SHADERGRAPH\n\t\t\t\t\t\n\t\t\t\t\tvoid VFXGetHDRPLitData(out SurfaceData
+      surfaceData, out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData
+      preLightData, VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData,
+      uint2 tileIndex)\n\t\t\t\t\t{\t\n\t\t\t\t\t\t#if HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\t\t\tuint
+      diffusionProfileHash = (uint)0;\n\t\t\t\t\t\t{\n\t\t\t\t\t\t    \n\t\t\t\t\t\t   
+      diffusionProfileHash = (uint)1077237755;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t
+      // Loads diffusion profile\n\t\t\t\t\t\t#else\n\t\t\t\t\t\tconst uint diffusionProfileHash
+      = 0;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\t\t\tfloat4
+      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
+      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha;\n\t\t\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\t\t\tbsdfData
+      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\t\t\n\t\t\t\t\t\tpreLightData
+      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\t\t\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t    //TODO: investigate why this is needed\n\t\t\t\t\t   
+      preLightData.coatPartLambdaV = 0;\n\t\t\t\t\t    preLightData.coatIblR = 0;\n\t\t\t\t\t   
+      preLightData.coatIblF = 0;\n\t\t\t\t\t    \n\t\t\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\tvoid
       VFXGetHDRPLitData(out SurfaceData surfaceData, out BuiltinData builtinData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t{\n\t\t\t\tBSDFData
-      bsdfData = (BSDFData)0;\n\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t}\n\t\t\t\n\t\t\t#endif\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t 
-      \n\t\t\t#pragma fragment frag\n\t\t\tvoid frag(ps_input i\n\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t,
-      bool frontFace : SV_IsFrontFace\n\t\t\t#endif\n\t\t\t\n\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t, out float4 outMotionVector : SV_Target0\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target1\n\t\t\t\t#endif\n\t\t\t#else\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t, out float4 outColor :
-      SV_Target0\n\t\t\t\t#endif\n\t\t\t#endif\n\t\t\t\t)\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\n\t\t\t\t\t\t\t#ifdef
-      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\tconst
-      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\tconst
-      float faceMul = 1.0f;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3
-      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\tconst VFXUVData uvData
-      = GetUVData(i);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\tfloat3
-      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\tfloat3 bitangentWS = cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\tfloat3
-      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\tnormalWS
-      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\ttangentWS
-      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\tbitangentWS = cross(tangentWS,normalWS);\n\t\t\t\t\t\t\ttangentWS
-      *= faceMul;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3x3 tbn
-      = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      USE_NORMAL_MAP\n\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\tfloat
-      normalScale = 1.0f;\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\tnormalScale
-      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tnormalWS
-      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t#ifdef
-      VFX_SHADERGRAPH\n\t\t\t    \n\t\t\t        \n\t\t\t        \n\t\t\t       
-      \n\t\t\t        \n\t\t\t        float alpha = OUTSG.;\n\t\t\t    #else\n\t\t\t       
-      float alpha = VFXGetFragmentColor(i).a;\n\t\t\t        #if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t           
-      alpha *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t       
-      #endif\n\t\t\t    #endif\n\t\t\t        VFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t           
-      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t       
-      #else\n\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t              
-      float3 n =  OUTSG.Normal_8;\n\t\t\t               normalWS = mul(n,tbn);\n\t\t\t          
-      #endif\n\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t          
-      \n\t\t\t           surface.normalWS = normalWS;\n\t\t\t           \n\t\t\t          
-      EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface), i.VFX_VARYING_POSCS.xy,
-      outNormalBuffer);\n\t\t\t        #endif\n\t\t\t\t#endif\n\t\t\t\n\t\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2
+      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t\t\t{\n\t\t\t\t\t\tBSDFData
+      bsdfData = (BSDFData)0;\n\t\t\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\tint _ObjectId;\n\t\t\t\t\tint
+      _PassValue;\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#pragma fragment frag\n\t\t\t\t\tvoid
+      frag(ps_input i\n\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t, bool frontFace
+      : SV_IsFrontFace\n\t\t\t\t\t#endif\n\t\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t// We need the depth color as SV_Target0 for
+      alpha to coverage\n\t\t\t\t\t\t, out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t,
+      out float4 outMotionVector : SV_Target1\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target2\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t//
+      When no MSAA, the motion vector is always the first buffer\n\t\t\t\t\t\t, out
+      float4 outMotionVector : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t#ifdef WRITE_MSAA_DEPTH\n\t\t\t\t\t\t//
+      We need the depth color as SV_Target0 for alpha to coverage\n\t\t\t\t\t\t,
+      out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#elif
+      defined(WRITE_NORMAL_BUFFER)\n\t\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t    , out float4 outColor
+      : SV_Target0\n\t\t\t\t\t#endif\n\t\t\t\t\t)\n\t\t\t\t\t{\n\t\t\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef
+      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = 1.0f;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3
+      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\t\t\tconst VFXUVData
+      uvData = GetUVData(i);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\t\t\tfloat3
+      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\t\t\tfloat3 bitangentWS =
+      cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\t\t\tfloat3
+      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\t\t\tnormalWS
+      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\t\t\ttangentWS
+      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\t\t\tbitangentWS =
+      cross(tangentWS,normalWS);\n\t\t\t\t\t\t\t\t\ttangentWS *= faceMul;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3x3
+      tbn = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      USE_NORMAL_MAP\n\t\t\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\t\t\tfloat
+      normalScale = 1.0f;\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\t\t\tnormalScale
+      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tnormalWS
+      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      VFX_SHADERGRAPH\n\t\t\t\t\t        \n\t\t\t\t\t        \n\t\t\t\t\t       
+      float alpha = OUTSG.;\n\t\t\t\t\t    #else\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha = VFXGetFragmentColor(i).a;\n\t\t\t\t\t\t\n\t\t\t\t\t\t#if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t\t\t\t\talpha
+      *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t   
+      #endif\n\t\t\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_NORMAL_BUFFER\n\t\t\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t\t\t           
+      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t\t\t       
+      #else\n\t\t\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t\t\t              
+      float3 n =  OUTSG.Normal_8;\n\t\t\t\t\t               normalWS = mul(n,tbn);\n\t\t\t\t\t          
+      #endif\n\t\t\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t\t\t          
+      surface.normalWS = normalWS;\n\t\t\t\t\t           EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface),
+      i.VFX_VARYING_POSCS.xy, outNormalBuffer);\n\t\t\t\t\t        #endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t\toutDepthColor = i.VFX_VARYING_POSCS.z;\n\t\t\t\t\t\t\t#if
+      VFX_USE_ALPHA_TO_MASK\n\t\t\t\t\t\t\t\toutDepthColor.a = alpha;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat2
       velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
-      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
-      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
-      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
-      0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\toutMotionVector = encodedMotionVector;\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t// We use depth prepass
-      for scene selection in the editor, this code allow to output the outline correctly\n\t\t\t\t\toutColor
-      = float4(_ObjectId, _PassValue, 1.0, 1.0);\n\t\t\t\t#elif VFX_PASSDEPTH ==
-      VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t//void\n\t\t\t\t#else\n\t\t\t\t\t#error VFX_PASSDEPTH
-      undefined\n\t\t\t\t#endif\n\t\t\t}\n\t\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t\t\t#if
+      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tfloat4
+      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity
+      * 0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\toutMotionVector
+      = encodedMotionVector;\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t\t\t//
+      We use depth prepass for scene selection in the editor, this code allow to
+      output the outline correctly\n\t\t\t\t\t\t\toutColor = float4(_ObjectId, _PassValue,
+      1.0, 1.0);\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t\t//void\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t#error
+      VFX_PASSDEPTH undefined\n\t\t\t\t\t\t#endif\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
       { \"LightMode\"=\"DepthOnly\" }\n\t\t\n\t\t\tZWrite On\n\t\t\tBlend Off\n\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#define
-      VFX_PASSDEPTH VFX_PASSDEPTH_ACTUAL\n\t\t\t#pragma target 4.5\n\t\t\t#define
-      UNITY_MATERIAL_LIT\n\t\t\t#pragma multi_compile _ WRITE_NORMAL_BUFFER\n\t\t\t\n\t\t\t#define
+      VFX_PASSDEPTH VFX_PASSDEPTH_ACTUAL\n\t\t\t#pragma multi_compile _ WRITE_NORMAL_BUFFER\n\t\t\t#pragma
+      multi_compile _ WRITE_MSAA_DEPTH\n\t\t\t#pragma target 4.5\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t\n\t\t\t#define
       NEEDS_NORMAL\tdefined(WRITE_NORMAL_BUFFER) || FORCE_NORMAL_VARYING || SHADERGRAPH_NEEDS_NORMAL_DEPTHONLY\n\t\t\t#define
       NEEDS_TANGENT\tUSE_NORMAL_MAP || USE_NORMAL_BENDING || SHADERGRAPH_NEEDS_TANGENT_DEPTHONLY\n\t\t\t\n\t\t\tstruct
       ps_input\n\t\t\t{\n\t\t\t\tfloat4 pos : SV_POSITION;\n\t\t\t\t#if USE_FLIPBOOK_INTERPOLATION\n\t\t\t\tfloat4
@@ -1601,12 +1617,12 @@ VisualEffectResource:
       /*inout */attributes.scaleX,  /*inout */attributes.scaleY, float2(0.00999999978,
       0.00999999978));\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    float tmp_ba = attributes.BasePosition[0];\n\t\t\t\t   
       float tmp_bb = attributes.BasePosition[1];\n\t\t\t\t    float3 tmp_bc = float3(tmp_ba,
-      tmp_bb, uniform_c);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
+      tmp_bb, uniform_b);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
       float3(1, 0.470988303, 2).x, (int)5, float3(1, 0.470988303, 2).y, float3(1,
       0.470988303, 2).z);\n\t\t\t\t    float tmp_bg = tmp_bf[0];\n\t\t\t\t    float
       tmp_bi = tmp_bg - (float)-1;\n\t\t\t\t    float tmp_bk = tmp_bi / (float)2;\n\t\t\t\t   
       float tmp_bm = tmp_bk * (float)1.75;\n\t\t\t\t    float tmp_bn = (float)-0.479999989
-      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_b >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
+      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_a >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
       /*inout */attributes.alive, tmp_bo);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if
       !HAS_STRIPS\n\t\t\t\tif (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
       VFX_PRIMITIVE_QUAD\n\t\t\t\n\t\t\t#if HAS_STRIPS\n\t\t\t#if VFX_STRIPS_UV_STRECHED\n\t\t\t\to.VFX_VARYING_UV.x
@@ -1687,79 +1703,93 @@ VisualEffectResource:
       = uvData.blend;\n\t\t\t\t\t\t#if USE_FLIPBOOK_MOTIONVECTORS && defined(VFX_VARYING_MOTIONVECTORSCALE)\n\t\t\t\t\t\t\n\t\t\t\t\t\to.VFX_VARYING_MOTIONVECTORSCALE
       = motionVectorScale * invFlipBookSize;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t   
       \n\t\t\t    \n\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t#define SHADERPASS SHADERPASS_MOTION_VECTORS\n\t\t\t#else\n\t\t\t#define
-      SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t#endif\n\t\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\n\t\t\t#ifndef
-      VFX_SHADERGRAPH\n\t\t\t\n\t\t\tvoid VFXGetHDRPLitData(out SurfaceData surfaceData,
-      out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData preLightData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData, uint2 tileIndex)\n\t\t\t{\t\n\t\t\t\t#if
-      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t\t{\n\t\t\t\t   
-      \n\t\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t\t}\n\t\t\t\t\n
-      // Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
-      = 0;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\tfloat4
-      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
-      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\n\t\t\t\tfloat
-      alpha;\n\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\tbsdfData
-      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\n\t\t\t\tpreLightData
-      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t    //TODO: investigate why this is needed\n\t\t\t    preLightData.coatPartLambdaV
-      = 0;\n\t\t\t    preLightData.coatIblR = 0;\n\t\t\t    preLightData.coatIblF
-      = 0;\n\t\t\t    \n\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t}\n\t\t\t\n\t\t\tvoid
+      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t#define SHADERPASS
+      SHADERPASS_MOTION_VECTORS\n\t\t\t\t\t#else\n\t\t\t\t\t#define SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t\t\t#endif\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t#ifndef
+      VFX_SHADERGRAPH\n\t\t\t\t\t\n\t\t\t\t\tvoid VFXGetHDRPLitData(out SurfaceData
+      surfaceData, out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData
+      preLightData, VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData,
+      uint2 tileIndex)\n\t\t\t\t\t{\t\n\t\t\t\t\t\t#if HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\t\t\tuint
+      diffusionProfileHash = (uint)0;\n\t\t\t\t\t\t{\n\t\t\t\t\t\t    \n\t\t\t\t\t\t   
+      diffusionProfileHash = (uint)1077237755;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t
+      // Loads diffusion profile\n\t\t\t\t\t\t#else\n\t\t\t\t\t\tconst uint diffusionProfileHash
+      = 0;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\t\t\tfloat4
+      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
+      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha;\n\t\t\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\t\t\tbsdfData
+      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\t\t\n\t\t\t\t\t\tpreLightData
+      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\t\t\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t    //TODO: investigate why this is needed\n\t\t\t\t\t   
+      preLightData.coatPartLambdaV = 0;\n\t\t\t\t\t    preLightData.coatIblR = 0;\n\t\t\t\t\t   
+      preLightData.coatIblF = 0;\n\t\t\t\t\t    \n\t\t\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\tvoid
       VFXGetHDRPLitData(out SurfaceData surfaceData, out BuiltinData builtinData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t{\n\t\t\t\tBSDFData
-      bsdfData = (BSDFData)0;\n\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t}\n\t\t\t\n\t\t\t#endif\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t 
-      \n\t\t\t#pragma fragment frag\n\t\t\tvoid frag(ps_input i\n\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t,
-      bool frontFace : SV_IsFrontFace\n\t\t\t#endif\n\t\t\t\n\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t, out float4 outMotionVector : SV_Target0\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target1\n\t\t\t\t#endif\n\t\t\t#else\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t, out float4 outColor :
-      SV_Target0\n\t\t\t\t#endif\n\t\t\t#endif\n\t\t\t\t)\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\n\t\t\t\t\t\t\t#ifdef
-      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\tconst
-      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\tconst
-      float faceMul = 1.0f;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3
-      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\tconst VFXUVData uvData
-      = GetUVData(i);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\tfloat3
-      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\tfloat3 bitangentWS = cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\tfloat3
-      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\tnormalWS
-      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\ttangentWS
-      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\tbitangentWS = cross(tangentWS,normalWS);\n\t\t\t\t\t\t\ttangentWS
-      *= faceMul;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3x3 tbn
-      = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      USE_NORMAL_MAP\n\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\tfloat
-      normalScale = 1.0f;\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\tnormalScale
-      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tnormalWS
-      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t#ifdef
-      VFX_SHADERGRAPH\n\t\t\t    \n\t\t\t        \n\t\t\t        \n\t\t\t       
-      \n\t\t\t        \n\t\t\t        float alpha = OUTSG.;\n\t\t\t    #else\n\t\t\t       
-      float alpha = VFXGetFragmentColor(i).a;\n\t\t\t        #if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t           
-      alpha *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t       
-      #endif\n\t\t\t    #endif\n\t\t\t        VFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t           
-      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t       
-      #else\n\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t              
-      float3 n =  OUTSG.Normal_8;\n\t\t\t               normalWS = mul(n,tbn);\n\t\t\t          
-      #endif\n\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t          
-      \n\t\t\t           surface.normalWS = normalWS;\n\t\t\t           \n\t\t\t          
-      EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface), i.VFX_VARYING_POSCS.xy,
-      outNormalBuffer);\n\t\t\t        #endif\n\t\t\t\t#endif\n\t\t\t\n\t\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2
+      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t\t\t{\n\t\t\t\t\t\tBSDFData
+      bsdfData = (BSDFData)0;\n\t\t\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\tint _ObjectId;\n\t\t\t\t\tint
+      _PassValue;\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#pragma fragment frag\n\t\t\t\t\tvoid
+      frag(ps_input i\n\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t, bool frontFace
+      : SV_IsFrontFace\n\t\t\t\t\t#endif\n\t\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t// We need the depth color as SV_Target0 for
+      alpha to coverage\n\t\t\t\t\t\t, out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t,
+      out float4 outMotionVector : SV_Target1\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target2\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t//
+      When no MSAA, the motion vector is always the first buffer\n\t\t\t\t\t\t, out
+      float4 outMotionVector : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t#ifdef WRITE_MSAA_DEPTH\n\t\t\t\t\t\t//
+      We need the depth color as SV_Target0 for alpha to coverage\n\t\t\t\t\t\t,
+      out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#elif
+      defined(WRITE_NORMAL_BUFFER)\n\t\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t    , out float4 outColor
+      : SV_Target0\n\t\t\t\t\t#endif\n\t\t\t\t\t)\n\t\t\t\t\t{\n\t\t\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef
+      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = 1.0f;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3
+      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\t\t\tconst VFXUVData
+      uvData = GetUVData(i);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\t\t\tfloat3
+      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\t\t\tfloat3 bitangentWS =
+      cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\t\t\tfloat3
+      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\t\t\tnormalWS
+      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\t\t\ttangentWS
+      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\t\t\tbitangentWS =
+      cross(tangentWS,normalWS);\n\t\t\t\t\t\t\t\t\ttangentWS *= faceMul;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3x3
+      tbn = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      USE_NORMAL_MAP\n\t\t\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\t\t\tfloat
+      normalScale = 1.0f;\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\t\t\tnormalScale
+      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tnormalWS
+      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      VFX_SHADERGRAPH\n\t\t\t\t\t        \n\t\t\t\t\t        \n\t\t\t\t\t       
+      float alpha = OUTSG.;\n\t\t\t\t\t    #else\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha = VFXGetFragmentColor(i).a;\n\t\t\t\t\t\t\n\t\t\t\t\t\t#if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t\t\t\t\talpha
+      *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t   
+      #endif\n\t\t\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_NORMAL_BUFFER\n\t\t\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t\t\t           
+      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t\t\t       
+      #else\n\t\t\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t\t\t              
+      float3 n =  OUTSG.Normal_8;\n\t\t\t\t\t               normalWS = mul(n,tbn);\n\t\t\t\t\t          
+      #endif\n\t\t\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t\t\t          
+      surface.normalWS = normalWS;\n\t\t\t\t\t           EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface),
+      i.VFX_VARYING_POSCS.xy, outNormalBuffer);\n\t\t\t\t\t        #endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t\toutDepthColor = i.VFX_VARYING_POSCS.z;\n\t\t\t\t\t\t\t#if
+      VFX_USE_ALPHA_TO_MASK\n\t\t\t\t\t\t\t\toutDepthColor.a = alpha;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat2
       velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
-      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
-      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
-      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
-      0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\toutMotionVector = encodedMotionVector;\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t// We use depth prepass
-      for scene selection in the editor, this code allow to output the outline correctly\n\t\t\t\t\toutColor
-      = float4(_ObjectId, _PassValue, 1.0, 1.0);\n\t\t\t\t#elif VFX_PASSDEPTH ==
-      VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t//void\n\t\t\t\t#else\n\t\t\t\t\t#error VFX_PASSDEPTH
-      undefined\n\t\t\t\t#endif\n\t\t\t}\n\t\t\t\n\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
-      { \"LightMode\"=\"GBuffer\" }\n\t\t\t\n\t\t\tStencil\n\t\t\t{\n\t\t\t\tWriteMask
-      7\n\t\t\t\tRef  2\n\t\t\t\tComp Always\n\t\t\t\tPass Replace\n\t\t\t}\t\n\t\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#pragma
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t\t\t#if
+      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tfloat4
+      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity
+      * 0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\toutMotionVector
+      = encodedMotionVector;\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t\t\t//
+      We use depth prepass for scene selection in the editor, this code allow to
+      output the outline correctly\n\t\t\t\t\t\t\toutColor = float4(_ObjectId, _PassValue,
+      1.0, 1.0);\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t\t//void\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t#error
+      VFX_PASSDEPTH undefined\n\t\t\t\t\t\t#endif\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
+      { \"LightMode\"=\"GBuffer\" }\n\t\t\n\t\t    Stencil\n\t\t    {\n\t\t     WriteMask
+      6\n\t\t     Ref 2\n\t\t     Comp Always\n\t\t     Pass Replace\n\t\t    }\n\n\t\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#pragma
       target 4.5\n\t\t\t\n\t\t\t#pragma multi_compile _ LIGHT_LAYERS\n\t\t\t#pragma
       multi_compile _ DEBUG_DISPLAY\n\t\t\t\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t\t\n\t\t\t#define
       HDRP_NEEDS_UVS (HDRP_USE_BASE_COLOR_MAP || HDRP_USE_MASK_MAP || USE_NORMAL_MAP
@@ -1895,12 +1925,12 @@ VisualEffectResource:
       /*inout */attributes.scaleX,  /*inout */attributes.scaleY, float2(0.00999999978,
       0.00999999978));\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    float tmp_ba = attributes.BasePosition[0];\n\t\t\t\t   
       float tmp_bb = attributes.BasePosition[1];\n\t\t\t\t    float3 tmp_bc = float3(tmp_ba,
-      tmp_bb, uniform_c);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
+      tmp_bb, uniform_b);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
       float3(1, 0.470988303, 2).x, (int)5, float3(1, 0.470988303, 2).y, float3(1,
       0.470988303, 2).z);\n\t\t\t\t    float tmp_bg = tmp_bf[0];\n\t\t\t\t    float
       tmp_bi = tmp_bg - (float)-1;\n\t\t\t\t    float tmp_bk = tmp_bi / (float)2;\n\t\t\t\t   
       float tmp_bm = tmp_bk * (float)1.75;\n\t\t\t\t    float tmp_bn = (float)-0.479999989
-      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_b >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
+      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_a >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
       /*inout */attributes.alive, tmp_bo);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if
       !HAS_STRIPS\n\t\t\t\tif (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
       VFX_PRIMITIVE_QUAD\n\t\t\t\n\t\t\t#if HAS_STRIPS\n\t\t\t#if VFX_STRIPS_UV_STRECHED\n\t\t\t\to.VFX_VARYING_UV.x
@@ -2207,12 +2237,12 @@ VisualEffectResource:
       /*inout */attributes.scaleX,  /*inout */attributes.scaleY, float2(0.00999999978,
       0.00999999978));\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    float tmp_ba = attributes.BasePosition[0];\n\t\t\t\t   
       float tmp_bb = attributes.BasePosition[1];\n\t\t\t\t    float3 tmp_bc = float3(tmp_ba,
-      tmp_bb, uniform_c);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
+      tmp_bb, uniform_b);\n\t\t\t\t    float4 tmp_bf = GeneratePerlinNoise(tmp_bc,
       float3(1, 0.470988303, 2).x, (int)5, float3(1, 0.470988303, 2).y, float3(1,
       0.470988303, 2).z);\n\t\t\t\t    float tmp_bg = tmp_bf[0];\n\t\t\t\t    float
       tmp_bi = tmp_bg - (float)-1;\n\t\t\t\t    float tmp_bk = tmp_bi / (float)2;\n\t\t\t\t   
       float tmp_bm = tmp_bk * (float)1.75;\n\t\t\t\t    float tmp_bn = (float)-0.479999989
-      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_b >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
+      + tmp_bm;\n\t\t\t\t    bool tmp_bo = uniform_a >= tmp_bn;\n\t\t\t\t    SetAttribute_ED2BDC15(
       /*inout */attributes.alive, tmp_bo);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if
       !HAS_STRIPS\n\t\t\t\tif (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
       VFX_PRIMITIVE_QUAD\n\t\t\t\n\t\t\t#if HAS_STRIPS\n\t\t\t#if VFX_STRIPS_UV_STRECHED\n\t\t\t\to.VFX_VARYING_UV.x
@@ -2318,9 +2348,9 @@ VisualEffectResource:
       VFX_SHADERGRAPH\n\t\t\t\n\t\t\tvoid VFXGetHDRPLitData(out SurfaceData surfaceData,
       out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData preLightData,
       VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData, uint2 tileIndex)\n\t\t\t{\t\n\t\t\t\t#if
-      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t\t{\n\t\t\t\t   
-      \n\t\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t\t}\n\t\t\t\t\n
-      // Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
+      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t{\n\t\t\t   
+      \n\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t}\n\t\t\t\n //
+      Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
       = 0;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\tfloat4
       posSS = i.VFX_VARYING_POSCS;\n\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
       _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\n\t\t\t\tfloat
@@ -2383,11 +2413,11 @@ VisualEffectResource:
       = outColor.a < i.VFX_VARYING_ALPHATHRESHOLD ? 0.0f : 1.0f; //Independant clipping
       for motion vector pass\n\t\t#endif\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t}\r\n}\r\n"
   - compute: 0
-    name: '[Pins Interpolated Sphere -> PinScreen]C Light Rays'
+    name: '[Pins Interpolated Sphere -> PinScreen]Light Rays'
     source: "Shader \"Hidden/VFX/ARUI-Planet-to-PinScreen/Pins Interpolated Sphere
-      -> PinScreen/(C) Light Rays\"\n{\r\n\tSubShader\r\n\t{\t\r\n\t\tCull Off\r\n\t\t\r\n\t\tTags
+      -> PinScreen/Light Rays\"\n{\r\n\tSubShader\r\n\t{\t\r\n\t\tCull Off\r\n\t\t\r\n\t\tTags
       { \"Queue\"=\"Transparent+0\" \"IgnoreProjector\"=\"True\" \"RenderType\"=\"Transparent\"
-      }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
+      }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tBlend
       SrcAlpha One \n\t\tZTest LEqual\n\t\tZWrite Off\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t\n\t\t#define
       NB_THREADS_PER_GROUP 64\n\t\t#define HAS_ATTRIBUTES 1\n\t\t#define VFX_PASSDEPTH_ACTUAL
       (0)\n\t\t#define VFX_PASSDEPTH_MOTION_VECTOR (1)\n\t\t#define VFX_PASSDEPTH_SELECTION
@@ -2402,11 +2432,11 @@ VisualEffectResource:
       VFX_USE_SCALEX_CURRENT 1\n\t\t#define VFX_USE_SCALEY_CURRENT 1\n\t\t#define
       VFX_USE_SCALEZ_CURRENT 1\n\t\t#define VFX_COLORMAPPING_DEFAULT 1\n\t\t#define
       IS_TRANSPARENT_PARTICLE 1\n\t\t#define USE_SOFT_PARTICLE 1\n\t\t#define VFX_BLENDMODE_ADD
-      1\n\t\t#define VFX_BYPASS_EXPOSURE 1\n\t\t#define VFX_PRIMITIVE_QUAD 1\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t#define
+      1\n\t\t#define VFX_BYPASS_EXPOSURE 1\n\t\t#define VFX_PRIMITIVE_QUAD 1\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t#define
       VFX_LOCAL_SPACE 1\n\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXDefines.hlsl\"\n\t\t\n\n\t\tCBUFFER_START(parameters)\n\t\t   
-      float4 uniform_b;\n\t\t    float4 uniform_f;\n\t\t    float4 uniform_g;\n\t\t   
-      float4 uniform_i;\n\t\t    float2 uniform_h;\n\t\t    float uniform_c;\n\t\t   
-      float uniform_d;\n\t\t    float uniform_e;\n\t\t    uint3 PADDING_0;\n\t\tCBUFFER_END\n\t\t\n\t\tstruct
+      float4 uniform_a;\n\t\t    float4 uniform_e;\n\t\t    float4 uniform_f;\n\t\t   
+      float4 uniform_h;\n\t\t    float2 uniform_g;\n\t\t    float uniform_b;\n\t\t   
+      float uniform_c;\n\t\t    float uniform_d;\n\t\t    uint3 PADDING_0;\n\t\tCBUFFER_END\n\t\t\n\t\tstruct
       Attributes\n\t\t{\n\t\t    float3 position;\n\t\t    uint particleId;\n\t\t   
       float2 BasePosition;\n\t\t    float height;\n\t\t    float3 color;\n\t\t   
       float alpha;\n\t\t    bool alive;\n\t\t    float3 axisX;\n\t\t    float3 axisY;\n\t\t   
@@ -2414,7 +2444,7 @@ VisualEffectResource:
       angleZ;\n\t\t    float pivotX;\n\t\t    float pivotY;\n\t\t    float pivotZ;\n\t\t   
       float size;\n\t\t    float scaleX;\n\t\t    float scaleY;\n\t\t    float scaleZ;\n\t\t};\n\t\t\n\t\tstruct
       SourceAttributes\n\t\t{\n\t\t};\n\t\t\n\t\tTexture2D mainTexture;\n\t\tSamplerState
-      samplermainTexture;\n\t\tfloat4 mainTexture_TexelSize;\n\t\t\n\n\t\t\n\t\t#define
+      samplermainTexture;\n\t\tfloat4 mainTexture_TexelSize;\n\t\t\n\t\t\n\n\t\t\n\t\t#define
       VFX_NEEDS_COLOR_INTERPOLATOR (VFX_USE_COLOR_CURRENT || VFX_USE_ALPHA_CURRENT)\n\t\t#if
       HAS_STRIPS\n\t\t#define VFX_OPTIONAL_INTERPOLATION \n\t\t#else\n\t\t#define
       VFX_OPTIONAL_INTERPOLATION nointerpolation\n\t\t#endif\n\t\t\n\t\tByteAddressBuffer
@@ -2450,8 +2480,8 @@ VisualEffectResource:
       posWS\n\t\t\t#endif\n\t\t\t\n\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t#define
       VFX_VARYING_VELOCITY_CPOS cPosNonJiterred\n\t\t\t#define VFX_VARYING_VELOCITY_CPOS_PREVIOUS
       cPosPrevious\n\t\t\t#endif\n\t\t\t\n\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t#define
-      SHADERPASS SHADERPASS_MOTION_VECTORS\n\t\t\t#else\n\t\t\t#define SHADERPASS
-      SHADERPASS_DEPTH_ONLY\n\t\t\t#endif\n\t\t\t#if !(defined(VFX_VARYING_PS_INPUTS)
+      SHADERPASS SHADERPASS_MOTION_VECTORS\n\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t#define
+      SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t#endif\n\t\t\t\n\t\t\t#if !(defined(VFX_VARYING_PS_INPUTS)
       && defined(VFX_VARYING_POSCS))\n\t\t\t#error VFX_VARYING_PS_INPUTS, VFX_VARYING_POSCS
       and VFX_VARYING_UV must be defined.\n\t\t\t#endif\n\t\t\t\n\t\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXCommon.hlsl\"\n\t\t\t#include
       \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommon.hlsl\"\n\t\t\t\n\n\t\t\tvoid
@@ -2552,31 +2582,31 @@ VisualEffectResource:
       ConnectTarget_0( /*inout */attributes.axisX,  /*inout */attributes.axisY, 
       /*inout */attributes.axisZ,  /*inout */attributes.position,  /*inout */attributes.pivotY,
       attributes.size,  /*inout */attributes.scaleY, tmp_bn, (float)0);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
-      float tmp_bf = attributes.height / uniform_c;\n\t\t\t\t    float tmp_bg = SampleCurve(uniform_b,tmp_bf);\n\t\t\t\t   
+      float tmp_bf = attributes.height / uniform_b;\n\t\t\t\t    float tmp_bg = SampleCurve(uniform_a,tmp_bf);\n\t\t\t\t   
       SetAttribute_DC8A986F( /*inout */attributes.scaleY, tmp_bg);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
-      float tmp_bf = attributes.height / uniform_c;\n\t\t\t\t    bool tmp_bh = tmp_bf
+      float tmp_bf = attributes.height / uniform_b;\n\t\t\t\t    bool tmp_bh = tmp_bf
       > (float)0.5;\n\t\t\t\t    uint tmp_bj = attributes.particleId / (uint)16;\n\t\t\t\t   
       uint tmp_bk = tmp_bj * (uint)16;\n\t\t\t\t    uint tmp_bl = attributes.particleId
       - tmp_bk;\n\t\t\t\t    float tmp_bm = (float)tmp_bl;\n\t\t\t\t    bool tmp_bo
       = tmp_bm == (float)0;\n\t\t\t\t    bool tmp_bp = tmp_bh && tmp_bo;\n\t\t\t\t   
       float tmp_br = attributes.BasePosition[0];\n\t\t\t\t    float tmp_bs = attributes.BasePosition[1];\n\t\t\t\t   
-      float3 tmp_bt = float3(tmp_br, tmp_bs, uniform_e);\n\t\t\t\t    float4 tmp_bw
+      float3 tmp_bt = float3(tmp_br, tmp_bs, uniform_d);\n\t\t\t\t    float4 tmp_bw
       = GeneratePerlinNoise(tmp_bt, float3(1, 0.470988303, 2).x, (int)5, float3(1,
       0.470988303, 2).y, float3(1, 0.470988303, 2).z);\n\t\t\t\t    float tmp_bx
       = tmp_bw[0];\n\t\t\t\t    float tmp_bz = tmp_bx - (float)-1;\n\t\t\t\t    float
       tmp_cb = tmp_bz / (float)2;\n\t\t\t\t    float tmp_cd = tmp_cb * (float)1.75;\n\t\t\t\t   
-      float tmp_ce = (float)-0.479999989 + tmp_cd;\n\t\t\t\t    bool tmp_cf = uniform_d
+      float tmp_ce = (float)-0.479999989 + tmp_cd;\n\t\t\t\t    bool tmp_cf = uniform_c
       >= tmp_ce;\n\t\t\t\t    bool tmp_cg = tmp_bp && tmp_cf;\n\t\t\t\t    SetAttribute_ED2BDC15(
       /*inout */attributes.alive, tmp_cg);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    SetAttribute_CEEAF35C(
       /*inout */attributes.alpha, (float)0.0299999993);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
       CameraFade_18F(attributes.position,  /*inout */attributes.alpha,  /*inout */attributes.alive,
       (float)1.5, (float)0.666666687);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    float2
-      tmp_bf = uniform_h - attributes.BasePosition;\n\t\t\t\t    float2 tmp_bg =
+      tmp_bf = uniform_g - attributes.BasePosition;\n\t\t\t\t    float2 tmp_bg =
       tmp_bf * tmp_bf;\n\t\t\t\t    float tmp_bh = tmp_bg[1];\n\t\t\t\t    float
       tmp_bi = tmp_bg[0];\n\t\t\t\t    float tmp_bj = tmp_bh + tmp_bi;\n\t\t\t\t   
-      float tmp_bl = pow(tmp_bj, (float)0.5);\n\t\t\t\t    float tmp_bm = SampleCurve(uniform_g,tmp_bl);\n\t\t\t\t   
+      float tmp_bl = pow(tmp_bj, (float)0.5);\n\t\t\t\t    float tmp_bm = SampleCurve(uniform_f,tmp_bl);\n\t\t\t\t   
       float4 tmp_bn = float4(tmp_bm, tmp_bm, tmp_bm, tmp_bm);\n\t\t\t\t    float4
-      tmp_bo = tmp_bn * uniform_i;\n\t\t\t\t    float4 tmp_bp = uniform_f + tmp_bo;\n\t\t\t\t   
+      tmp_bo = tmp_bn * uniform_h;\n\t\t\t\t    float4 tmp_bp = uniform_e + tmp_bo;\n\t\t\t\t   
       float4 tmp_br = tmp_bp * float4(16, 16, 16, 16);\n\t\t\t\t    float tmp_bs
       = tmp_br[0];\n\t\t\t\t    float tmp_bt = tmp_br[1];\n\t\t\t\t    float tmp_bu
       = tmp_br[2];\n\t\t\t\t    float3 tmp_bv = float3(tmp_bs, tmp_bt, tmp_bu);\n\t\t\t\t   
@@ -2659,21 +2689,40 @@ VisualEffectResource:
       = uvData.blend;\n\t\t\t\t\t\t#if USE_FLIPBOOK_MOTIONVECTORS && defined(VFX_VARYING_MOTIONVECTORSCALE)\n\t\t\t\t\t\t\n\t\t\t\t\t\to.VFX_VARYING_MOTIONVECTORSCALE
       = motionVectorScale * invFlipBookSize;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t   
       \n\t\t\t    \n\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#pragma
-      fragment frag\n\t\t\tfloat4 frag(ps_input i) : SV_TARGET\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t   
-      #ifdef VFX_SHADERGRAPH\n\t\t\t        \n\t\t\t        \n\t\t\t        \n\t\t\t       
-      \n\t\t\t        float alpha = OUTSG.;\n\t\t\t    #else\n\t\t\t        float
-      alpha = VFXGetFragmentColor(i).a;\n\t\t\t        alpha *= VFXGetTextureColor(VFX_SAMPLER(mainTexture),i).a;\n\t\t\t   
-      #endif\n\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2 velocity =
-      (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) - (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
-      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
-      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
-      0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\treturn encodedMotionVector;\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\treturn float4(_ObjectId,
-      _PassValue, 1.0, 1.0);\n\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\treturn
-      (float4)0;\n\t\t\t\t#else\n\t\t\t\t\t#error VFX_PASSDEPTH undefined \n\t\t\t\t#endif\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t\t\r\n\t\t//
+      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#define
+      VFX_SUPPORT_MAIN_TEXTURE_SAMPLING_IN_FRAGMENT_DEPTH 1\n\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t#ifndef
+      VFX_SUPPORT_MAIN_TEXTURE_SAMPLING_IN_FRAGMENT_DEPTH\n\t\t\t\t\t#define VFX_SUPPORT_MAIN_TEXTURE_SAMPLING_IN_FRAGMENT_DEPTH
+      0\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#ifdef VFX_SHADERGRAPH\n\t\t\t\t\t\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\tint _ObjectId;\n\t\t\t\t\tint
+      _PassValue;\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#pragma fragment frag\n\t\t\t\t\tvoid
+      frag(ps_input i\n\t\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t   
+      #ifdef WRITE_MSAA_DEPTH\n\t\t\t\t\t    // We need the depth color as SV_Target0
+      for alpha to coverage\n\t\t\t\t\t    , out float4 outDepthColor : SV_Target0\n\t\t\t\t\t   
+      , out float4 outMotionVector : SV_Target1\n\t\t\t\t\t    #else\n\t\t\t\t\t   
+      // When no MSAA, the motion vector is always the first buffer\n\t\t\t\t\t   
+      , out float4 outMotionVector : SV_Target0\n\t\t\t\t\t    #endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t    #ifdef WRITE_MSAA_DEPTH\n\t\t\t\t\t   
+      , out float4 outDepthColor : SV_Target0\n\t\t\t\t\t    #else\n\t\t\t\t\t   
+      , out float4 dummy : SV_Target0\n\t\t\t\t\t    #endif\n\t\t\t\t\t#elif VFX_PASSDEPTH
+      == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t    , out float4 outSelection : SV_Target0\n\t\t\t\t\t#endif\n\t\t\t\t\t)\n\t\t\t\t\t{\n\t\t\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\t   
+      #ifdef VFX_SHADERGRAPH\n\t\t\t\t\t        \n\t\t\t\t\t        \n\t\t\t\t\t       
+      float alpha = OUTSG.;\n\t\t\t\t\t    #else\n\t\t\t\t\t        float alpha =
+      VFXGetFragmentColor(i).a;\n\t\t\t\t\t\t\t#if VFX_SUPPORT_MAIN_TEXTURE_SAMPLING_IN_FRAGMENT_DEPTH\n\t\t\t\t\t\t\t\talpha
+      *= VFXGetTextureColor(VFX_SAMPLER(mainTexture),i).a;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t   
+      #endif\n\t\t\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t\toutDepthColor = i.VFX_VARYING_POSCS.z;\n\t\t\t\t\t\t\t#if
+      VFX_USE_ALPHA_TO_MASK\n\t\t\t\t\t\t\t\toutDepthColor.a = alpha;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat2
+      velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t\t\t#if
+      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tfloat4
+      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity
+      * 0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\toutMotionVector
+      = encodedMotionVector;\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t\t\toutSelection
+      = float4(_ObjectId, _PassValue, 1.0, 1.0);\n\t\t\t\t\t\t#elif VFX_PASSDEPTH
+      == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t\t#ifndef WRITE_MSAA_DEPTH\n\t\t\t\t\t\t\t\tdummy
+      = (float4)0;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t#error
+      VFX_PASSDEPTH undefined \n\t\t\t\t\t\t#endif\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t\t\r\n\t\t//
       Forward pass\n\t\tPass\n\t\t{\t\t\n\t\t\tTags { \"LightMode\"=\"ForwardOnly\"
       }\n\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#pragma target 4.5\n\t\t\t#pragma multi_compile
       _ DEBUG_DISPLAY\n\t\t\n\t\t\tstruct ps_input\n\t\t\t{\n\t\t\t\tfloat4 pos :
@@ -2805,31 +2854,31 @@ VisualEffectResource:
       ConnectTarget_0( /*inout */attributes.axisX,  /*inout */attributes.axisY, 
       /*inout */attributes.axisZ,  /*inout */attributes.position,  /*inout */attributes.pivotY,
       attributes.size,  /*inout */attributes.scaleY, tmp_bn, (float)0);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
-      float tmp_bf = attributes.height / uniform_c;\n\t\t\t\t    float tmp_bg = SampleCurve(uniform_b,tmp_bf);\n\t\t\t\t   
+      float tmp_bf = attributes.height / uniform_b;\n\t\t\t\t    float tmp_bg = SampleCurve(uniform_a,tmp_bf);\n\t\t\t\t   
       SetAttribute_DC8A986F( /*inout */attributes.scaleY, tmp_bg);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
-      float tmp_bf = attributes.height / uniform_c;\n\t\t\t\t    bool tmp_bh = tmp_bf
+      float tmp_bf = attributes.height / uniform_b;\n\t\t\t\t    bool tmp_bh = tmp_bf
       > (float)0.5;\n\t\t\t\t    uint tmp_bj = attributes.particleId / (uint)16;\n\t\t\t\t   
       uint tmp_bk = tmp_bj * (uint)16;\n\t\t\t\t    uint tmp_bl = attributes.particleId
       - tmp_bk;\n\t\t\t\t    float tmp_bm = (float)tmp_bl;\n\t\t\t\t    bool tmp_bo
       = tmp_bm == (float)0;\n\t\t\t\t    bool tmp_bp = tmp_bh && tmp_bo;\n\t\t\t\t   
       float tmp_br = attributes.BasePosition[0];\n\t\t\t\t    float tmp_bs = attributes.BasePosition[1];\n\t\t\t\t   
-      float3 tmp_bt = float3(tmp_br, tmp_bs, uniform_e);\n\t\t\t\t    float4 tmp_bw
+      float3 tmp_bt = float3(tmp_br, tmp_bs, uniform_d);\n\t\t\t\t    float4 tmp_bw
       = GeneratePerlinNoise(tmp_bt, float3(1, 0.470988303, 2).x, (int)5, float3(1,
       0.470988303, 2).y, float3(1, 0.470988303, 2).z);\n\t\t\t\t    float tmp_bx
       = tmp_bw[0];\n\t\t\t\t    float tmp_bz = tmp_bx - (float)-1;\n\t\t\t\t    float
       tmp_cb = tmp_bz / (float)2;\n\t\t\t\t    float tmp_cd = tmp_cb * (float)1.75;\n\t\t\t\t   
-      float tmp_ce = (float)-0.479999989 + tmp_cd;\n\t\t\t\t    bool tmp_cf = uniform_d
+      float tmp_ce = (float)-0.479999989 + tmp_cd;\n\t\t\t\t    bool tmp_cf = uniform_c
       >= tmp_ce;\n\t\t\t\t    bool tmp_cg = tmp_bp && tmp_cf;\n\t\t\t\t    SetAttribute_ED2BDC15(
       /*inout */attributes.alive, tmp_cg);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    SetAttribute_CEEAF35C(
       /*inout */attributes.alpha, (float)0.0299999993);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
       CameraFade_18F(attributes.position,  /*inout */attributes.alpha,  /*inout */attributes.alive,
       (float)1.5, (float)0.666666687);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    float2
-      tmp_bf = uniform_h - attributes.BasePosition;\n\t\t\t\t    float2 tmp_bg =
+      tmp_bf = uniform_g - attributes.BasePosition;\n\t\t\t\t    float2 tmp_bg =
       tmp_bf * tmp_bf;\n\t\t\t\t    float tmp_bh = tmp_bg[1];\n\t\t\t\t    float
       tmp_bi = tmp_bg[0];\n\t\t\t\t    float tmp_bj = tmp_bh + tmp_bi;\n\t\t\t\t   
-      float tmp_bl = pow(tmp_bj, (float)0.5);\n\t\t\t\t    float tmp_bm = SampleCurve(uniform_g,tmp_bl);\n\t\t\t\t   
+      float tmp_bl = pow(tmp_bj, (float)0.5);\n\t\t\t\t    float tmp_bm = SampleCurve(uniform_f,tmp_bl);\n\t\t\t\t   
       float4 tmp_bn = float4(tmp_bm, tmp_bm, tmp_bm, tmp_bm);\n\t\t\t\t    float4
-      tmp_bo = tmp_bn * uniform_i;\n\t\t\t\t    float4 tmp_bp = uniform_f + tmp_bo;\n\t\t\t\t   
+      tmp_bo = tmp_bn * uniform_h;\n\t\t\t\t    float4 tmp_bp = uniform_e + tmp_bo;\n\t\t\t\t   
       float4 tmp_br = tmp_bp * float4(16, 16, 16, 16);\n\t\t\t\t    float tmp_bs
       = tmp_br[0];\n\t\t\t\t    float tmp_bt = tmp_br[1];\n\t\t\t\t    float tmp_bu
       = tmp_br[2];\n\t\t\t\t    float3 tmp_bv = float3(tmp_bs, tmp_bt, tmp_bu);\n\t\t\t\t   
@@ -2952,11 +3001,11 @@ VisualEffectResource:
       o.outMotionVector.a = o.color.a < i.VFX_VARYING_ALPHATHRESHOLD ? 0.0f : 1.0f;
       //Independant clipping for motion vector pass\n\t\t#endif\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t}\r\n}\r\n"
   - compute: 0
-    name: '[Pins Interpolated Sphere -> PinScreen]B Pin Caps'
+    name: '[Pins Interpolated Sphere -> PinScreen]Pin Caps'
     source: "Shader \"Hidden/VFX/ARUI-Planet-to-PinScreen/Pins Interpolated Sphere
-      -> PinScreen/(B) Pin Caps\"\n{\r\n\tSubShader\r\n\t{\t\r\n\t\tCull Off\r\n\t\t\r\n\t\tTags
+      -> PinScreen/Pin Caps\"\n{\r\n\tSubShader\r\n\t{\t\r\n\t\tCull Off\r\n\t\t\r\n\t\tTags
       { \"Queue\"=\"Geometry+0\" \"IgnoreProjector\"=\"False\" \"RenderType\"=\"Opaque\"
-      }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
+      }\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\tZTest
       LEqual\n\t\tZWrite On\n\t\tCull Off\n\t\t\n\t\n\t\t\t\n\t\tHLSLINCLUDE\n\t\t\n\t\t#define
       NB_THREADS_PER_GROUP 64\n\t\t#define HAS_ATTRIBUTES 1\n\t\t#define VFX_PASSDEPTH_ACTUAL
       (0)\n\t\t#define VFX_PASSDEPTH_MOTION_VECTOR (1)\n\t\t#define VFX_PASSDEPTH_SELECTION
@@ -2973,9 +3022,9 @@ VisualEffectResource:
       1\n\t\t#define HDRP_USE_BASE_COLOR_MAP 1\n\t\t#define HDRP_USE_BASE_COLOR_MAP_ALPHA
       1\n\t\t#define USE_NORMAL_MAP 1\n\t\t#define HDRP_USE_BASE_COLOR 1\n\t\t#define
       IS_OPAQUE_NOT_SIMPLE_LIT_PARTICLE 1\n\t\t#define FORCE_NORMAL_VARYING 1\n\t\t#define
-      VFX_PRIMITIVE_QUAD 1\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t#define
+      VFX_PRIMITIVE_QUAD 1\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t#define
       VFX_LOCAL_SPACE 1\n\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXDefines.hlsl\"\n\t\t\n\n\t\tCBUFFER_START(parameters)\n\t\t   
-      float3 uniform_b;\n\t\t    float uniform_c;\n\t\t    float uniform_d;\n\t\t   
+      float3 uniform_a;\n\t\t    float uniform_b;\n\t\t    float uniform_c;\n\t\t   
       uint3 PADDING_0;\n\t\tCBUFFER_END\n\t\t\n\t\tstruct Attributes\n\t\t{\n\t\t   
       float3 position;\n\t\t    float2 BasePosition;\n\t\t    float Morph;\n\t\t   
       float3 color;\n\t\t    float alpha;\n\t\t    bool alive;\n\t\t    float3 axisX;\n\t\t   
@@ -2983,8 +3032,8 @@ VisualEffectResource:
       angleY;\n\t\t    float angleZ;\n\t\t    float pivotX;\n\t\t    float pivotY;\n\t\t   
       float pivotZ;\n\t\t    float size;\n\t\t    float scaleX;\n\t\t    float scaleY;\n\t\t   
       float scaleZ;\n\t\t};\n\t\t\n\t\tstruct SourceAttributes\n\t\t{\n\t\t};\n\t\t\n\t\tTexture2D
-      baseColorMap;\n\t\tSamplerState samplerbaseColorMap;\n\t\tfloat4 baseColorMap_TexelSize;\n\t\tTexture2D
-      normalMap;\n\t\tSamplerState samplernormalMap;\n\t\tfloat4 normalMap_TexelSize;\n\t\t\n\n\t\t\n\t\t#define
+      baseColorMap;\n\t\tSamplerState samplerbaseColorMap;\n\t\tfloat4 baseColorMap_TexelSize;\n\t\t\n\t\tTexture2D
+      normalMap;\n\t\tSamplerState samplernormalMap;\n\t\tfloat4 normalMap_TexelSize;\n\t\t\n\t\t\n\n\t\t\n\t\t#define
       VFX_NEEDS_COLOR_INTERPOLATOR (VFX_USE_COLOR_CURRENT || VFX_USE_ALPHA_CURRENT)\n\t\t#if
       HAS_STRIPS\n\t\t#define VFX_OPTIONAL_INTERPOLATION \n\t\t#else\n\t\t#define
       VFX_OPTIONAL_INTERPOLATION nointerpolation\n\t\t#endif\n\t\t\n\t\tByteAddressBuffer
@@ -3000,8 +3049,7 @@ VisualEffectResource:
       instanceID : SV_InstanceID;\n\t\t\t#define VFX_GET_INSTANCE_ID(i)      i.instanceID\n\t\t#endif\n\t\t\n\t\tENDHLSL\n\t\t\n\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
       { \"LightMode\"=\"SceneSelectionPass\" }\n\t\t\n\t\t\tZWrite On\n\t\t\tBlend
       Off\n\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#define VFX_PASSDEPTH VFX_PASSDEPTH_SELECTION\n\t\t\t#pragma
-      target 4.5\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t#pragma multi_compile _
-      WRITE_NORMAL_BUFFER\n\t\t\t\n\t\t\t#define NEEDS_NORMAL\tdefined(WRITE_NORMAL_BUFFER)
+      target 4.5\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t\n\t\t\t#define NEEDS_NORMAL\tdefined(WRITE_NORMAL_BUFFER)
       || FORCE_NORMAL_VARYING || SHADERGRAPH_NEEDS_NORMAL_DEPTHONLY\n\t\t\t#define
       NEEDS_TANGENT\tUSE_NORMAL_MAP || USE_NORMAL_BENDING || SHADERGRAPH_NEEDS_TANGENT_DEPTHONLY\n\t\t\t\n\t\t\tstruct
       ps_input\n\t\t\t{\n\t\t\t\tfloat4 pos : SV_POSITION;\n\t\t\t\t#if USE_FLIPBOOK_INTERPOLATION\n\t\t\t\tfloat4
@@ -3112,19 +3160,19 @@ VisualEffectResource:
       float tmp_bb = attributes.position[0];\n\t\t\t\t    float tmp_bd = attributes.position[2];\n\t\t\t\t   
       float3 tmp_be = float3(tmp_bb, (float)0, tmp_bd);\n\t\t\t\t    float3 tmp_bf
       = float3(attributes.Morph, attributes.Morph, attributes.Morph);\n\t\t\t\t   
-      float3 tmp_bg = uniform_b - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
+      float3 tmp_bg = uniform_a - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
       float3 tmp_bi = tmp_be + tmp_bh;\n\t\t\t\t    ConnectTarget_0( /*inout */attributes.axisX, 
       /*inout */attributes.axisY,  /*inout */attributes.axisZ,  /*inout */attributes.position, 
       /*inout */attributes.pivotY, attributes.size,  /*inout */attributes.scaleY,
       tmp_bi, (float)0);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    SetAttribute_D5151644(
       /*inout */attributes.scaleX, (float)0.00999999978);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
       float tmp_bc = attributes.BasePosition[0];\n\t\t\t\t    float tmp_bd = attributes.BasePosition[1];\n\t\t\t\t   
-      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_d);\n\t\t\t\t    float4 tmp_bh
+      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_c);\n\t\t\t\t    float4 tmp_bh
       = GeneratePerlinNoise(tmp_be, float3(1, 0.470988303, 2).x, (int)5, float3(1,
       0.470988303, 2).y, float3(1, 0.470988303, 2).z);\n\t\t\t\t    float tmp_bi
       = tmp_bh[0];\n\t\t\t\t    float tmp_bk = tmp_bi - (float)-1;\n\t\t\t\t    float
       tmp_bm = tmp_bk / (float)2;\n\t\t\t\t    float tmp_bo = tmp_bm * (float)1.75;\n\t\t\t\t   
-      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_c
+      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_b
       >= tmp_bp;\n\t\t\t\t    SetAttribute_ED2BDC15( /*inout */attributes.alive,
       tmp_bq);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if !HAS_STRIPS\n\t\t\t\tif
       (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
@@ -3203,80 +3251,94 @@ VisualEffectResource:
       = uvData.blend;\n\t\t\t\t\t\t#if USE_FLIPBOOK_MOTIONVECTORS && defined(VFX_VARYING_MOTIONVECTORSCALE)\n\t\t\t\t\t\t\n\t\t\t\t\t\to.VFX_VARYING_MOTIONVECTORSCALE
       = motionVectorScale * invFlipBookSize;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t   
       \n\t\t\t    \n\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t#define SHADERPASS SHADERPASS_MOTION_VECTORS\n\t\t\t#else\n\t\t\t#define
-      SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t#endif\n\t\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\n\t\t\t#ifndef
-      VFX_SHADERGRAPH\n\t\t\t\n\t\t\tvoid VFXGetHDRPLitData(out SurfaceData surfaceData,
-      out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData preLightData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData, uint2 tileIndex)\n\t\t\t{\t\n\t\t\t\t#if
-      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t\t{\n\t\t\t\t   
-      \n\t\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t\t}\n\t\t\t\t\n
-      // Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
-      = 0;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\tfloat4
-      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
-      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\n\t\t\t\tfloat
-      alpha;\n\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\tbsdfData
-      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\n\t\t\t\tpreLightData
-      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t    //TODO: investigate why this is needed\n\t\t\t    preLightData.coatPartLambdaV
-      = 0;\n\t\t\t    preLightData.coatIblR = 0;\n\t\t\t    preLightData.coatIblF
-      = 0;\n\t\t\t    \n\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t}\n\t\t\t\n\t\t\tvoid
+      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t#define SHADERPASS
+      SHADERPASS_MOTION_VECTORS\n\t\t\t\t\t#else\n\t\t\t\t\t#define SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t\t\t#endif\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t#ifndef
+      VFX_SHADERGRAPH\n\t\t\t\t\t\n\t\t\t\t\tvoid VFXGetHDRPLitData(out SurfaceData
+      surfaceData, out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData
+      preLightData, VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData,
+      uint2 tileIndex)\n\t\t\t\t\t{\t\n\t\t\t\t\t\t#if HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\t\t\tuint
+      diffusionProfileHash = (uint)0;\n\t\t\t\t\t\t{\n\t\t\t\t\t\t    \n\t\t\t\t\t\t   
+      diffusionProfileHash = (uint)1077237755;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t
+      // Loads diffusion profile\n\t\t\t\t\t\t#else\n\t\t\t\t\t\tconst uint diffusionProfileHash
+      = 0;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\t\t\tfloat4
+      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
+      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha;\n\t\t\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\t\t\tbsdfData
+      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\t\t\n\t\t\t\t\t\tpreLightData
+      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\t\t\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t    //TODO: investigate why this is needed\n\t\t\t\t\t   
+      preLightData.coatPartLambdaV = 0;\n\t\t\t\t\t    preLightData.coatIblR = 0;\n\t\t\t\t\t   
+      preLightData.coatIblF = 0;\n\t\t\t\t\t    \n\t\t\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\tvoid
       VFXGetHDRPLitData(out SurfaceData surfaceData, out BuiltinData builtinData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t{\n\t\t\t\tBSDFData
-      bsdfData = (BSDFData)0;\n\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t}\n\t\t\t\n\t\t\t#endif\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t 
-      \n\t\t\t#pragma fragment frag\n\t\t\tvoid frag(ps_input i\n\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t,
-      bool frontFace : SV_IsFrontFace\n\t\t\t#endif\n\t\t\t\n\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t, out float4 outMotionVector : SV_Target0\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target1\n\t\t\t\t#endif\n\t\t\t#else\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t, out float4 outColor :
-      SV_Target0\n\t\t\t\t#endif\n\t\t\t#endif\n\t\t\t\t)\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\n\t\t\t\t\t\t\t#ifdef
-      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\tconst
-      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\tconst
-      float faceMul = 1.0f;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3
-      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\tconst VFXUVData uvData
-      = GetUVData(i);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\tfloat3
-      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\tfloat3 bitangentWS = cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\tfloat3
-      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\tnormalWS
-      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\ttangentWS
-      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\tbitangentWS = cross(tangentWS,normalWS);\n\t\t\t\t\t\t\ttangentWS
-      *= faceMul;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3x3 tbn
-      = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      USE_NORMAL_MAP\n\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\tfloat
-      normalScale = 1.0f;\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\tnormalScale
-      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tnormalWS
-      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t#ifdef
-      VFX_SHADERGRAPH\n\t\t\t    \n\t\t\t        \n\t\t\t        \n\t\t\t       
-      \n\t\t\t        \n\t\t\t        float alpha = OUTSG.;\n\t\t\t    #else\n\t\t\t       
-      float alpha = VFXGetFragmentColor(i).a;\n\t\t\t        #if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t           
-      alpha *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t       
-      #endif\n\t\t\t    #endif\n\t\t\t        VFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t           
-      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t       
-      #else\n\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t              
-      float3 n =  OUTSG.Normal_8;\n\t\t\t               normalWS = mul(n,tbn);\n\t\t\t          
-      #endif\n\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t          
-      \n\t\t\t           surface.normalWS = normalWS;\n\t\t\t           \n\t\t\t          
-      EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface), i.VFX_VARYING_POSCS.xy,
-      outNormalBuffer);\n\t\t\t        #endif\n\t\t\t\t#endif\n\t\t\t\n\t\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2
+      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t\t\t{\n\t\t\t\t\t\tBSDFData
+      bsdfData = (BSDFData)0;\n\t\t\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\tint _ObjectId;\n\t\t\t\t\tint
+      _PassValue;\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#pragma fragment frag\n\t\t\t\t\tvoid
+      frag(ps_input i\n\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t, bool frontFace
+      : SV_IsFrontFace\n\t\t\t\t\t#endif\n\t\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t// We need the depth color as SV_Target0 for
+      alpha to coverage\n\t\t\t\t\t\t, out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t,
+      out float4 outMotionVector : SV_Target1\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target2\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t//
+      When no MSAA, the motion vector is always the first buffer\n\t\t\t\t\t\t, out
+      float4 outMotionVector : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t#ifdef WRITE_MSAA_DEPTH\n\t\t\t\t\t\t//
+      We need the depth color as SV_Target0 for alpha to coverage\n\t\t\t\t\t\t,
+      out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#elif
+      defined(WRITE_NORMAL_BUFFER)\n\t\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t    , out float4 outColor
+      : SV_Target0\n\t\t\t\t\t#endif\n\t\t\t\t\t)\n\t\t\t\t\t{\n\t\t\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef
+      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = 1.0f;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3
+      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\t\t\tconst VFXUVData
+      uvData = GetUVData(i);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\t\t\tfloat3
+      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\t\t\tfloat3 bitangentWS =
+      cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\t\t\tfloat3
+      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\t\t\tnormalWS
+      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\t\t\ttangentWS
+      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\t\t\tbitangentWS =
+      cross(tangentWS,normalWS);\n\t\t\t\t\t\t\t\t\ttangentWS *= faceMul;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3x3
+      tbn = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      USE_NORMAL_MAP\n\t\t\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\t\t\tfloat
+      normalScale = 1.0f;\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\t\t\tnormalScale
+      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tnormalWS
+      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      VFX_SHADERGRAPH\n\t\t\t\t\t        \n\t\t\t\t\t        \n\t\t\t\t\t       
+      float alpha = OUTSG.;\n\t\t\t\t\t    #else\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha = VFXGetFragmentColor(i).a;\n\t\t\t\t\t\t\n\t\t\t\t\t\t#if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t\t\t\t\talpha
+      *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t   
+      #endif\n\t\t\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_NORMAL_BUFFER\n\t\t\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t\t\t           
+      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t\t\t       
+      #else\n\t\t\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t\t\t              
+      float3 n =  OUTSG.Normal_8;\n\t\t\t\t\t               normalWS = mul(n,tbn);\n\t\t\t\t\t          
+      #endif\n\t\t\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t\t\t          
+      surface.normalWS = normalWS;\n\t\t\t\t\t           EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface),
+      i.VFX_VARYING_POSCS.xy, outNormalBuffer);\n\t\t\t\t\t        #endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t\toutDepthColor = i.VFX_VARYING_POSCS.z;\n\t\t\t\t\t\t\t#if
+      VFX_USE_ALPHA_TO_MASK\n\t\t\t\t\t\t\t\toutDepthColor.a = alpha;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat2
       velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
-      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
-      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
-      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
-      0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\toutMotionVector = encodedMotionVector;\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t// We use depth prepass
-      for scene selection in the editor, this code allow to output the outline correctly\n\t\t\t\t\toutColor
-      = float4(_ObjectId, _PassValue, 1.0, 1.0);\n\t\t\t\t#elif VFX_PASSDEPTH ==
-      VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t//void\n\t\t\t\t#else\n\t\t\t\t\t#error VFX_PASSDEPTH
-      undefined\n\t\t\t\t#endif\n\t\t\t}\n\t\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t\t\t#if
+      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tfloat4
+      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity
+      * 0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\toutMotionVector
+      = encodedMotionVector;\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t\t\t//
+      We use depth prepass for scene selection in the editor, this code allow to
+      output the outline correctly\n\t\t\t\t\t\t\toutColor = float4(_ObjectId, _PassValue,
+      1.0, 1.0);\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t\t//void\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t#error
+      VFX_PASSDEPTH undefined\n\t\t\t\t\t\t#endif\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
       { \"LightMode\"=\"DepthOnly\" }\n\t\t\n\t\t\tZWrite On\n\t\t\tBlend Off\n\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#define
-      VFX_PASSDEPTH VFX_PASSDEPTH_ACTUAL\n\t\t\t#pragma target 4.5\n\t\t\t#define
-      UNITY_MATERIAL_LIT\n\t\t\t#pragma multi_compile _ WRITE_NORMAL_BUFFER\n\t\t\t\n\t\t\t#define
+      VFX_PASSDEPTH VFX_PASSDEPTH_ACTUAL\n\t\t\t#pragma multi_compile _ WRITE_NORMAL_BUFFER\n\t\t\t#pragma
+      multi_compile _ WRITE_MSAA_DEPTH\n\t\t\t#pragma target 4.5\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t\n\t\t\t#define
       NEEDS_NORMAL\tdefined(WRITE_NORMAL_BUFFER) || FORCE_NORMAL_VARYING || SHADERGRAPH_NEEDS_NORMAL_DEPTHONLY\n\t\t\t#define
       NEEDS_TANGENT\tUSE_NORMAL_MAP || USE_NORMAL_BENDING || SHADERGRAPH_NEEDS_TANGENT_DEPTHONLY\n\t\t\t\n\t\t\tstruct
       ps_input\n\t\t\t{\n\t\t\t\tfloat4 pos : SV_POSITION;\n\t\t\t\t#if USE_FLIPBOOK_INTERPOLATION\n\t\t\t\tfloat4
@@ -3387,19 +3449,19 @@ VisualEffectResource:
       float tmp_bb = attributes.position[0];\n\t\t\t\t    float tmp_bd = attributes.position[2];\n\t\t\t\t   
       float3 tmp_be = float3(tmp_bb, (float)0, tmp_bd);\n\t\t\t\t    float3 tmp_bf
       = float3(attributes.Morph, attributes.Morph, attributes.Morph);\n\t\t\t\t   
-      float3 tmp_bg = uniform_b - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
+      float3 tmp_bg = uniform_a - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
       float3 tmp_bi = tmp_be + tmp_bh;\n\t\t\t\t    ConnectTarget_0( /*inout */attributes.axisX, 
       /*inout */attributes.axisY,  /*inout */attributes.axisZ,  /*inout */attributes.position, 
       /*inout */attributes.pivotY, attributes.size,  /*inout */attributes.scaleY,
       tmp_bi, (float)0);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    SetAttribute_D5151644(
       /*inout */attributes.scaleX, (float)0.00999999978);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
       float tmp_bc = attributes.BasePosition[0];\n\t\t\t\t    float tmp_bd = attributes.BasePosition[1];\n\t\t\t\t   
-      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_d);\n\t\t\t\t    float4 tmp_bh
+      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_c);\n\t\t\t\t    float4 tmp_bh
       = GeneratePerlinNoise(tmp_be, float3(1, 0.470988303, 2).x, (int)5, float3(1,
       0.470988303, 2).y, float3(1, 0.470988303, 2).z);\n\t\t\t\t    float tmp_bi
       = tmp_bh[0];\n\t\t\t\t    float tmp_bk = tmp_bi - (float)-1;\n\t\t\t\t    float
       tmp_bm = tmp_bk / (float)2;\n\t\t\t\t    float tmp_bo = tmp_bm * (float)1.75;\n\t\t\t\t   
-      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_c
+      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_b
       >= tmp_bp;\n\t\t\t\t    SetAttribute_ED2BDC15( /*inout */attributes.alive,
       tmp_bq);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if !HAS_STRIPS\n\t\t\t\tif
       (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
@@ -3478,79 +3540,93 @@ VisualEffectResource:
       = uvData.blend;\n\t\t\t\t\t\t#if USE_FLIPBOOK_MOTIONVECTORS && defined(VFX_VARYING_MOTIONVECTORSCALE)\n\t\t\t\t\t\t\n\t\t\t\t\t\to.VFX_VARYING_MOTIONVECTORSCALE
       = motionVectorScale * invFlipBookSize;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t   
       \n\t\t\t    \n\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t#define SHADERPASS SHADERPASS_MOTION_VECTORS\n\t\t\t#else\n\t\t\t#define
-      SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t#endif\n\t\t\t#include \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\n\t\t\t#ifndef
-      VFX_SHADERGRAPH\n\t\t\t\n\t\t\tvoid VFXGetHDRPLitData(out SurfaceData surfaceData,
-      out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData preLightData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData, uint2 tileIndex)\n\t\t\t{\t\n\t\t\t\t#if
-      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t\t{\n\t\t\t\t   
-      \n\t\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t\t}\n\t\t\t\t\n
-      // Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
-      = 0;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\tfloat4
-      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
-      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\n\t\t\t\tfloat
-      alpha;\n\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\tbsdfData
-      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\n\t\t\t\tpreLightData
-      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t    //TODO: investigate why this is needed\n\t\t\t    preLightData.coatPartLambdaV
-      = 0;\n\t\t\t    preLightData.coatIblR = 0;\n\t\t\t    preLightData.coatIblF
-      = 0;\n\t\t\t    \n\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t}\n\t\t\t\n\t\t\tvoid
+      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t#define SHADERPASS
+      SHADERPASS_MOTION_VECTORS\n\t\t\t\t\t#else\n\t\t\t\t\t#define SHADERPASS SHADERPASS_DEPTH_ONLY\n\t\t\t\t\t#endif\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLit.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t#ifndef
+      VFX_SHADERGRAPH\n\t\t\t\t\t\n\t\t\t\t\tvoid VFXGetHDRPLitData(out SurfaceData
+      surfaceData, out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData
+      preLightData, VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData,
+      uint2 tileIndex)\n\t\t\t\t\t{\t\n\t\t\t\t\t\t#if HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\t\t\tuint
+      diffusionProfileHash = (uint)0;\n\t\t\t\t\t\t{\n\t\t\t\t\t\t    \n\t\t\t\t\t\t   
+      diffusionProfileHash = (uint)1077237755;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t
+      // Loads diffusion profile\n\t\t\t\t\t\t#else\n\t\t\t\t\t\tconst uint diffusionProfileHash
+      = 0;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\t\t\tfloat4
+      posSS = i.VFX_VARYING_POSCS;\n\t\t\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
+      _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha;\n\t\t\t\t\t\tsurfaceData = VFXGetSurfaceData(i,normalWS,uvData,diffusionProfileHash,alpha);\t\n\t\t\t\t\t\tbsdfData
+      = ConvertSurfaceDataToBSDFData(posSS.xy, surfaceData);\n\t\t\t\t\t\n\t\t\t\t\t\tpreLightData
+      = GetPreLightData(GetWorldSpaceNormalizeViewDir(posRWS),posInput,bsdfData);\n\t\t\t\t\t\t\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t    //TODO: investigate why this is needed\n\t\t\t\t\t   
+      preLightData.coatPartLambdaV = 0;\n\t\t\t\t\t    preLightData.coatIblR = 0;\n\t\t\t\t\t   
+      preLightData.coatIblF = 0;\n\t\t\t\t\t    \n\t\t\t\t\t\tbuiltinData = VFXGetBuiltinData(i,posInput,surfaceData,uvData,alpha);\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\tvoid
       VFXGetHDRPLitData(out SurfaceData surfaceData, out BuiltinData builtinData,
-      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t{\n\t\t\t\tBSDFData
-      bsdfData = (BSDFData)0;\n\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\tpreLightData.diffuseFGD
-      = 1.0f;\n\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t}\n\t\t\t\n\t\t\t#endif\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t 
-      \n\t\t\t#pragma fragment frag\n\t\t\tvoid frag(ps_input i\n\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t,
-      bool frontFace : SV_IsFrontFace\n\t\t\t#endif\n\t\t\t\n\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t, out float4 outMotionVector : SV_Target0\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target1\n\t\t\t\t#endif\n\t\t\t#else\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t, out float4 outColor :
-      SV_Target0\n\t\t\t\t#endif\n\t\t\t#endif\n\t\t\t\t)\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\n\t\t\t\t\t\t\t#ifdef
-      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\tconst
-      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\tconst
-      float faceMul = 1.0f;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3
-      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\tconst VFXUVData uvData
-      = GetUVData(i);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\tfloat3
-      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\tfloat3 bitangentWS = cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\tfloat3
-      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\tnormalWS
-      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\ttangentWS
-      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\tbitangentWS = cross(tangentWS,normalWS);\n\t\t\t\t\t\t\ttangentWS
-      *= faceMul;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tfloat3x3 tbn
-      = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t#if
-      USE_NORMAL_MAP\n\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\tfloat
-      normalScale = 1.0f;\n\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\tnormalScale
-      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tnormalWS
-      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t#ifdef
-      VFX_SHADERGRAPH\n\t\t\t    \n\t\t\t        \n\t\t\t        \n\t\t\t       
-      \n\t\t\t        \n\t\t\t        float alpha = OUTSG.;\n\t\t\t    #else\n\t\t\t       
-      float alpha = VFXGetFragmentColor(i).a;\n\t\t\t        #if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t           
-      alpha *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t       
-      #endif\n\t\t\t    #endif\n\t\t\t        VFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#ifdef
-      WRITE_NORMAL_BUFFER\n\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t           
-      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t       
-      #else\n\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t              
-      float3 n =  OUTSG.Normal_8;\n\t\t\t               normalWS = mul(n,tbn);\n\t\t\t          
-      #endif\n\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t          
-      \n\t\t\t           surface.normalWS = normalWS;\n\t\t\t           \n\t\t\t          
-      EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface), i.VFX_VARYING_POSCS.xy,
-      outNormalBuffer);\n\t\t\t        #endif\n\t\t\t\t#endif\n\t\t\t\n\t\t\t\t#if
-      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2
+      VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData)\n\t\t\t\t\t{\n\t\t\t\t\t\tBSDFData
+      bsdfData = (BSDFData)0;\n\t\t\t\t\t\tPreLightData preLightData = (PreLightData)0;\n\t\t\t\t\t\tpreLightData.diffuseFGD
+      = 1.0f;\n\t\t\t\t\t\tVFXGetHDRPLitData(surfaceData,builtinData,bsdfData,preLightData,i,normalWS,uvData,uint2(0,0));\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t#include
+      \"Packages/com.unity.render-pipelines.high-definition/Runtime/VFXGraph/Shaders/VFXLitPixelOutput.hlsl\"\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\tint _ObjectId;\n\t\t\t\t\tint
+      _PassValue;\n\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t#pragma fragment frag\n\t\t\t\t\tvoid
+      frag(ps_input i\n\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t, bool frontFace
+      : SV_IsFrontFace\n\t\t\t\t\t#endif\n\t\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t// We need the depth color as SV_Target0 for
+      alpha to coverage\n\t\t\t\t\t\t, out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t,
+      out float4 outMotionVector : SV_Target1\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target2\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t//
+      When no MSAA, the motion vector is always the first buffer\n\t\t\t\t\t\t, out
+      float4 outMotionVector : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t#ifdef WRITE_MSAA_DEPTH\n\t\t\t\t\t\t//
+      We need the depth color as SV_Target0 for alpha to coverage\n\t\t\t\t\t\t,
+      out float4 outDepthColor : SV_Target0\n\t\t\t\t\t\t\t#ifdef WRITE_NORMAL_BUFFER\n\t\t\t\t\t\t\t,
+      out float4 outNormalBuffer : SV_Target1\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#elif
+      defined(WRITE_NORMAL_BUFFER)\n\t\t\t\t\t\t, out float4 outNormalBuffer : SV_Target0\n\t\t\t\t\t\t#endif\n\t\t\t\t\t#elif
+      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t    , out float4 outColor
+      : SV_Target0\n\t\t\t\t\t#endif\n\t\t\t\t\t)\n\t\t\t\t\t{\n\t\t\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef
+      VFX_VARYING_NORMAL\n\t\t\t\t\t\t\t\t\t#if USE_DOUBLE_SIDED\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = frontFace ? 1.0f : -1.0f;\n\t\t\t\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t\t\tconst
+      float faceMul = 1.0f;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3
+      normalWS = i.VFX_VARYING_NORMAL * faceMul;\n\t\t\t\t\t\t\t\t\tconst VFXUVData
+      uvData = GetUVData(i);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_TANGENT\n\t\t\t\t\t\t\t\t\tfloat3
+      tangentWS = i.VFX_VARYING_TANGENT;\n\t\t\t\t\t\t\t\t\tfloat3 bitangentWS =
+      cross(i.VFX_VARYING_TANGENT,i.VFX_VARYING_NORMAL);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      defined(VFX_VARYING_BENTFACTORS) && USE_NORMAL_BENDING\t\n\t\t\t\t\t\t\t\t\tfloat3
+      bentFactors = float3(i.VFX_VARYING_BENTFACTORS.xy,sqrt(1.0f - dot(i.VFX_VARYING_BENTFACTORS,i.VFX_VARYING_BENTFACTORS)));\n\t\t\t\t\t\t\t\t\tnormalWS
+      = tangentWS * bentFactors.x + bitangentWS * bentFactors.y + normalWS * bentFactors.z;\n\t\t\t\t\t\t\t\t\ttangentWS
+      = normalize(cross(normalWS,bitangentWS));\n\t\t\t\t\t\t\t\t\tbitangentWS =
+      cross(tangentWS,normalWS);\n\t\t\t\t\t\t\t\t\ttangentWS *= faceMul;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat3x3
+      tbn = float3x3(tangentWS,bitangentWS,normalWS);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t#if
+      USE_NORMAL_MAP\n\t\t\t\t\t\t\t\t\tfloat3 n = SampleNormalMap(VFX_SAMPLER(normalMap),uvData);\n\t\t\t\t\t\t\t\t\tfloat
+      normalScale = 1.0f;\n\t\t\t\t\t\t\t\t\t#ifdef VFX_VARYING_NORMALSCALE\n\t\t\t\t\t\t\t\t\tnormalScale
+      = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tnormalWS
+      = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      VFX_SHADERGRAPH\n\t\t\t\t\t        \n\t\t\t\t\t        \n\t\t\t\t\t       
+      float alpha = OUTSG.;\n\t\t\t\t\t    #else\n\t\t\t\t\t\t\n\t\t\t\t\t\tfloat
+      alpha = VFXGetFragmentColor(i).a;\n\t\t\t\t\t\t\n\t\t\t\t\t\t#if HDRP_USE_BASE_COLOR_MAP_ALPHA\n\t\t\t\t\t\t\talpha
+      *= VFXGetTextureColor(VFX_SAMPLER(baseColorMap),i).a;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t   
+      #endif\n\t\t\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_NORMAL_BUFFER\n\t\t\t\t\t        #ifndef VFX_SHADERGRAPH\n\t\t\t\t\t           
+      VFXComputePixelOutputToNormalBuffer(i,normalWS,uvData,outNormalBuffer);\n\t\t\t\t\t       
+      #else\n\t\t\t\t\t           #if HAS_SHADERGRAPH_PARAM_NORMAL\n\t\t\t\t\t              
+      float3 n =  OUTSG.Normal_8;\n\t\t\t\t\t               normalWS = mul(n,tbn);\n\t\t\t\t\t          
+      #endif\n\t\t\t\t\t           SurfaceData surface = (SurfaceData)0;\n\t\t\t\t\t          
+      surface.normalWS = normalWS;\n\t\t\t\t\t           EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surface),
+      i.VFX_VARYING_POSCS.xy, outNormalBuffer);\n\t\t\t\t\t        #endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#ifdef
+      WRITE_MSAA_DEPTH\n\t\t\t\t\t\t\toutDepthColor = i.VFX_VARYING_POSCS.z;\n\t\t\t\t\t\t\t#if
+      VFX_USE_ALPHA_TO_MASK\n\t\t\t\t\t\t\t\toutDepthColor.a = alpha;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\n\t\t\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tfloat2
       velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
-      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
-      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
-      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
-      0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\toutMotionVector = encodedMotionVector;\n\t\t\t\t#elif
-      VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t// We use depth prepass
-      for scene selection in the editor, this code allow to output the outline correctly\n\t\t\t\t\toutColor
-      = float4(_ObjectId, _PassValue, 1.0, 1.0);\n\t\t\t\t#elif VFX_PASSDEPTH ==
-      VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t//void\n\t\t\t\t#else\n\t\t\t\t\t#error VFX_PASSDEPTH
-      undefined\n\t\t\t\t#endif\n\t\t\t}\n\t\t\t\n\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
-      { \"LightMode\"=\"GBuffer\" }\n\t\t\t\n\t\t\tStencil\n\t\t\t{\n\t\t\t\tWriteMask
-      7\n\t\t\t\tRef  2\n\t\t\t\tComp Always\n\t\t\t\tPass Replace\n\t\t\t}\t\n\t\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#pragma
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t\t\t#if
+      UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\t\tfloat4
+      encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity
+      * 0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\toutMotionVector
+      = encodedMotionVector;\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\t\t\t\t\t//
+      We use depth prepass for scene selection in the editor, this code allow to
+      output the outline correctly\n\t\t\t\t\t\t\toutColor = float4(_ObjectId, _PassValue,
+      1.0, 1.0);\n\t\t\t\t\t\t#elif VFX_PASSDEPTH == VFX_PASSDEPTH_ACTUAL\n\t\t\t\t\t\t\t//void\n\t\t\t\t\t\t#else\n\t\t\t\t\t\t\t#error
+      VFX_PASSDEPTH undefined\n\t\t\t\t\t\t#endif\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\n\t\t\n\t\t\n\t\t\tENDHLSL\n\t\t}\n\t\t\n\r\n\t\t\r\n\t\tPass\n\t\t{\t\t\n\t\t\tTags
+      { \"LightMode\"=\"GBuffer\" }\n\t\t\n\t\t    Stencil\n\t\t    {\n\t\t     WriteMask
+      6\n\t\t     Ref 2\n\t\t     Comp Always\n\t\t     Pass Replace\n\t\t    }\n\n\t\t\t\t\n\t\t\tHLSLPROGRAM\n\t\t\t#pragma
       target 4.5\n\t\t\t\n\t\t\t#pragma multi_compile _ LIGHT_LAYERS\n\t\t\t#pragma
       multi_compile _ DEBUG_DISPLAY\n\t\t\t\n\t\t\t#define UNITY_MATERIAL_LIT\n\t\t\t\t\n\t\t\t#define
       HDRP_NEEDS_UVS (HDRP_USE_BASE_COLOR_MAP || HDRP_USE_MASK_MAP || USE_NORMAL_MAP
@@ -3678,19 +3754,19 @@ VisualEffectResource:
       float tmp_bb = attributes.position[0];\n\t\t\t\t    float tmp_bd = attributes.position[2];\n\t\t\t\t   
       float3 tmp_be = float3(tmp_bb, (float)0, tmp_bd);\n\t\t\t\t    float3 tmp_bf
       = float3(attributes.Morph, attributes.Morph, attributes.Morph);\n\t\t\t\t   
-      float3 tmp_bg = uniform_b - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
+      float3 tmp_bg = uniform_a - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
       float3 tmp_bi = tmp_be + tmp_bh;\n\t\t\t\t    ConnectTarget_0( /*inout */attributes.axisX, 
       /*inout */attributes.axisY,  /*inout */attributes.axisZ,  /*inout */attributes.position, 
       /*inout */attributes.pivotY, attributes.size,  /*inout */attributes.scaleY,
       tmp_bi, (float)0);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    SetAttribute_D5151644(
       /*inout */attributes.scaleX, (float)0.00999999978);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
       float tmp_bc = attributes.BasePosition[0];\n\t\t\t\t    float tmp_bd = attributes.BasePosition[1];\n\t\t\t\t   
-      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_d);\n\t\t\t\t    float4 tmp_bh
+      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_c);\n\t\t\t\t    float4 tmp_bh
       = GeneratePerlinNoise(tmp_be, float3(1, 0.470988303, 2).x, (int)5, float3(1,
       0.470988303, 2).y, float3(1, 0.470988303, 2).z);\n\t\t\t\t    float tmp_bi
       = tmp_bh[0];\n\t\t\t\t    float tmp_bk = tmp_bi - (float)-1;\n\t\t\t\t    float
       tmp_bm = tmp_bk / (float)2;\n\t\t\t\t    float tmp_bo = tmp_bm * (float)1.75;\n\t\t\t\t   
-      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_c
+      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_b
       >= tmp_bp;\n\t\t\t\t    SetAttribute_ED2BDC15( /*inout */attributes.alive,
       tmp_bq);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if !HAS_STRIPS\n\t\t\t\tif
       (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
@@ -3989,19 +4065,19 @@ VisualEffectResource:
       float tmp_bb = attributes.position[0];\n\t\t\t\t    float tmp_bd = attributes.position[2];\n\t\t\t\t   
       float3 tmp_be = float3(tmp_bb, (float)0, tmp_bd);\n\t\t\t\t    float3 tmp_bf
       = float3(attributes.Morph, attributes.Morph, attributes.Morph);\n\t\t\t\t   
-      float3 tmp_bg = uniform_b - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
+      float3 tmp_bg = uniform_a - tmp_be;\n\t\t\t\t    float3 tmp_bh = tmp_bf * tmp_bg;\n\t\t\t\t   
       float3 tmp_bi = tmp_be + tmp_bh;\n\t\t\t\t    ConnectTarget_0( /*inout */attributes.axisX, 
       /*inout */attributes.axisY,  /*inout */attributes.axisZ,  /*inout */attributes.position, 
       /*inout */attributes.pivotY, attributes.size,  /*inout */attributes.scaleY,
       tmp_bi, (float)0);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t    SetAttribute_D5151644(
       /*inout */attributes.scaleX, (float)0.00999999978);\n\t\t\t\t}\n\t\t\t\t{\n\t\t\t\t   
       float tmp_bc = attributes.BasePosition[0];\n\t\t\t\t    float tmp_bd = attributes.BasePosition[1];\n\t\t\t\t   
-      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_d);\n\t\t\t\t    float4 tmp_bh
+      float3 tmp_be = float3(tmp_bc, tmp_bd, uniform_c);\n\t\t\t\t    float4 tmp_bh
       = GeneratePerlinNoise(tmp_be, float3(1, 0.470988303, 2).x, (int)5, float3(1,
       0.470988303, 2).y, float3(1, 0.470988303, 2).z);\n\t\t\t\t    float tmp_bi
       = tmp_bh[0];\n\t\t\t\t    float tmp_bk = tmp_bi - (float)-1;\n\t\t\t\t    float
       tmp_bm = tmp_bk / (float)2;\n\t\t\t\t    float tmp_bo = tmp_bm * (float)1.75;\n\t\t\t\t   
-      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_c
+      float tmp_bp = (float)-0.479999989 + tmp_bo;\n\t\t\t\t    bool tmp_bq = uniform_b
       >= tmp_bp;\n\t\t\t\t    SetAttribute_ED2BDC15( /*inout */attributes.alive,
       tmp_bq);\n\t\t\t\t}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t#if !HAS_STRIPS\n\t\t\t\tif
       (!attributes.alive)\n\t\t\t\t\treturn o;\n\t\t\t#endif\n\t\t\t\t\n\t\t\t#if
@@ -4107,9 +4183,9 @@ VisualEffectResource:
       VFX_SHADERGRAPH\n\t\t\t\n\t\t\tvoid VFXGetHDRPLitData(out SurfaceData surfaceData,
       out BuiltinData builtinData, out BSDFData bsdfData, out PreLightData preLightData,
       VFX_VARYING_PS_INPUTS i, float3 normalWS, const VFXUVData uvData, uint2 tileIndex)\n\t\t\t{\t\n\t\t\t\t#if
-      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t\t{\n\t\t\t\t   
-      \n\t\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t\t}\n\t\t\t\t\n
-      // Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
+      HDRP_MATERIAL_TYPE_TRANSLUCENT\n\t\t\t\tuint diffusionProfileHash = (uint)0;\n\t\t\t{\n\t\t\t   
+      \n\t\t\t    diffusionProfileHash = (uint)1077237755;\n\t\t\t}\n\t\t\t\n //
+      Loads diffusion profile\n\t\t\t\t#else\n\t\t\t\tconst uint diffusionProfileHash
       = 0;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t\t\tfloat3 posRWS = VFXGetPositionRWS(i);\n\t\t\t\tfloat4
       posSS = i.VFX_VARYING_POSCS;\n\t\t\t\tPositionInputs posInput = GetPositionInput(posSS.xy,
       _ScreenSize.zw, posSS.z, posSS.w, posRWS, tileIndex);\n\t\t\t\t\n\t\t\t\tfloat
@@ -5110,9 +5186,9 @@ VisualEffectResource:
         index: 31
       - nameId: uniform_f
         index: 40
-      - nameId: uniform_g
-        index: 0
       - nameId: uniform_h
+        index: 0
+      - nameId: uniform_i
         index: 42
       - nameId: Blend_b
         index: 80
@@ -5120,11 +5196,11 @@ VisualEffectResource:
         index: 53
       - nameId: Blend_c
         index: 58
-      - nameId: uniform_l
+      - nameId: uniform_k
         index: 52
-      - nameId: texture_b
+      - nameId: texture_a
         index: 37
-      - nameId: texture_c
+      - nameId: texture_g
         index: 30
       params: []
       processor: {fileID: 0}
@@ -5135,21 +5211,21 @@ VisualEffectResource:
         index: 0
       temporaryBuffers: []
       values:
-      - nameId: uniform_b
+      - nameId: uniform_a
         index: 57
-      - nameId: uniform_c
+      - nameId: uniform_b
         index: 40
-      - nameId: uniform_d
+      - nameId: uniform_c
         index: 51
-      - nameId: uniform_e
+      - nameId: uniform_d
         index: 17
-      - nameId: uniform_f
+      - nameId: uniform_e
         index: 36
-      - nameId: uniform_g
+      - nameId: uniform_f
         index: 29
-      - nameId: uniform_h
+      - nameId: uniform_g
         index: 9
-      - nameId: uniform_i
+      - nameId: uniform_h
         index: 39
       - nameId: mainTexture
         index: 61
@@ -5164,9 +5240,9 @@ VisualEffectResource:
         index: 0
       temporaryBuffers: []
       values:
-      - nameId: uniform_b
+      - nameId: uniform_a
         index: 51
-      - nameId: uniform_c
+      - nameId: uniform_b
         index: 17
       - nameId: baseColorMap
         index: 70
@@ -5181,11 +5257,11 @@ VisualEffectResource:
         index: 0
       temporaryBuffers: []
       values:
-      - nameId: uniform_b
+      - nameId: uniform_a
         index: 0
-      - nameId: uniform_c
+      - nameId: uniform_b
         index: 51
-      - nameId: uniform_d
+      - nameId: uniform_c
         index: 17
       - nameId: baseColorMap
         index: 61
@@ -9165,7 +9241,7 @@ MonoBehaviour:
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
-  - {fileID: 8926484042661617981}
+  - {fileID: 8926484042661618057}
   - {fileID: 8926484042661616323}
   m_OutputSlots: []
   m_Label: Light Rays
@@ -15618,6 +15694,12 @@ MonoBehaviour:
       m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
     attributes:
+    - m_Type: 0
+      m_Min: 1
+      m_Max: 8
+      m_Tooltip: 
+      m_Regex: 
+      m_RegexMaxLength: 0
     - m_Type: 3
       m_Min: -Infinity
       m_Max: Infinity
@@ -27189,46 +27271,6 @@ MonoBehaviour:
     attributes: []
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661617981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 8926484042661617981}
-  m_MasterData:
-    m_Owner: {fileID: 8926484042661616322}
-    m_Value:
-      m_Type:
-        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.1
-    m_Space: 2147483647
-  m_Property:
-    name: softParticlesFadeDistance
-    m_serializedType:
-      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-    attributes:
-    - m_Type: 1
-      m_Min: 0.001
-      m_Max: Infinity
-      m_Tooltip: 
-      m_Regex: 
-      m_RegexMaxLength: 0
-  m_Direction: 0
-  m_LinkedSlots: []
 --- !u!114 &8926484042661617986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28486,6 +28528,46 @@ MonoBehaviour:
       m_Max: Infinity
       m_Tooltip: Controls the amount by which the normals will be bent, creating
         a rounder look.
+      m_Regex: 
+      m_RegexMaxLength: 0
+  m_Direction: 0
+  m_LinkedSlots: []
+--- !u!114 &8926484042661618057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661618057}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661616322}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0.1
+    m_Space: 2147483647
+  m_Property:
+    name: softParticleFadeDistance
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes:
+    - m_Type: 1
+      m_Min: 0.001
+      m_Max: Infinity
+      m_Tooltip: 
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0

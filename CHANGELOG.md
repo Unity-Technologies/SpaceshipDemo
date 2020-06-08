@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2020 - 06 - 08 - Package Upgrade
+
+**Version Tag** : `2019.3.3`
+
+* Updated Unity to 2019.3.15f1
+* Updated HD Render Pipeline / VFX Graph to package `7.4.1`
+* Updated Timeline Package to `1.3.0`
+* **Fixes and Changes:**
+  * Rebuilt VFX Graphs
+  * Fixes Area Light meshes that were broken (always visible) while using `7.3.1`
+  * Updated Gameplay Ingredients
+
 ## 2020 - 02 - 03 - Content Update
 
 **Version Tag** : `2019.3.2`

@@ -408,10 +408,20 @@ namespace GameplayIngredients.Editor
 
                 foreach(var obj in searchResults)
                 {
-                    using (new GUILayout.HorizontalScope(EditorStyles.textField))
+                    using (new GUILayout.HorizontalScope(EditorStyles.toolbarButton))
                     {
-                        GUILayout.Label(obj.name, EditorStyles.label);
-                        if(GUILayout.Button("X", GUILayout.Width(32)))
+                        if(GUILayout.Button(obj.name, EditorStyles.label))
+                        {
+                            Selection.activeGameObject = obj;
+                        }
+
+                        if(GUILayout.Button("Focus", Styles.miniButton, GUILayout.Width(48)))
+                        {
+                            Selection.activeObject = obj;
+                            SceneView.lastActiveSceneView.FrameSelected();
+                        }
+                        
+                        if(GUILayout.Button("X", Styles.miniButton, GUILayout.Width(32)))
                         {
                             toRemove = obj;
                         }
@@ -443,11 +453,19 @@ namespace GameplayIngredients.Editor
         {
             public static readonly GUIStyle boldLabel = GetBoldLabel();
             public static readonly GUIStyle bigButton = GetBigButton();
-
+            public static readonly GUIStyle miniButton = GetMiniButton();
             static GUIStyle GetBoldLabel()
             {
                 var style = new GUIStyle(EditorStyles.boldLabel);
                 style.fontSize = 14;
+                return style;
+            }
+
+            static GUIStyle GetMiniButton()
+            {
+                var style = new GUIStyle(EditorStyles.miniButton);
+                style.fontSize = 12;
+                style.margin = new RectOffset(0, 0, -1, 0);
                 return style;
             }
 

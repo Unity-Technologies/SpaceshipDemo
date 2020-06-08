@@ -98,7 +98,7 @@ namespace GameplayIngredients.Editor
                         }
                     }
                 }
-                catch(Exception e)
+                catch
                 {
                     Debug.LogWarning("Could not load types from assembly:" + assembly.FullName);
                 }
