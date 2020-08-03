@@ -20,13 +20,19 @@ namespace GameplayIngredients.Logic
         public InclusionMode inclusionMode = InclusionMode.IsTarget;
 
         [ReorderableList]
-        public Callable[] Calls;
+        public Callable[] OnTestValid;
+
+        [ReorderableList]
+        public Callable[] OnTestInvalid;
+
 
         public override void Execute(GameObject instigator = null)
         {
 
             if(platforms.Contains(Application.platform) == (inclusionMode == InclusionMode.IsTarget))
-                Call(Calls, instigator);
+                Call(OnTestValid, instigator);
+            else
+                Call(OnTestInvalid, instigator);
         }
     }
 }

@@ -76,6 +76,7 @@ namespace GameOptionsUtility
 
         public override void Apply()
         {
+            Debug.Log($"Setting Resolution {width}x{height}@{refreshRate}Hz : {fullScreenMode}");
             Screen.SetResolution(width, height, fullScreenMode, refreshRate);
             QualitySettings.vSyncCount = vSync ? 1 : 0;
             Application.targetFrameRate = targetFrameRate;

@@ -5,7 +5,6 @@
 #define UNITY_CUSTOM_TEXTURE_INCLUDED
 
 //#include "UnityCG.cginc"
-#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 
 // Keep in sync with CustomRenderTexture.h
 #define kCustomTextureBatchSize 16

@@ -70,7 +70,11 @@ namespace GameplayIngredients.Rigs
                     m_StopTime = -1.0f;
                 }
                 else
-                    director.time = newTime; 
+                {
+                    newTime = Mathf.Clamp(newTime, 0f, (float)director.playableAsset.duration);
+                    director.time = newTime;
+                }
+
 
                 director.Evaluate();
 

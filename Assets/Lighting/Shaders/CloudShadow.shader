@@ -14,7 +14,12 @@
 
 		Pass
 		{
-			CGPROGRAM
+
+			HLSLINCLUDE
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+			HLSLEND
+
+			HLSLPROGRAM
 		#include "UnityCustomRenderTexture.cginc"
 		#pragma vertex CustomRenderTextureVertexShader
 		#pragma fragment frag
@@ -32,7 +37,7 @@
 			vector col2 = tex2D(_Tex2, IN.localTexcoord.xy + frac(_Time * _Speed.zw));
 			return col * col2;
 		}
-		ENDCG
+		ENDHLSL
 		}
 	}
 }

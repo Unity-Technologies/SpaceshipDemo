@@ -14,9 +14,12 @@ Shader "Hologram"
 		Lighting Off
 		Blend One Zero
 
-		CGPROGRAM
-		#include "ShaderGraphLibrary/UnityCustomRenderTexture.hlsl"
+		HLSLINCLUDE
 		#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+		HLSLEND
+
+		HLSLPROGRAM
+		#include "ShaderGraphLibrary/UnityCustomRenderTexture.hlsl"
 		#pragma vertex CustomRenderTextureVertexShader
 		#pragma fragment frag
 		#pragma target 3.0
@@ -237,7 +240,7 @@ Shader "Hologram"
 
 			return surf.Color;
 		}
-		ENDCG
+		ENDHLSL
 	}
 }
 
