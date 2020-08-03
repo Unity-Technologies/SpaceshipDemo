@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2020 - 08 - 03 - LTS 2019.4 Version
+
+**Version Tag** : `2019.4.0`
+
+* Updated Unity to 2019.4.3f1
+* Added Benchmark Mode (Flyby Camera)
+* **Fixes and Changes:**
+  * Rebuilt VFX Graphs
+  * Small Fixes for macOS
+
 ## 2020 - 06 - 08 - Package Upgrade
 
 **Version Tag** : `2019.3.3`
