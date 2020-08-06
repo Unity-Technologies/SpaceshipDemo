@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2020 - 08 - 03 - LTS 2019.4 Version
+## 2020 - 08 - 06 - LTS 2019.4 Version
 
 **Version Tag** : `2019.4.0`
 
