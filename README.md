@@ -12,7 +12,7 @@ For update information, see the [Changelog](https://github.com/Unity-Technologie
 
 In order to download and run the latest Spaceship demo project, make sure you have the following
 * [Github Desktop](https://desktop.github.com/) or [Git For Windows](https://git-scm.com/download/win) + [Git LFS](https://git-lfs.github.com/) (Required for Cloning the Repository) or any other git client.
-* Unity 2019.4.3f1 or newer (See each release notes in [changelog](https://github.com/Unity-Technologies/SpaceshipDemo/blob/master/CHANGELOG.md) for version requirements)
+* Unity 2020.1.0f1 or newer (See each release notes in [changelog](https://github.com/Unity-Technologies/SpaceshipDemo/blob/master/CHANGELOG.md) for version requirements)
 
 ## How to Download/Install
 
@@ -31,5 +31,3 @@ You can clone this repository and start opening directly the project using the f
 ### Method 2 : Download in Releases page
 
 You can also download project archives in the [Releases](https://github.com/Unity-Technologies/SpaceshipDemo/releases) tab. These zip files contains the full project for a one-time download without Git. 
-
-**Important Note** : As GitHub does not generate correct archives with LFS files, In order to download the correct project with largefiles, **you need to download the file linked in the release description** instead of the automatically generated Source Code zip and tar.gz files.

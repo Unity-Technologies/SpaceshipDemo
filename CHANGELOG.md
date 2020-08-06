@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2020 - 08 - 06 - LTS 2020.1 Version
+
+**Version Tag** : `2020.1.0`
+
+* Updated Unity to 2020.1.0f1
+* **Fixes and Changes:**
+  * Rebuilt Lighting
+  * Rebuilt VFX Graphs
+
 ## 2020 - 08 - 06 - LTS 2019.4 Version
 
 **Version Tag** : `2019.4.0`

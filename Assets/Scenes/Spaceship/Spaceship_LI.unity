@@ -44,7 +44,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -101,7 +101,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000022, guid: a20d742a6e2cc974ba08423e9c5b39d2,
     type: 2}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 236710662}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -121,6 +121,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -264,9 +266,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 1
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &27369543
 Light:
   m_ObjectHideFlags: 0
@@ -686,6 +685,7 @@ Material:
     - _EmissiveColor: {r: 0.7699847, g: 1.2107908, b: 1.2030345, a: 1.8568076}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _UnlitColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &85789997
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,7 +990,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 1850326967}
-  m_BakedTexture: {fileID: 8900000, guid: d01efeb35d8991345a8aebdf52db8736, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: f5adc4c49a338b94baaed5f78c36b78a, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -1191,6 +1191,190 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 5, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!21 &140086656
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Area Light floor (3)
+  m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DistortionVectorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UnlitColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlbedoAffectEmissive: 0
+    - _AlphaCutoff: 0.5
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _BlendMode: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DistortionBlendMode: 0
+    - _DistortionBlurBlendMode: 0
+    - _DistortionBlurDstBlend: 0
+    - _DistortionBlurRemapMax: 1
+    - _DistortionBlurRemapMin: 0
+    - _DistortionBlurScale: 1
+    - _DistortionBlurSrcBlend: 0
+    - _DistortionDepthTest: 1
+    - _DistortionDstBlend: 0
+    - _DistortionEnable: 0
+    - _DistortionOnly: 0
+    - _DistortionScale: 1
+    - _DistortionSrcBlend: 0
+    - _DistortionVectorBias: -1
+    - _DistortionVectorScale: 2
+    - _DoubleSidedEnable: 0
+    - _DstBlend: 0
+    - _EmissiveExposureWeight: 1
+    - _EmissiveIntensity: 1
+    - _EmissiveIntensityUnit: 0
+    - _EnableFogOnTransparent: 0
+    - _IncludeIndirectLighting: 0
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 3
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 2
+    - _StencilWriteMaskMV: 32
+    - _SurfaceType: 0
+    - _TransparentCullMode: 2
+    - _TransparentSortPriority: 0
+    - _TransparentZWrite: 0
+    - _UseEmissiveIntensity: 0
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestModeDistortion: 8
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 1.111645, g: 0.589929, b: 0.028416162, a: 1.3706021}
+    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _UnlitColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &143187770
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Area Light Ceiling 4
+  m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DistortionVectorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UnlitColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlbedoAffectEmissive: 0
+    - _AlphaCutoff: 0.5
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _BlendMode: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DistortionBlendMode: 0
+    - _DistortionBlurBlendMode: 0
+    - _DistortionBlurDstBlend: 0
+    - _DistortionBlurRemapMax: 1
+    - _DistortionBlurRemapMin: 0
+    - _DistortionBlurScale: 1
+    - _DistortionBlurSrcBlend: 0
+    - _DistortionDepthTest: 1
+    - _DistortionDstBlend: 0
+    - _DistortionEnable: 0
+    - _DistortionOnly: 0
+    - _DistortionScale: 1
+    - _DistortionSrcBlend: 0
+    - _DistortionVectorBias: -1
+    - _DistortionVectorScale: 2
+    - _DoubleSidedEnable: 0
+    - _DstBlend: 0
+    - _EmissiveExposureWeight: 1
+    - _EmissiveIntensity: 1
+    - _EmissiveIntensityUnit: 0
+    - _EnableFogOnTransparent: 0
+    - _IncludeIndirectLighting: 0
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 3
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 2
+    - _StencilWriteMaskMV: 32
+    - _SurfaceType: 0
+    - _TransparentCullMode: 2
+    - _TransparentSortPriority: 0
+    - _TransparentZWrite: 0
+    - _UseEmissiveIntensity: 0
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestModeDistortion: 8
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 0.46855634, g: 0.105392724, b: 0.0027188973, a: 0.46855634}
+    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _UnlitColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &172853742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,9 +1554,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &193777006
 Light:
   m_ObjectHideFlags: 0
@@ -1574,9 +1755,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &200500123
 Light:
   m_ObjectHideFlags: 0
@@ -1716,6 +1894,68 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 5, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!850595691 &236710662
+LightingSettings:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Settings.lighting
+  serializedVersion: 2
+  m_GIWorkflowMode: 1
+  m_EnableBakedLightmaps: 1
+  m_EnableRealtimeLightmaps: 0
+  m_RealtimeEnvironmentLighting: 1
+  m_BounceScale: 1
+  m_AlbedoBoost: 1
+  m_IndirectOutputScale: 1
+  m_UsingShadowmask: 1
+  m_BakeBackend: 2
+  m_LightmapMaxSize: 1024
+  m_BakeResolution: 20
+  m_Padding: 4
+  m_TextureCompression: 1
+  m_AO: 0
+  m_AOMaxDistance: 1
+  m_CompAOExponent: 1
+  m_CompAOExponentDirect: 0
+  m_ExtractAO: 0
+  m_MixedBakeMode: 2
+  m_LightmapsBakeMode: 1
+  m_FilterMode: 1
+  m_LightmapParameters: {fileID: 111300000, guid: acbb10f4f3d73de41869a8ce8c897635,
+    type: 2}
+  m_ExportTrainingData: 0
+  m_TrainingDataDestination: TrainingData
+  m_RealtimeResolution: 2
+  m_ForceWhiteAlbedo: 0
+  m_ForceUpdates: 0
+  m_FinalGather: 0
+  m_FinalGatherRayCount: 256
+  m_FinalGatherFiltering: 1
+  m_PVRCulling: 0
+  m_PVRSampling: 1
+  m_PVRDirectSampleCount: 64
+  m_PVRSampleCount: 1024
+  m_PVREnvironmentSampleCount: 32
+  m_PVREnvironmentReferencePointCount: 2048
+  m_LightProbeSampleCountMultiplier: 4
+  m_PVRBounces: 4
+  m_PVRRussianRouletteStartBounce: 2
+  m_PVREnvironmentMIS: 0
+  m_PVRFilteringMode: 2
+  m_PVRDenoiserTypeDirect: 0
+  m_PVRDenoiserTypeIndirect: 1
+  m_PVRDenoiserTypeAO: 1
+  m_PVRFilterTypeDirect: 2
+  m_PVRFilterTypeIndirect: 2
+  m_PVRFilterTypeAO: 0
+  m_PVRFilteringGaussRadiusDirect: 1
+  m_PVRFilteringGaussRadiusIndirect: 5
+  m_PVRFilteringGaussRadiusAO: 2
+  m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+  m_PVRFilteringAtrousPositionSigmaIndirect: 2
+  m_PVRFilteringAtrousPositionSigmaAO: 1
 --- !u!1 &239826869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,9 +2242,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &278843189
 Light:
   m_ObjectHideFlags: 0
@@ -2460,7 +2697,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 523111597fa469241925504871f95f72, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 689bc973878ab50409ce2ac2a940605a, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -2758,9 +2995,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &327176697
 Light:
   m_ObjectHideFlags: 0
@@ -2845,6 +3079,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2869,6 +3104,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &344722922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2965,6 +3201,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2989,6 +3226,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &356479595
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3373,9 +3611,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &447702439
 Light:
   m_ObjectHideFlags: 0
@@ -3577,9 +3812,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &450235396
 Light:
   m_ObjectHideFlags: 0
@@ -3837,7 +4069,7 @@ PrefabInstance:
     - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 2.0975e-41
       objectReference: {fileID: 0}
     - target: {fileID: 6011944730506922235, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
@@ -4019,22 +4251,22 @@ PrefabInstance:
     - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 2.3571e-41
-      objectReference: {fileID: 0}
-    - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.y
-      value: 1.01e-43
-      objectReference: {fileID: 0}
-    - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
-        type: 3}
-      propertyPath: m_BoundingSphereOverride.w
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 4.5632e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
+        type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.29e-43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6011944730506922235, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
@@ -4503,9 +4735,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &628183894
 Light:
   m_ObjectHideFlags: 0
@@ -4709,9 +4938,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 12
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &644461047
 Light:
   m_ObjectHideFlags: 0
@@ -4958,9 +5184,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &652404797
 Light:
   m_ObjectHideFlags: 0
@@ -5229,9 +5452,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &703106559
 Light:
   m_ObjectHideFlags: 0
@@ -5433,9 +5653,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &738928953
 Light:
   m_ObjectHideFlags: 0
@@ -5656,9 +5873,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 9
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &743451518
 Light:
   m_ObjectHideFlags: 0
@@ -6202,7 +6416,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 1850326967}
-  m_BakedTexture: {fileID: 8900000, guid: 738cff7ff39cc734abf3a2182a4c46e4, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 047dc5315278868469f326ce0d710eca, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -6649,7 +6863,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: f5adc4c49a338b94baaed5f78c36b78a, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 88ab9ff0a564ca2449b2ee8fe3f087fb, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -6797,6 +7011,8 @@ GameObject:
   - component: {fileID: 874885804}
   - component: {fileID: 874885809}
   - component: {fileID: 874885808}
+  - component: {fileID: 874885806}
+  - component: {fileID: 874885805}
   m_Layer: 13
   m_Name: Area Light floor (3)
   m_TagString: Untagged
@@ -6818,6 +7034,55 @@ Transform:
   m_Father: {fileID: 172853743}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+--- !u!33 &874885805
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874885803}
+  m_Mesh: {fileID: 0}
+--- !u!23 &874885806
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874885803}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 140086656}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &874885808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6926,9 +7191,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 1
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 1
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &874885809
 Light:
   m_ObjectHideFlags: 0
@@ -7130,9 +7392,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &883657030
 Light:
   m_ObjectHideFlags: 0
@@ -7484,7 +7743,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 88ab9ff0a564ca2449b2ee8fe3f087fb, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 738cff7ff39cc734abf3a2182a4c46e4, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -8005,7 +8264,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 047dc5315278868469f326ce0d710eca, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 523111597fa469241925504871f95f72, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -8759,6 +9018,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8783,6 +9043,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1093407584
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9081,7 +9342,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 689bc973878ab50409ce2ac2a940605a, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: d01efeb35d8991345a8aebdf52db8736, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -9560,9 +9821,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1213978525
 Light:
   m_ObjectHideFlags: 0
@@ -9764,9 +10022,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1253141231
 Light:
   m_ObjectHideFlags: 0
@@ -10015,9 +10270,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 1
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1272101627
 Light:
   m_ObjectHideFlags: 0
@@ -10282,9 +10534,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1342126674
 Light:
   m_ObjectHideFlags: 0
@@ -10564,9 +10813,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 1
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1372598444
 Light:
   m_ObjectHideFlags: 0
@@ -10963,9 +11209,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 9
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1376975676
 Light:
   m_ObjectHideFlags: 0
@@ -11181,9 +11424,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1450677792
 Light:
   m_ObjectHideFlags: 0
@@ -11549,7 +11789,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 4f3b2ae1b3a465c4cae04a16244e6e0b, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: abbf0d400ba80d54cb8351b24afc12fa, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -11789,6 +12029,8 @@ GameObject:
   - component: {fileID: 1549510576}
   - component: {fileID: 1549510579}
   - component: {fileID: 1549510578}
+  - component: {fileID: 1549510580}
+  - component: {fileID: 1549510577}
   m_Layer: 13
   m_Name: Area Light Ceiling 4
   m_TagString: Untagged
@@ -11810,6 +12052,14 @@ Transform:
   m_Father: {fileID: 1210749845}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -180, y: 89.99999, z: 0}
+--- !u!33 &1549510577
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549510575}
+  m_Mesh: {fileID: 0}
 --- !u!114 &1549510578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11918,9 +12168,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 1
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 1
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1549510579
 Light:
   m_ObjectHideFlags: 0
@@ -11982,6 +12229,47 @@ Light:
   m_UseBoundingSphereOverride: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!23 &1549510580
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549510575}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 143187770}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1563733001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12492,9 +12780,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1585261037
 Light:
   m_ObjectHideFlags: 0
@@ -14293,6 +14578,77 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1624046349
+GameObject:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624046351}
+  - component: {fileID: 1624046350}
+  m_Layer: 0
+  m_Name: SceneIDMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624046350
+MonoBehaviour:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624046349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1924438144}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Entries:
+  - id: 0
+    category: 0
+    gameObject: {fileID: 902961692}
+  - id: 1
+    category: 0
+    gameObject: {fileID: 85789997}
+  - id: 2
+    category: 0
+    gameObject: {fileID: 979768838}
+  - id: 3
+    category: 0
+    gameObject: {fileID: 848412174}
+  - id: 4
+    category: 0
+    gameObject: {fileID: 1672757542}
+  - id: 5
+    category: 0
+    gameObject: {fileID: 325457620}
+  - id: 6
+    category: 0
+    gameObject: {fileID: 1470610912}
+  - id: 7
+    category: 0
+    gameObject: {fileID: 839010677}
+  - id: 8
+    category: 0
+    gameObject: {fileID: 1112875532}
+--- !u!4 &1624046351
+Transform:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624046349}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1637632456
 GameObject:
   m_ObjectHideFlags: 0
@@ -14433,9 +14789,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 1
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1637632460
 Light:
   m_ObjectHideFlags: 0
@@ -14637,9 +14990,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 0
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1666442378
 Light:
   m_ObjectHideFlags: 0
@@ -14712,6 +15062,8 @@ GameObject:
   - component: {fileID: 1669091143}
   - component: {fileID: 1669091146}
   - component: {fileID: 1669091145}
+  - component: {fileID: 1669091147}
+  - component: {fileID: 1669091144}
   m_Layer: 13
   m_Name: Area Light Ceiling
   m_TagString: Untagged
@@ -14733,6 +15085,14 @@ Transform:
   m_Father: {fileID: 997343594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+--- !u!33 &1669091144
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669091142}
+  m_Mesh: {fileID: 0}
 --- !u!114 &1669091145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14841,9 +15201,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 1
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 1
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1669091146
 Light:
   m_ObjectHideFlags: 0
@@ -14905,6 +15262,47 @@ Light:
   m_UseBoundingSphereOverride: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!23 &1669091147
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669091142}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 1965466592}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1672757542
 GameObject:
   m_ObjectHideFlags: 0
@@ -15195,7 +15593,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: abbf0d400ba80d54cb8351b24afc12fa, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 4f3b2ae1b3a465c4cae04a16244e6e0b, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -15658,9 +16056,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1770926032
 Light:
   m_ObjectHideFlags: 0
@@ -15862,9 +16257,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1777220667
 Light:
   m_ObjectHideFlags: 0
@@ -16296,9 +16688,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1826393907
 Light:
   m_ObjectHideFlags: 0
@@ -17071,9 +17460,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1906751590
 Light:
   m_ObjectHideFlags: 0
@@ -17135,6 +17521,20 @@ Light:
   m_UseBoundingSphereOverride: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!115 &1924438144
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 5
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: SceneObjectIDMapSceneAsset
+  m_Namespace: UnityEngine.Rendering.HighDefinition
 --- !u!1 &1935473963
 GameObject:
   m_ObjectHideFlags: 0
@@ -17351,9 +17751,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1941147434
 Light:
   m_ObjectHideFlags: 0
@@ -17496,6 +17893,98 @@ Transform:
   m_Father: {fileID: 1018263562}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1965466592
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Area Light Ceiling
+  m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DistortionVectorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _UnlitColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlbedoAffectEmissive: 0
+    - _AlphaCutoff: 0.5
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _BlendMode: 0
+    - _CullMode: 2
+    - _Cutoff: 0.5
+    - _DistortionBlendMode: 0
+    - _DistortionBlurBlendMode: 0
+    - _DistortionBlurDstBlend: 0
+    - _DistortionBlurRemapMax: 1
+    - _DistortionBlurRemapMin: 0
+    - _DistortionBlurScale: 1
+    - _DistortionBlurSrcBlend: 0
+    - _DistortionDepthTest: 1
+    - _DistortionDstBlend: 0
+    - _DistortionEnable: 0
+    - _DistortionOnly: 0
+    - _DistortionScale: 1
+    - _DistortionSrcBlend: 0
+    - _DistortionVectorBias: -1
+    - _DistortionVectorScale: 2
+    - _DoubleSidedEnable: 0
+    - _DstBlend: 0
+    - _EmissiveExposureWeight: 1
+    - _EmissiveIntensity: 1
+    - _EmissiveIntensityUnit: 0
+    - _EnableFogOnTransparent: 0
+    - _IncludeIndirectLighting: 0
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 0
+    - _StencilRefDistortionVec: 2
+    - _StencilRefMV: 32
+    - _StencilWriteMask: 3
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 2
+    - _StencilWriteMaskMV: 32
+    - _SurfaceType: 0
+    - _TransparentCullMode: 2
+    - _TransparentSortPriority: 0
+    - _TransparentZWrite: 0
+    - _UseEmissiveIntensity: 0
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestModeDistortion: 8
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 0.4356743, g: 0.4527414, b: 0.5376416, a: 0.5376416}
+    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _UnlitColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1984097571
 GameObject:
   m_ObjectHideFlags: 0
@@ -17636,9 +18125,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1984097577
 Light:
   m_ObjectHideFlags: 0
@@ -17840,9 +18326,6 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &2000148077
 Light:
   m_ObjectHideFlags: 0
@@ -17900,7 +18383,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5155
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 4.388228e-39, z: 7.3e-43, w: 0.000000056187588}
+  m_BoundingSphereOverride: {x: 0, y: 1.1003e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -18175,9 +18658,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &2043509849
 Light:
   m_ObjectHideFlags: 0
@@ -18453,9 +18933,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 1
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &2110829149
 Light:
   m_ObjectHideFlags: 0
@@ -18612,7 +19089,7 @@ PrefabInstance:
     - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.01e-43
+      value: 1.3447e-41
       objectReference: {fileID: 0}
     - target: {fileID: 4232308801641103613, guid: c82f89b955395a741b8e42b0dfe1e17b,
         type: 3}
@@ -18874,9 +19351,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 5
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &2134056542
 Light:
   m_ObjectHideFlags: 0
@@ -19080,9 +19554,6 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 13
-  m_AreaLightEmissiveMeshShadowCastingMode: 0
-  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
-  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &2138465660
 Light:
   m_ObjectHideFlags: 0
