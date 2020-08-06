@@ -5,6 +5,7 @@
 **Version Tag** : `2019.4.0`
 
 * Updated Unity to 2019.4.3f1
+* Updated Timeline Package to 1.4.1
 * Added Benchmark Mode (Flyby Camera)
 * **Fixes and Changes:**
   * Rebuilt VFX Graphs
