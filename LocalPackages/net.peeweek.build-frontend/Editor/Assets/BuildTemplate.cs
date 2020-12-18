@@ -22,6 +22,7 @@ public class BuildTemplate : BuildFrontendAssetBase
     public string BuildPath;
     public string ExecutableName;
     public bool CleanupBeforeBuild = true;
+    public string RunWithArguments;
 
     public BuildProfile Profile;
     public SceneList SceneList;
@@ -98,6 +99,7 @@ public class BuildTemplate : BuildFrontendAssetBase
         ProcessStartInfo info = new ProcessStartInfo();
         string path = Application.dataPath + "/../" + BuildPath;
         info.FileName = path + ExecutableName;
+        info.Arguments = RunWithArguments;
         info.WorkingDirectory = path;
         info.UseShellExecute = false;
 
