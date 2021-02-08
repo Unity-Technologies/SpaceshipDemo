@@ -1,6 +1,18 @@
 # CHANGELOG
 
-## 2020 - 08 - 06 - LTS 2020.1 Version
+## 2021 - 02 - 08 - 2020.1 Update
+
+**Version Tag** : `2020.1.1`
+
+* Updated Unity to 2020.1.0f1
+* Updated HDRP/VFX to 8.3.1
+
+* **Fixes and Changes:**
+  * Rebuilt Lighting
+  * Rebuilt VFX Graphs
+  * Fixed Lights with broken Cookie textures
+
+## 2020 - 08 - 06 - 2020.1 Version
 
 **Version Tag** : `2020.1.0`
 
