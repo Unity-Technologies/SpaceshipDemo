@@ -4,7 +4,7 @@
 
 **Version Tag** : `2020.1.1`
 
-* Updated Unity to 2020.1.0f1
+* Updated Unity to 2020.1.17f1
 * Updated HDRP/VFX to 8.3.1
 
 * **Fixes and Changes:**
