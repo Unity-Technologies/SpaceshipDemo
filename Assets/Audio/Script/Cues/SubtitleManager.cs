@@ -83,7 +83,10 @@ public class SubtitleManager : Manager
     private IEnumerator SubtitleHideCouroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("[SubtitleManager] Disabled Subtitle");
+
+        if (GameplayIngredientsSettings.currentSettings.verboseCalls)
+            Debug.Log("[SubtitleManager] Disabled Subtitle");
+
         SubtitleContainer.SetActive(false);
         SubtitleText.text = "";
         LayoutRebuilder.MarkLayoutForRebuild(SubtitleContainer.GetComponent<RectTransform>());
@@ -92,7 +95,10 @@ public class SubtitleManager : Manager
     private IEnumerator SubtitleShowCouroutine(string text, float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log(string.Format("[SubtitleManager] Set Subtitle : '{0}' at time {1}",text,time));
+
+        if(GameplayIngredientsSettings.currentSettings.verboseCalls)
+            Debug.Log(string.Format("[SubtitleManager] Set Subtitle : '{0}' at time {1}",text,time));
+
         SubtitleContainer.SetActive(true);
         SubtitleText.text = text;
         LayoutRebuilder.MarkLayoutForRebuild(SubtitleContainer.GetComponent<RectTransform>());

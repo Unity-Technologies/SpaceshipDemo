@@ -2,6 +2,7 @@ Shader "UI/Loading"
 {
     Properties
     {
+		_MainTex("_MainTex", 2D) = "white" {}
         _Color ("Color", Color) = (1.0,1.0,1.0,1.0)
         _Exponent ("Exponent", Float) = 1.0
         _Radius ("Radius", Range(0.0,1.0)) = 0.8

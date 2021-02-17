@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using UnityEditor.Experimental.AssetImporters;
 
-[ScriptedImporter(0, "wire")]
-public class WireMeshImporter : ScriptedImporter
+
+[UnityEditor.AssetImporters.ScriptedImporter(0, "wire")]
+public class WireMeshImporter : UnityEditor.AssetImporters.ScriptedImporter
 {
     static char[] separators = new char[] { ' ' };
 
-    public override void OnImportAsset(AssetImportContext ctx)
+    public override void OnImportAsset(UnityEditor.AssetImporters.AssetImportContext ctx)
     {
         string[] lines = File.ReadAllLines(ctx.assetPath);
 

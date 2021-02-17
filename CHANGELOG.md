@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2021 - 02 - 17 - LTS 2020.2 Version
+
+**Version Tag** : `2020.2.0`
+
+* Updated Unity to 2020.2.4f1
+* Updated HDRP/VFX to 10.3.1
+
+* **Fixes and Changes:**
+  * Rebuilt Lighting
+  * Rebuilt VFX Graphs
+  * Fixed Many Errors and Warnings
+  * Fixed Animated Light Cookes (CustomRenderTexture)
+  * Block Player input while in pause/toggle console
+
 ## 2021 - 02 - 08 - 2020.1 Update
 
 **Version Tag** : `2020.1.1`
