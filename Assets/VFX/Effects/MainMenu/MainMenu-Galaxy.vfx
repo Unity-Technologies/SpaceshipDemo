@@ -10,7 +10,7 @@ VisualEffectResource:
   m_Graph: {fileID: 2}
   m_Infos:
     m_RendererSettings:
-      motionVectorGenerationMode: 0
+      motionVectorGenerationMode: 1
       shadowCastingMode: 0
       receiveShadows: 0
       reflectionProbeUsage: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_ImportDependencies: []
   m_GraphVersion: 6
   m_ResourceVersion: 1
-  m_saved: 1
+  m_saved: 0
   m_SubgraphDependencies: []
   m_CategoryPath: 
 --- !u!114 &3
@@ -202,7 +202,7 @@ MonoBehaviour:
     x: 1940
     y: -1211
     width: 6554
-    height: 4625
+    height: 4603
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3431,7 +3431,7 @@ MonoBehaviour:
   - {fileID: 121}
   - {fileID: 122}
   - {fileID: 127}
-  m_UIPosition: {x: 6071, y: 605}
+  m_UIPosition: {x: 6071, y: 604}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -3448,7 +3448,8 @@ MonoBehaviour:
   - link: []
   blendMode: 3
   useAlphaClipping: 1
-  generateMotionVector: 0
+  generateMotionVector: 1
+  excludeFromTAA: 0
   m_SubOutputs:
   - {fileID: 117}
   cullMode: 0
@@ -4162,6 +4163,7 @@ MonoBehaviour:
   blendMode: 1
   useAlphaClipping: 0
   generateMotionVector: 0
+  excludeFromTAA: 0
   m_SubOutputs:
   - {fileID: 149}
   cullMode: 0
@@ -4956,6 +4958,7 @@ MonoBehaviour:
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
+  - {fileID: 429}
   - {fileID: 186}
   m_OutputSlots: []
   m_Label: Corners
@@ -4968,7 +4971,8 @@ MonoBehaviour:
   - link: []
   blendMode: 0
   useAlphaClipping: 0
-  generateMotionVector: 0
+  generateMotionVector: 1
+  excludeFromTAA: 0
   m_SubOutputs:
   - {fileID: 194}
   cullMode: 0
@@ -5894,7 +5898,7 @@ MonoBehaviour:
   - {fileID: 233}
   - {fileID: 234}
   - {fileID: 236}
-  m_UIPosition: {x: 4370, y: 2696}
+  m_UIPosition: {x: 4373, y: 2674}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5913,6 +5917,7 @@ MonoBehaviour:
   blendMode: 0
   useAlphaClipping: 0
   generateMotionVector: 0
+  excludeFromTAA: 0
   m_SubOutputs:
   - {fileID: 232}
   cullMode: 0
@@ -10203,3 +10208,37 @@ MonoBehaviour:
   m_Direction: 1
   m_LinkedSlots:
   - {fileID: 398}
+--- !u!114 &429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 429}
+  m_MasterData:
+    m_Owner: {fileID: 185}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0.5
+    m_Space: 2147483647
+  m_Property:
+    name: alphaThreshold
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+  m_Direction: 0
+  m_LinkedSlots: []

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 2021 - XX - XX - LTS 2020.3 Version
+
+**Version Tag** : `2020.3.0`
+
+* Updated Unity to 2020.3.3f1
+* Updated HDRP/VFX to 10.4.0
+
+* **Fixes and Changes:**
+  * Added Quality Settings : Low & Ultra
+  * Updated Content to optimize/enhance based on quality settings
+  * Updated Terminal Room to show outer space through a window
+  * Updated Benchmark Mode to Display FPS Counter, and a Benchmark Report at the end
+  * Benchmark also saves a HTML reports in Documents/SpaceshipDemo folder
+  * VFX / Lighting polishing.
+
 ## 2021 - 02 - 17 - LTS 2020.2 Version
 
 **Version Tag** : `2020.2.0`
