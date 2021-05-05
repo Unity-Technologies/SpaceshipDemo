@@ -1,0 +1,73 @@
+editors:
+  - version: trunk
+  - version: 2021.1
+  - version: 2020.3
+operating_systems:
+  - name: MacOS_10.15
+    type: Unity::VM::osx
+    image: desktop/unity-macos-10.15-xcode-12.2:stable
+    flavor: m1.mac
+  - name: Windows
+    type: Unity::VM
+    image: graphics-foundation/win10-dxr:stable
+    flavor: b1.xlarge
+  - name: Ubuntu
+    type: Unity::VM
+    image: package-ci/ubuntu:stable
+    flavor: b1.xlarge
+
+
+---
+
+{% for editor in editors %}
+{% for os in operating_systems %}
+
+Build_Test_Player_{{os.name}}_{{ editor.version }}:
+  name: Build_Test_Player_{{os.name}} on version {{ editor.version }}
+  agent:
+    type: {{ os.type }}
+    image: {{ os.image }}
+    flavor: {{ os.flavor }}
+  commands:
+    {% if os.name == "MacOS_10.15" %}
+      - brew tap --force-auto-update unity/unity git@github.cds.internal.unity3d.com:unity/homebrew-unity.git
+      - brew install unity/unity/unity-downloader-cli
+      - unity-downloader-cli -u {{editor.version}} -c editor -c il2cpp  --wait --published-only
+      - .Editor/Unity.app/Contents/MacOS/Unity -batchmode -nographics -projectPath . -buildOSXUniversalPlayer player/Spaceship.app -logfile Unity.log -quit
+    {% endif %}
+    {% if os.name == "Windows" %}
+      - choco install unity-downloader-cli -y -s https://artifactory.prd.it.unity3d.com/artifactory/api/nuget/unity-choco-local
+      - unity-downloader-cli -u {{editor.version}} -c editor -c il2cpp  --wait --published-only
+      - .\.Editor\Unity.exe -batchmode -nographics -projectPath . -buildWindowsPlayer player/Spaceship.exe -logfile Unity.log -quit
+    {% endif %}
+    {% if os.name == "Ubuntu" %}
+      - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr --output utr
+      - chmod +x utr
+      - sudo rm -f /etc/apt/sources.list /etc/apt/sources.list.d/{nodesource,teamviewer,deadsnakes-ubuntu-ppa-}*
+      - curl -L https://artifactory.prd.it.unity3d.com/artifactory/api/gpg/key/public | sudo apt-key add -
+      - sudo sh -c "echo 'deb https://artifactory.prd.it.unity3d.com/artifactory/unity-apt-local bionic main' > /etc/apt/sources.list.d/unity.list"
+      - sudo apt update
+      - sudo apt install unity-downloader-cli
+      - unity-downloader-cli -u {{editor.version}} -c editor -c il2cpp  --wait --published-only
+      - .Editor/Unity -batchmode -nographics -projectPath . -buildLinux64Player  player/Spaceship.run -logfile Unity.log -quit
+    {% endif %}
+  artifacts:
+    player: 
+      paths:
+        - player/**
+    logs:
+      paths:
+        - Unity.log
+
+{% endfor %}
+{% endfor %}
+
+Build_All_Test_Players:
+  name: Build all test players
+  dependencies:
+  {% for editor in editors %}
+  {% for os in operating_systems %}
+  - path: .yamato/build_test_player.yml#Build_Test_Player_{{os.name}}_{{ editor.version }}
+    rerun: always
+  {% endfor %}
+  {% endfor %}
