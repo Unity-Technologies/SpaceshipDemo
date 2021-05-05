@@ -85,7 +85,17 @@ public class FPSManager : Manager
 
     const int MAX_QUEUE = 64;
     Queue<float> queue = new Queue<float>();
+
     float acc;
+
+    void ResetSmoothDeltaTime()
+    {
+        acc = 0;
+        if (queue == null)
+            queue = new Queue<float>();
+        else
+            queue.Clear();
+    }
 
     float GetSmoothDeltaTime()
     {
@@ -208,7 +218,8 @@ public class FPSManager : Manager
         recording = true;
         recordingPaused = false;
         timings = new List<float>();
-        recordTTL = -1;
+        recordTTL = RecordInterval;
+        ResetSmoothDeltaTime();
     }
 
     public RecordingResults results { get; private set; }
@@ -246,15 +257,20 @@ public class FPSManager : Manager
             avgMs = med
         };
 
-        Resolution r = Screen.currentResolution;
+        GraphicOption go = GameOption.Get<GraphicOption>();
         SpaceshipOptions o = GameOption.Get<SpaceshipOptions>();
+        float p = o.screenPercentage / 100f;
+        float mPix = (go.width * p * go.height * p) / 1000000;
+
 
         string dateTime = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToShortTimeString()}";
         string operatingSystem = $"{SystemInfo.operatingSystem}";
-        string settings = $"{r.width}x{r.height}@{r.refreshRate}Hz ({Screen.fullScreenMode}) {o.screenPercentage}% SP - {QualitySettings.names[QualitySettings.GetQualityLevel()]} Quality";
+        string settings = $"{go.width}x{go.height}@{go.refreshRate}Hz ({go.fullScreenMode}) {o.screenPercentage}% SP ({mPix.ToString("F2")} MegaPixels)- {QualitySettings.names[QualitySettings.GetQualityLevel()]} Quality";
         string bestFPS = $"{(1000 / min).ToString("F1")}fps ({min.ToString("F2")}ms)";
         string worstFPS = $"{(1000 / max).ToString("F1")}fps ({max.ToString("F2")}ms)";
         string averageFPS = $"{(1000 / med).ToString("F1")}fps ({med.ToString("F2")}ms)";
+        string msPerMPix = $"{(med/mPix).ToString("F2")} ms/MPix";
+
         string systemInfo = $"{SystemInfo.deviceModel}";
         string cpuInfo = $" {SystemInfo.processorType} ({SystemInfo.processorCount} threads) @ {(SystemInfo.processorFrequency / 1000f).ToString("F2")} GHz.";
         string gpuInfo = $"{SystemInfo.graphicsDeviceName}({SystemInfo.graphicsDeviceType}) {SystemInfo.graphicsMemorySize / 1000}GB VRAM";
@@ -288,6 +304,7 @@ font-family: 'Roboto', sans-serif;
 <body>
 <h1> Spaceship - Benchmark Results</h1>
 <b>Average FPS : </b> {averageFPS} <br/>
+<b>Average MS per MegaPixel : </b> {msPerMPix} <br/>
 <b>Best FPS : </b> {bestFPS} <br/>
 <b>Worst FPS : </b> {worstFPS} <br/>
 <br/>
