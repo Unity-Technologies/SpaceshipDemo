@@ -1,11 +1,11 @@
 # CHANGELOG
 
-## 2021 - XX - XX - LTS 2020.3 Version
+## 2021 - 11 - 17 - LTS 2020.3 Version
 
 **Version Tag** : `2020.3.0`
 
-* Updated Unity to 2020.3.3f1
-* Updated HDRP/VFX to 10.4.0
+* Updated Unity to 2020.3.19f1
+* Updated HDRP/VFX to 10.6.0
 
 * **Fixes and Changes:**
   * Added Quality Settings : Low & Ultra
