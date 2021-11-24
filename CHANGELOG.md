@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 2021 - 11 - XX - First 2021.2 Version
+
+**Version Tag** : `2021.2.0`
+
+* Updated Unity to 2021.2.1f1
+* Updated HDRP/VFX to 12.1.1
+
+* **Fixes and Changes:**
+  * Added Support for Upsampling methods as options
+    * NVidia DLSS (Windows Only)
+    * AMD FSR
+    * Temporal AA Upsampling
+    * Contrast-Adaptive Sharpen
+    * Catmull-Rom
+  * Added Lensflares through the walkthrough
+
 ## 2021 - 11 - 17 - LTS 2020.3 Version
 
 **Version Tag** : `2020.3.0`

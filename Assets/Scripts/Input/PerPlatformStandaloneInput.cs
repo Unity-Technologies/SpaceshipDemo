@@ -25,12 +25,13 @@ public class PerPlatformStandaloneInput : MonoBehaviour
                 sip.horizontalAxis = HorizontalAxisMacOS;
                 sip.verticalAxis = VerticalAxisMacOS;
                 break;
+            default:
             case RuntimePlatform.WindowsEditor:
             case RuntimePlatform.WindowsPlayer:
                 sip.horizontalAxis = HorizontalAxisWindows;
                 sip.verticalAxis = VerticalAxisWindows;
                 break;
-            case RuntimePlatform.LinuxEditor:
+           case RuntimePlatform.LinuxEditor:
            case RuntimePlatform.LinuxPlayer:
                 sip.horizontalAxis = HorizontalAxisLinux;
                 sip.verticalAxis = VerticalAxisLinux;

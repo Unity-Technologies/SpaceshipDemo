@@ -9,6 +9,8 @@ namespace GameOptionsUtility
     public class DropDownScreenPercentage : MonoBehaviour
     {
         public int[] Percentages = new int[6] { 100, 90, 80, 70, 60, 50 };
+        public Dropdown upsamplingDropdown;
+
         private void OnEnable()
         {
             var dropdown = GetComponent<Dropdown>();
@@ -27,7 +29,7 @@ namespace GameOptionsUtility
             dropdown.options.Clear();
             foreach (var percentage in Percentages)
             {
-                dropdown.options.Add(new Dropdown.OptionData($"{percentage}%"));
+                dropdown.options.Add(new Dropdown.OptionData($"{percentage}% {(percentage == 100?"(Native)":"")}"));
             }
 
             int current = GameOption.Get<SpaceshipOptions>().screenPercentage;
@@ -36,7 +38,11 @@ namespace GameOptionsUtility
 
         void UpdateOptions(int value)
         {
-            GameOption.Get<SpaceshipOptions>().screenPercentage = Percentages[value];
+            int val = Percentages[value];
+            GameOption.Get<SpaceshipOptions>().screenPercentage = val;
+
+            upsamplingDropdown.interactable = (val < 100);
+            upsamplingDropdown.captionText.CrossFadeAlpha(val == 100 ? 0.1f : 1.0f, upsamplingDropdown.colors.fadeDuration, true);
         }
     }
 

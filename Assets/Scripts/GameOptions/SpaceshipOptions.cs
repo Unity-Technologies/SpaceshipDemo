@@ -1,6 +1,8 @@
 using GameOptionsUtility;
+using GameplayIngredients;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class SpaceshipOptions : GameOption
 {
@@ -9,6 +11,7 @@ public class SpaceshipOptions : GameOption
         public const string prefix = GameOptions.Preferences.prefix + "Spaceship.";
         public const string screenPercentage = prefix + "ScreenPercentage";
         public const string keyboardScheme = prefix + "FPSKeyboardScheme";
+        public const string upsamplingMethod = prefix + "UpsamplingMethod";
     }
 
     public enum FPSKeyboardScheme
@@ -18,6 +21,14 @@ public class SpaceshipOptions : GameOption
         ZQSD = 2
     }
 
+    public enum UpsamplingMethod
+    {
+        CatmullRom = 0,
+        CAS = 1,
+        TAAU = 2,
+        EASU_FSR = 3,
+        DLSS = 4,
+    }
 
     public FPSKeyboardScheme fpsKeyboardScheme
     {
@@ -25,6 +36,12 @@ public class SpaceshipOptions : GameOption
         set => PlayerPrefs.SetInt(Preferences.keyboardScheme, (int)value);
     }
 
+
+    public UpsamplingMethod upsamplingMethod
+    {
+        get => (UpsamplingMethod)PlayerPrefs.GetInt(Preferences.upsamplingMethod, (int)UpsamplingMethod.EASU_FSR);
+        set => PlayerPrefs.SetInt(Preferences.upsamplingMethod, (int)value);
+    }
 
     public int screenPercentage
     {
@@ -52,6 +69,7 @@ public class SpaceshipOptions : GameOption
             init = true;
         }
 
+        UpdateUpscalingMethod();
         UpdateFPSControlScheme();
     }
 
@@ -85,6 +103,48 @@ public class SpaceshipOptions : GameOption
             case FPSKeyboardScheme.ZQSD:
                 fpsKeys = new FPSKeys(KeyCode.Z, KeyCode.Q, KeyCode.S, KeyCode.D);
                 break;
+        }
+    }
+
+    void UpdateUpscalingMethod()
+    {
+        var vcm = Manager.Get<VirtualCameraManager>();
+        var camera = vcm.GetComponent<Camera>();
+        var hdCamera = vcm.GetComponent<HDAdditionalCameraData>();
+
+        if(upsamplingMethod >= UpsamplingMethod.DLSS)
+        {
+            hdCamera.allowDeepLearningSuperSampling = true;
+            hdCamera.deepLearningSuperSamplingUseCustomQualitySettings = true;
+            hdCamera.deepLearningSuperSamplingQuality = 0;
+            hdCamera.deepLearningSuperSamplingUseCustomAttributes = true;
+            hdCamera.deepLearningSuperSamplingUseOptimalSettings = false;
+            hdCamera.deepLearningSuperSamplingSharpening = 0.5f;
+        }
+        else
+        {
+            hdCamera.allowDeepLearningSuperSampling = false;
+
+            switch (upsamplingMethod)
+            {
+                case UpsamplingMethod.CatmullRom:
+                    DynamicResolutionHandler.SetUpscaleFilter(camera, DynamicResUpscaleFilter.CatmullRom);
+                    break;
+                case UpsamplingMethod.CAS:
+                    DynamicResolutionHandler.SetUpscaleFilter(camera, DynamicResUpscaleFilter.ContrastAdaptiveSharpen);
+                    break;
+                case UpsamplingMethod.TAAU:
+                    DynamicResolutionHandler.SetUpscaleFilter(camera, DynamicResUpscaleFilter.TAAU);
+                    break;
+                case UpsamplingMethod.EASU_FSR:
+                    DynamicResolutionHandler.SetUpscaleFilter(camera, DynamicResUpscaleFilter.EdgeAdaptiveScalingUpres);
+                    break;
+                default:
+                    throw new System.NotImplementedException("Should not happen");
+            }
+
+            
+
         }
     }
 

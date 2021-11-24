@@ -24,9 +24,10 @@ public class FPSManagerSetResultsUIAction : ActionBase
         SpaceshipOptions o = GameOption.Get<SpaceshipOptions>();
         float p = o.screenPercentage / 100f;
         float mPix = (go.width * p * go.height * p) / 1000000;
+        string sp = o.screenPercentage == 100 ? $"Native" : $"{o.screenPercentage}% SP ({o.upsamplingMethod.ToString()})";
 
         FPSManager fpsm = Manager.Get<FPSManager>(); 
-        QualityText.text = $"{go.width}x{go.height}@{go.refreshRate}Hz ({go.fullScreenMode}) {o.screenPercentage}% SP ({mPix.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)} MPix) - {QualitySettings.names[QualitySettings.GetQualityLevel()]} Quality";
+        QualityText.text = $"{go.width}x{go.height}@{go.refreshRate}Hz ({go.fullScreenMode}) {sp} ({mPix.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)} MPix) - {QualitySettings.names[QualitySettings.GetQualityLevel()]} Quality";
         OverallFPSText.text = (1000 / fpsm.results.avgMs).ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         OverallMSText.text = fpsm.results.avgMs.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
         OverallMSPerMPixText.text = (fpsm.results.avgMs / mPix).ToString("F2", System.Globalization.CultureInfo.InvariantCulture);

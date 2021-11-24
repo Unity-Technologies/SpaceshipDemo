@@ -72,8 +72,8 @@ namespace UnityEngine.VFX.Utility
             }
             else if (positionMap.width != count)
             {
-                positionMap.Resize(count, 1);
-                directionMap.Resize(count, 1);
+                positionMap.Reinitialize(count, 1);
+                directionMap.Reinitialize(count, 1);
             }
 
             List<Color> positions = new List<Color>();
