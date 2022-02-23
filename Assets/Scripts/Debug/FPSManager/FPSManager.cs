@@ -28,6 +28,14 @@ public class FPSManager : Manager
             EndRecord();
     }
 
+    public void SetActive(bool active)
+    {
+        if(!recording && FPSRoot != null)
+        {
+            FPSRoot.SetActive(active);
+        }
+    }
+
     private void Update()
     {
         float dt = GetSmoothDeltaTime();
