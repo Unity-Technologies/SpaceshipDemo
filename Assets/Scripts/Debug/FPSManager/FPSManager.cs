@@ -16,12 +16,18 @@ public class FPSManager : Manager
     public GameObject FPSRoot;
     public Text FPSCounter;
     public Text MillisecondCounter;
+    public Text CPUMillisecondCounter;    
+    public Text GPUMillisecondCounter;    
 
     public KeyCode PauseKey = KeyCode.F5;
     public KeyCode StepKey = KeyCode.F6;
 
     bool paused = false;
     bool step = false;
+
+    FrameTiming[] ftm_timings;
+    const uint ftm_timingCount = 32;
+
     private void OnDisable()
     {
         if (recording)
@@ -52,6 +58,35 @@ public class FPSManager : Manager
 
             if (MillisecondCounter != null)
                 MillisecondCounter.text = $"{((dt * 1000).ToString("F2"))}ms.";
+
+            if (ftm_timings == null)
+                ftm_timings = new FrameTiming[ftm_timingCount];
+
+            FrameTimingManager.CaptureFrameTimings();
+            FrameTimingManager.GetLatestTimings(ftm_timingCount, ftm_timings);
+
+            double cpu_dt = 0;
+            double gpu_dt = 0;
+            int count = 0;
+            for(int i = 0; i < ftm_timingCount ; ++i)
+            {
+                if(ftm_timings[i].widthScale == 0)
+                    break;
+                count ++;
+                cpu_dt += ftm_timings[i].cpuFrameTime;
+                gpu_dt += ftm_timings[i].gpuFrameTime;
+            }
+            if(count > 0)
+            {
+                cpu_dt /= count;
+                gpu_dt /= count;
+            }
+
+            if(CPUMillisecondCounter != null)
+                CPUMillisecondCounter.text = $"{((cpu_dt).ToString("F2"))}ms.";
+
+            if(GPUMillisecondCounter != null)
+                GPUMillisecondCounter.text = $"{((gpu_dt).ToString("F2"))}ms.";
 
             if (paused && step)
             {
