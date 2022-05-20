@@ -1,6 +1,12 @@
-# Spaceship Demo
+# Spaceship Demo (Unofficial)
 
 ![](https://blogs.unity3d.com/wp-content/uploads/2019/08/image10.png)
+
+## Derivative Works
+
+This fork of Spaceship Demo Contains derivative works by Thomas Iché (https://peeweek.net), the original project can be found at https://github.com/Unity-Technologies/SpaceshipDemo
+
+## About
 
 Spaceship Demo is a AAA Playable First person demo showcasing effects made with Visual Effect Graph and rendered with High Definition Render Pipeline.
 
