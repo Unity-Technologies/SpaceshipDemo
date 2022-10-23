@@ -37,6 +37,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-8926174846766872275
 MonoBehaviour:
@@ -199,6 +200,47 @@ MonoBehaviour:
     m_DisplayName: VO Line 9_VO2 broken radio_09
   m_Markers:
     m_Objects: []
+--- !u!114 &-8851410654532029548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!74 &-8517734765944655350
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -206,7 +248,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (6)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -216,7 +258,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -244,7 +287,9 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -272,6 +317,7 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -287,6 +333,8 @@ AnimationClip:
       typeID: 114
       customType: 0
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2671321115
@@ -294,6 +342,8 @@ AnimationClip:
       typeID: 114
       customType: 0
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -316,7 +366,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -344,7 +395,9 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -372,6 +425,7 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -402,7 +456,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
+--- !u!114 &-6985098880557357755
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-6832879806513086922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,6 +580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-6317544114259073476
 MonoBehaviour:
@@ -526,25 +623,6 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
---- !u!114 &-6124915930483111429
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: Shoot
-    onClipExit:
-      m_Name: 
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!114 &-5757752866728819069
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -816,14 +894,14 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 7.516666666666666
     m_ClipIn: 0
-    m_Asset: {fileID: 4349201331038780785}
+    m_Asset: {fileID: -6985098880557357755}
     m_Duration: 33.78333333333334
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4127002319499378192}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -881,9 +959,52 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   m_Markers:
     m_Objects: []
+  m_VFXVersion: 1
+  reinit: 0
+--- !u!114 &-4101475452760942014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: Shoot
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: 
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-3755026190490322526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1266,6 +1387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-3511915728629173478
 MonoBehaviour:
@@ -1281,26 +1403,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
---- !u!114 &-3432033669718310862
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!114 &-3428385953921233308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1394,7 +1498,7 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   m_PostPlaybackState: 3
---- !u!114 &-3183336936296695478
+--- !u!114 &-3270038450503541619
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1403,16 +1507,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
   m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
       m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-3100927605266879470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1427,6 +1553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!74 &-3024224446737065785
 AnimationClip:
@@ -1435,7 +1562,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (3)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -1445,7 +1572,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1464,7 +1592,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1501,7 +1631,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1520,7 +1652,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1548,6 +1682,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -1563,6 +1698,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2006158252
@@ -1570,6 +1707,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 1553386789
@@ -1577,6 +1716,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2996349961
@@ -1584,6 +1725,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -1606,7 +1749,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1625,7 +1769,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1662,7 +1808,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1681,7 +1829,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1709,6 +1859,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -1720,7 +1871,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (7)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -1730,7 +1881,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1758,6 +1910,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -1773,6 +1926,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -1795,7 +1950,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -1823,6 +1979,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -3337,6 +3494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-2142166047171660056
 MonoBehaviour:
@@ -3362,14 +3520,14 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 12.177376371249556
     m_ClipIn: 0
-    m_Asset: {fileID: -3183336936296695478}
+    m_Asset: {fileID: 7562162588615223093}
     m_Duration: 29.122623628750446
     m_TimeScale: 1
     m_ParentTrack: {fileID: -2142166047171660056}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -3427,9 +3585,11 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   m_Markers:
     m_Objects: []
+  m_VFXVersion: 1
+  reinit: 0
 --- !u!114 &-2024764183931633395
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3511,6 +3671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-1059609184747680294
 MonoBehaviour:
@@ -3553,6 +3714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: CORE_9
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-1037249140020086347
 MonoBehaviour:
@@ -3568,6 +3730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-1024237371017038725
 MonoBehaviour:
@@ -3827,6 +3990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &-119876145170185013
 MonoBehaviour:
@@ -3840,6 +4004,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset
   m_EditorClassIdentifier: 
+--- !u!114 &-11774680907167677
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3871,6 +4076,7 @@ MonoBehaviour:
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
+    m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: -9042573249898055769}
 --- !u!74 &20334007988791720
@@ -3880,7 +4086,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (5)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -3890,7 +4096,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -3918,7 +4125,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -3946,7 +4155,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -3974,7 +4185,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -3993,7 +4206,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4021,7 +4236,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4049,7 +4266,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4077,7 +4296,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4096,7 +4317,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4124,7 +4347,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4152,7 +4377,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4180,7 +4407,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4199,7 +4428,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4227,7 +4458,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4255,7 +4488,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4283,7 +4518,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4302,7 +4539,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4330,7 +4569,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4358,7 +4599,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4386,7 +4629,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4405,7 +4650,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4433,7 +4680,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4461,7 +4710,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4489,7 +4740,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4508,6 +4761,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -4523,6 +4777,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 1188241124
@@ -4530,6 +4786,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 3755626334
@@ -4537,6 +4795,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 754687329
@@ -4544,6 +4804,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 1543286263
@@ -4551,6 +4813,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 3270900813
@@ -4558,6 +4822,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2435969455
@@ -4565,6 +4831,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 3862348089
@@ -4572,6 +4840,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2134872195
@@ -4579,6 +4849,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 1959002845
@@ -4586,6 +4858,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 63124043
@@ -4593,6 +4867,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2596955121
@@ -4600,6 +4876,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 1777054158
@@ -4607,6 +4885,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 518816088
@@ -4614,6 +4894,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2279985378
@@ -4621,6 +4903,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 3558989056
@@ -4628,6 +4912,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2737237398
@@ -4635,6 +4921,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 976206892
@@ -4642,6 +4930,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2708157411
@@ -4649,6 +4939,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 3158606064
@@ -4656,6 +4948,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 26143806
@@ -4663,6 +4957,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 3833274188
@@ -4670,6 +4966,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 4183075935
@@ -4677,6 +4975,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 1151254673
@@ -4684,6 +4984,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -4706,7 +5008,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4734,7 +5037,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4762,7 +5067,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4790,7 +5097,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4809,7 +5118,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4837,7 +5148,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4865,7 +5178,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4893,7 +5208,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4912,7 +5229,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4940,7 +5259,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4968,7 +5289,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -4996,7 +5319,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5015,7 +5340,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5043,7 +5370,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5071,7 +5400,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5099,7 +5430,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5118,7 +5451,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5146,7 +5481,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5174,7 +5511,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5202,7 +5541,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5221,7 +5562,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5249,7 +5592,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5277,7 +5622,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5305,7 +5652,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5324,6 +5673,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -5409,6 +5759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: SFX_AttackMusic
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &413830712076156437
 MonoBehaviour:
@@ -5424,26 +5775,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
---- !u!114 &446343795410650527
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!114 &492793199719614041
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5512,26 +5845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
---- !u!114 &1050882918337681682
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!114 &1097361382288197198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5565,7 +5880,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (2)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -5575,7 +5890,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5603,7 +5919,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5631,7 +5949,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5659,7 +5979,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5678,6 +6000,7 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -5693,6 +6016,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 4215373228
@@ -5700,6 +6025,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2334886179
@@ -5707,6 +6034,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 304273561
@@ -5714,6 +6043,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -5736,7 +6067,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5764,7 +6096,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5792,7 +6126,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5820,7 +6156,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -5839,6 +6177,7 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -6570,7 +6909,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: CORE_17
+    _messageID: -2147483648
     Instigator: {fileID: 0}
+--- !u!114 &1732258894368911831
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &1955531929389648799
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6612,6 +6993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &2136716968324330371
 MonoBehaviour:
@@ -6637,14 +7019,14 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 5.838086075832445
     m_ClipIn: 0
-    m_Asset: {fileID: 446343795410650527}
+    m_Asset: {fileID: -8851410654532029548}
     m_Duration: 29.428580590834223
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2136716968324330371}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -6702,9 +7084,11 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   m_Markers:
     m_Objects: []
+  m_VFXVersion: 1
+  reinit: 0
 --- !u!114 &2194801661928399799
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6719,6 +7103,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     Cue: {fileID: 11400000, guid: 4d7b05fe7ce5bdd48969ee55b6fe958d, type: 2}
+--- !u!114 &2381550703287010620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &2763219147292996192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6956,6 +7381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: STREAM_WRECKED
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &3506722467745326087
 MonoBehaviour:
@@ -6978,7 +7404,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (10)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -6988,7 +7414,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7016,6 +7443,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -7031,6 +7459,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -7053,7 +7483,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7081,6 +7512,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -7140,6 +7572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_FINAL
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &4181699091066987164
 MonoBehaviour:
@@ -7234,25 +7667,6 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   m_PostPlaybackState: 3
---- !u!114 &4349201331038780785
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!74 &4788169212932299976
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -7260,7 +7674,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (4)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -7270,7 +7684,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7298,7 +7713,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7326,7 +7743,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7354,7 +7773,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7373,7 +7794,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7401,6 +7824,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -7416,6 +7840,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 404782710
@@ -7423,6 +7849,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2166960076
@@ -7430,6 +7858,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2006158252
@@ -7437,6 +7867,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 4288172913
@@ -7444,6 +7876,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -7466,7 +7900,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7494,7 +7929,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7522,7 +7959,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7550,7 +7989,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7569,7 +8010,9 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7597,6 +8040,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -7608,7 +8052,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -7618,7 +8062,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7646,6 +8091,7 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -7661,6 +8107,8 @@ AnimationClip:
       typeID: 114
       customType: 0
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -7683,7 +8131,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7711,6 +8160,7 @@ AnimationClip:
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -7729,26 +8179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: CORE_32
+    _messageID: -2147483648
     Instigator: {fileID: 0}
---- !u!114 &5274895587433467632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!114 &5287983913802316964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7780,6 +8212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &5557084842596785133
 MonoBehaviour:
@@ -7795,6 +8228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!74 &5584715197076241012
 AnimationClip:
@@ -7803,7 +8237,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (8)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -7813,7 +8247,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7850,6 +8285,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -7865,6 +8301,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -7887,7 +8325,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -7924,6 +8363,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -7952,14 +8392,14 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 2.0166666666666666
     m_ClipIn: 0
-    m_Asset: {fileID: -6124915930483111429}
+    m_Asset: {fileID: -4101475452760942014}
     m_Duration: 0.31666666666666665
     m_TimeScale: 1
     m_ParentTrack: {fileID: 5757055565129138153}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -8017,18 +8457,18 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Shoot
+    m_DisplayName: VisualEffectControlClip
   - m_Version: 1
     m_Start: 2.6166666666666667
     m_ClipIn: 0
-    m_Asset: {fileID: 8403611295543267714}
+    m_Asset: {fileID: 2381550703287010620}
     m_Duration: 8.283333333333335
     m_TimeScale: 1
     m_ParentTrack: {fileID: 5757055565129138153}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -8086,18 +8526,18 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   - m_Version: 1
     m_Start: 12.177376371249556
     m_ClipIn: 0
-    m_Asset: {fileID: 5274895587433467632}
+    m_Asset: {fileID: 1732258894368911831}
     m_Duration: 5.655956962083776
     m_TimeScale: 1
     m_ParentTrack: {fileID: 5757055565129138153}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -8155,18 +8595,18 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   - m_Version: 1
     m_Start: 19.866666666666667
     m_ClipIn: 0
-    m_Asset: {fileID: 1050882918337681682}
+    m_Asset: {fileID: -3270038450503541619}
     m_Duration: 12.916687500000002
     m_TimeScale: 1
     m_ParentTrack: {fileID: 5757055565129138153}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -8224,18 +8664,18 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   - m_Version: 1
     m_Start: 34.338127742499125
     m_ClipIn: 0
-    m_Asset: {fileID: -3432033669718310862}
+    m_Asset: {fileID: -11774680907167677}
     m_Duration: 3.7166666666666615
     m_TimeScale: 1
     m_ParentTrack: {fileID: 5757055565129138153}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
-    m_BlendOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -8293,9 +8733,11 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: OnPlay/OnStop
+    m_DisplayName: VisualEffectControlClip
   m_Markers:
     m_Objects: []
+  m_VFXVersion: 1
+  reinit: 0
 --- !u!114 &6025184628684449139
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8310,6 +8752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: SFX_CombatImpact
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &6058465825952574186
 MonoBehaviour:
@@ -8325,6 +8768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &6158959207545448575
 MonoBehaviour:
@@ -8407,6 +8851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: CORE_COLLAPSE
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &6967187254506077929
 MonoBehaviour:
@@ -8455,7 +8900,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (1)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -8465,7 +8910,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8493,7 +8939,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8521,7 +8969,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8549,7 +8999,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8568,6 +9020,7 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -8583,6 +9036,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 4215373228
@@ -8590,6 +9045,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2334886179
@@ -8597,6 +9054,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 304273561
@@ -8604,6 +9063,8 @@ AnimationClip:
       typeID: 108
       customType: 25
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -8626,7 +9087,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8654,7 +9116,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8682,7 +9146,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8710,7 +9176,9 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
-  - curve:
+    flags: 16
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8729,10 +9197,52 @@ AnimationClip:
     path: 
     classID: 108
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &7562162588615223093
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488c20dddec813547afc71a1f46c10dd, type: 3}
+  m_Name: VisualEffectControlClip
+  m_EditorClassIdentifier: 
+  scrubbing: 0
+  startSeed: 0
+  reinit: 0
+  prewarm:
+    enable: 0
+    stepCount: 20
+    deltaTime: 0.05
+    eventName:
+      m_Name: OnPlay
+  clipEvents:
+  - editorColor: {r: 0.48235294, g: 0.61960787, b: 0.019607844, a: 1}
+    enter:
+      time: 0
+      timeSpace: 0
+      name:
+        m_Name: OnPlay
+      eventAttributes:
+        content: []
+    exit:
+      time: 0
+      timeSpace: 1
+      name:
+        m_Name: OnStop
+      eventAttributes:
+        content: []
+  singleEvents: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7716572231981371369
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8854,6 +9364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!74 &8158874695568516436
 AnimationClip:
@@ -8862,7 +9373,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Recorded (9)
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -8872,7 +9383,8 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8900,6 +9412,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -8915,6 +9428,8 @@ AnimationClip:
       typeID: 2083052967
       customType: 38
       isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -8937,7 +9452,8 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -8965,6 +9481,7 @@ AnimationClip:
     path: 
     classID: 2083052967
     script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
@@ -8983,6 +9500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: CORE_COLLAPSE
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &8200408024717735164
 MonoBehaviour:
@@ -9012,26 +9530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT_STRONG
+    _messageID: -2147483648
     Instigator: {fileID: 0}
---- !u!114 &8403611295543267714
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d1ad44666d1b64fb45664b4dbcbb8f, type: 3}
-  m_Name: VisualEffectActivationClip
-  m_EditorClassIdentifier: 
-  activationBehavior:
-    onClipEnter:
-      m_Name: OnPlay
-    onClipExit:
-      m_Name: OnStop
-    clipEnterEventAttributes: []
-    clipExitEventAttributes: []
 --- !u!114 &8690582218819655392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9151,6 +9651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     StartMessage: HIT
+    _messageID: -2147483648
     Instigator: {fileID: 0}
 --- !u!114 &9056214306531636791
 MonoBehaviour:
