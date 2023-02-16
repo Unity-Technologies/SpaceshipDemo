@@ -27,7 +27,8 @@ The game is supported on the following Macs:
 * Mac Studios released since 2022
 
 ## How to Open
-* Find DMG file in your downloads folder and open it
-* Drag “SpaceshipVFXDemo” to your Applications folder
-* Right click “SpaceshipVFXDemo” and click “Open”
+* Drag “Spaceship” to your Applications folder
+* Right click “Spaceship” and click “Open”
 * Click “Open” on the pop-up menu to approve the application 
+
+Note: Controller support is not fully available, and there are issues with mouse input in PLAY mode. So just use the benchmark mode. p menu to approve the application 
