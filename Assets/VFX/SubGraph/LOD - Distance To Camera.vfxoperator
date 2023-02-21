@@ -12,6 +12,7 @@ VisualEffectResource:
     m_RendererSettings:
       motionVectorGenerationMode: 0
       shadowCastingMode: 0
+      rayTracingMode: 0
       receiveShadows: 0
       reflectionProbeUsage: 0
       lightProbeUsage: 0
@@ -20,6 +21,8 @@ VisualEffectResource:
     m_PreWarmDeltaTime: 0.05
     m_PreWarmStepCount: 0
     m_InitialEventName: OnPlay
+    m_InstancingMode: -1
+    m_InstancingCapacity: 64
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,6 +55,8 @@ MonoBehaviour:
   - name: Position
     path: 
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: 
     realType: Position
     defaultValue:
@@ -65,6 +70,8 @@ MonoBehaviour:
   - name: position
     path: Position_position
     tooltip: The position.
+    space: 0
+    spaceable: 0
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -79,6 +86,8 @@ MonoBehaviour:
   - name: DistanceRange
     path: DistanceRange
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Vector2f
     realType: Vector2
     defaultValue:
@@ -93,6 +102,8 @@ MonoBehaviour:
   - name: Camera
     path: 
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: 
     realType: CameraType
     defaultValue:
@@ -106,6 +117,8 @@ MonoBehaviour:
   - name: transform
     path: Camera_transform
     tooltip: The camera's Transform in the world.
+    space: 0
+    spaceable: 0
     sheetType: 
     realType: Transform
     defaultValue:
@@ -119,6 +132,8 @@ MonoBehaviour:
   - name: position
     path: Camera_transform_position
     tooltip: The transform position.
+    space: 0
+    spaceable: 0
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -133,6 +148,8 @@ MonoBehaviour:
   - name: angles
     path: Camera_transform_angles
     tooltip: The euler angles of the transform.
+    space: 0
+    spaceable: 0
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -147,6 +164,8 @@ MonoBehaviour:
   - name: scale
     path: Camera_transform_scale
     tooltip: The scale of the transform along each axis.
+    space: 0
+    spaceable: 0
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -161,6 +180,8 @@ MonoBehaviour:
   - name: fieldOfView
     path: Camera_fieldOfView
     tooltip: The field of view.
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -175,6 +196,8 @@ MonoBehaviour:
   - name: nearPlane
     path: Camera_nearPlane
     tooltip: The near plane.
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -189,6 +212,8 @@ MonoBehaviour:
   - name: farPlane
     path: Camera_farPlane
     tooltip: The far plane.
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -203,6 +228,8 @@ MonoBehaviour:
   - name: aspectRatio
     path: Camera_aspectRatio
     tooltip: The aspect ratio.
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -217,6 +244,8 @@ MonoBehaviour:
   - name: pixelDimensions
     path: Camera_pixelDimensions
     tooltip: The width and height of the camera in pixels.
+    space: 0
+    spaceable: 0
     sheetType: m_Vector2f
     realType: Vector2
     defaultValue:
@@ -231,6 +260,8 @@ MonoBehaviour:
   - name: depthBuffer
     path: Camera_depthBuffer
     tooltip: The depth buffer of the camera
+    space: 0
+    spaceable: 0
     sheetType: m_NamedObject
     realType: Texture2D
     defaultValue:
@@ -245,6 +276,8 @@ MonoBehaviour:
   - name: colorBuffer
     path: Camera_colorBuffer
     tooltip: The color buffer of the camera
+    space: 0
+    spaceable: 0
     sheetType: m_NamedObject
     realType: Texture2D
     defaultValue:
@@ -257,9 +290,8 @@ MonoBehaviour:
     enumValues: []
     descendantCount: 0
   m_ImportDependencies: []
-  m_GraphVersion: 6
+  m_GraphVersion: 13
   m_ResourceVersion: 1
-  m_saved: 1
   m_SubgraphDependencies: []
   m_CategoryPath: 
 --- !u!114 &3
@@ -354,7 +386,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: i
     m_serializedType:
@@ -472,7 +504,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: position
     m_serializedType:
@@ -505,7 +537,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -538,7 +570,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -571,7 +603,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -654,7 +686,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":10.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -689,7 +721,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -722,7 +754,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -782,7 +814,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: d
     m_serializedType:
@@ -826,8 +858,7 @@ MonoBehaviour:
       m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 0}
+  m_LinkedSlots: []
 --- !u!114 &338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,7 +887,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: position
     m_serializedType:
@@ -889,7 +920,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -922,7 +953,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -955,7 +986,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1027,7 +1058,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: position
     m_serializedType:
@@ -1060,7 +1091,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1093,7 +1124,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1126,7 +1157,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1194,7 +1225,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":1.0,"y":1.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -1228,7 +1259,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1261,7 +1292,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1297,7 +1328,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -1330,7 +1361,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1364,7 +1395,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1401,7 +1432,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":1.0,"y":1.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -1435,7 +1466,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1468,7 +1499,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1529,7 +1560,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: left
     m_serializedType:
@@ -1564,7 +1595,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: right
     m_serializedType:
@@ -1626,7 +1657,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: left
     m_serializedType:
@@ -1661,7 +1692,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: right
     m_serializedType:
@@ -1719,7 +1750,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -1754,7 +1785,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -1789,7 +1820,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -1868,7 +1899,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -1903,7 +1934,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
