@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 2023 - 03 - 03 - 2022.2
+
+**Version Tag** : `2021.2.6f1`
+
+* Updated Unity to 2021.2.6f1
+* Updated HDRP/VFX to 14.0.6
+* **Fixes and Changes:**
+  * MainMenu / Spaceship Scene adjustments
+  * Adjusted MainMenu - Galaxy.vfx Position Mode of Galaxy Stars system
+  * Adjusted Cloud Diffuse Volume to be in range of the effects (resolved the issue of a pink tint)
+  * Embedded external packages
+  * Update VFXVolumeMixerEditor.cs (Obsolete API, adjusted according new changes)
+  * Change from Overlay to ToolbarOverlay class (in SceneViewToolbar.Overlays.cs) as Overlay class is marked as internal
+  * Update RigManager.cs
+  * Changed RT Depth buffer format to resolve errors on Metal
+  * Adjusted Alert Playable in order not to throw Null Reference Exception
+  * Rebaked lighting
+  * Added scenes to level lists
+  * Updated VFX shaders to use new integration
+  * Removed some of the deprecated console commands from external packages (Physics.AutoSimulation)
+  * Removed Cube .wire file which is empty hence warning(it did not have vertex/index data)
+  * Adjusted some ShaderGraph to resolve implicit truncation warnings
+
+* **Known Issues:**
+  * RefreshRate has deprecated API hence warnings when building player
+
 ## 2021 - 11 - 24 - First 2021.2 Version
 
 **Version Tag** : `2021.2.0`
