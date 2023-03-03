@@ -336,8 +336,10 @@ var chart = c3.generate({{
             writer.Close();
             System.Globalization.CultureInfo.CurrentCulture = currentCulture;
 
-        } 
+        }
+        #pragma warning disable 0168 
         catch (Exception e)
+
         {
            
         }
